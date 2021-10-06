@@ -1,0 +1,27 @@
+.app {
+  display: grid;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar content';
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 270px 1fr;
+  height: 100vh;
+
+  &_sideBarNotActive {
+    grid-template-columns: 120px 1fr;
+  }
+
+  &__header {
+    grid-area: header;
+  }
+
+  &__sidebar {
+    grid-area: sidebar;
+    background-color: #333269;
+    height: 100vh;
+  }
+
+  &__content {
+    grid-area: content;
+  }
+}
