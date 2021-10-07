@@ -7,10 +7,6 @@
   color: #c0beff;
   padding-left: 27%;
 
-  &_active {
-    color: red;
-  }
-
   & > figure {
     margin: 0;
     margin-right: 10px;
@@ -25,5 +21,22 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 19px;
+  }
+
+  &_active {
+    color: #fff;
+
+    & > span {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+    }
+
+    & > figure {
+      & > svg {
+        fill: #fff;
+      }
+    }
   }
 }
