@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import AppTitle from './frames/AppTitle';
 import NavItem from './frames/NavItem';
+import Slogan from './frames/Slogan';
 // import Logo from 'src/library/components/Logo';
 
 import { routes } from 'src/core/Routes';
@@ -21,6 +22,10 @@ const SideBar: FC = () => {
           <NavItem path={route.path} text={route.linkText} exact={route.exact} svg={route.linkIcon} key={route.path} />
         ))}
       </nav>
+
+      <div className={st.sidebar__slogan}>
+        <Slogan />
+      </div>
     </section>
   );
 };

@@ -1,11 +1,17 @@
+$marginTop: 45px;
+
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-top: $marginTop;
+  height: calc(100vh - $marginTop);
+
   &__logo {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
     width: 100%;
-    margin-top: 45px;
   }
 
   nav {
@@ -16,5 +22,12 @@
         margin-top: 20px;
       }
     }
+  }
+
+  &__slogan {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
 }
