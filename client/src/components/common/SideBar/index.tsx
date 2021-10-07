@@ -12,13 +12,13 @@ const SideBar: FC = () => {
   return (
     <section className={st.sidebar}>
       <article className={st.sidebar__logo}>
-        {/* <Logo /> */}
+        {/* <Logo /> */} {/* Как выберем лого раскомментируем */}
         <Slogan text='MsdReport' />
       </article>
 
       <nav>
-        {routes.map((item) => (
-          <NavItem path={item.route} text={item.linkText} exact={item.exact} svg={item.linkIcon} key={item.route} />
+        {routes.map((route) => (
+          <NavItem path={route.path} text={route.linkText} exact={route.exact} svg={route.linkIcon} key={route.path} />
         ))}
       </nav>
     </section>

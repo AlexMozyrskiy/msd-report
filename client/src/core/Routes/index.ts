@@ -6,7 +6,7 @@ import Test1 from '../../pages/Test1';
 import homeIcon from 'src/library/icons/link/home.svg';
 
 interface IRoute {
-  route: string;
+  path: string;
   component: FC;
   exact: boolean;
   linkText: string;
@@ -15,14 +15,14 @@ interface IRoute {
 
 export const routes: IRoute[] = [
   {
-    route: '/',
+    path: '/',
     component: Test,
     exact: true,
     linkText: 'Home',
     linkIcon: homeIcon,
   },
   {
-    route: '/test',
+    path: '/test',
     component: Test1,
     exact: true,
     linkText: 'Test',
