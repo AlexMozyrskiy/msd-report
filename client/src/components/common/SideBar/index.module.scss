@@ -13,6 +13,10 @@ $marginTop: 45px;
     align-items: center;
     height: 50px;
     width: 100%;
+
+    &_sideBarNotActive {
+      flex-direction: column;
+    }
   }
 
   nav {

@@ -1,10 +1,11 @@
 import { FC, Dispatch, SetStateAction } from 'react';
+import cn from 'classnames';
 
 import AppTitle from './frames/AppTitle';
 import NavItem from './frames/NavItem';
 import Slogan from './frames/Slogan';
 import Arrow from './frames/Arrow';
-// import Logo from 'src/library/components/Logo';
+import Logo from 'src/library/components/Logo';
 
 import { routes } from 'src/core/Routes';
 
@@ -18,9 +19,9 @@ interface SideBarProps {
 const SideBar: FC<SideBarProps> = ({ sidebarArrowDirection, setSidebarArowDirection }) => {
   return (
     <section className={st.sidebar}>
-      <article className={st.sidebar__logo}>
+      <article className={cn(st.sidebar__logo, sidebarArrowDirection === 'right' && st.sidebar__logo_sideBarNotActive)}>
         {/* <Logo /> */} {/* Как выберем лого раскомментируем */}
-        <AppTitle text='MsdReport' />
+        <AppTitle text='MsdReport' sidebarArrowDirection={sidebarArrowDirection} />
       </article>
 
       <nav>
