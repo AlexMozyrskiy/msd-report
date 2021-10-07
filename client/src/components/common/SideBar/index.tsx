@@ -1,15 +1,21 @@
-import { FC } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 
 import AppTitle from './frames/AppTitle';
 import NavItem from './frames/NavItem';
 import Slogan from './frames/Slogan';
+import Arrow from './frames/Arrow';
 // import Logo from 'src/library/components/Logo';
 
 import { routes } from 'src/core/Routes';
 
 import st from './index.module.scss';
 
-const SideBar: FC = () => {
+interface SideBarProps {
+  sidebarArrowDirection: 'left' | 'right';
+  setSidebarArowDirection: Dispatch<SetStateAction<'left' | 'right'>>;
+}
+
+const SideBar: FC<SideBarProps> = ({ sidebarArrowDirection, setSidebarArowDirection }) => {
   return (
     <section className={st.sidebar}>
       <article className={st.sidebar__logo}>
@@ -25,6 +31,13 @@ const SideBar: FC = () => {
 
       <div className={st.sidebar__slogan}>
         <Slogan />
+      </div>
+
+      <div
+        className={st.sidebar__arrow}
+        onClick={() => setSidebarArowDirection(sidebarArrowDirection === 'left' ? 'right' : 'left')}
+      >
+        <Arrow direction={sidebarArrowDirection} />
       </div>
     </section>
   );

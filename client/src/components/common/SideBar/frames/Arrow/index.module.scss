@@ -1,0 +1,41 @@
+.arrow {
+  display: block;
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: inherit;
+
+  &_right {
+    transform: rotate(180deg);
+    transition: transform 0.5s;
+  }
+
+  &_left {
+    transform: rotate(0deg);
+    transition: transform 0.5s;
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    width: 3px;
+    height: 45%;
+    left: 45%;
+    background-color: #c0beff;
+  }
+
+  &::before {
+    top: 25%;
+    transform: translateY(-25%) rotate(45deg);
+  }
+
+  &::after {
+    top: 75%;
+    transform: translateY(-75%) rotate(-45deg);
+  }
+}
