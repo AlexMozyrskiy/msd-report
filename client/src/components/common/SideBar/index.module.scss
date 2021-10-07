@@ -1,8 +1,20 @@
 .sidebar {
-  &__slogan {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 48px;
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin-top: 45px;
+  }
+
+  nav {
+    margin-top: 60px;
+
+    & > a {
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+    }
   }
 }
