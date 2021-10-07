@@ -4,6 +4,7 @@ import Header from './components/common/Header';
 import SideBar from './components/common/SideBar';
 import Routes from './components/Routes';
 
+import './library/styles/fonts/SFPro/index.scss';
 import st from './App.module.scss';
 
 const App: FC = () => {
