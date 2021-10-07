@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 
 import App from './App';
 
-import './index.css';
+import './library/styles/normalizeCSS/normalize.scss';
 
 ReactDOM.render(
   <HashRouter basename={process.env.PUBLIC_URL}>
