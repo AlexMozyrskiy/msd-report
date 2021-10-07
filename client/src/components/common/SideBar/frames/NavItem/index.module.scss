@@ -6,6 +6,7 @@
   text-decoration: none;
   color: #c0beff;
   padding-left: 27%;
+  transition: color 1s;
 
   & > figure {
     margin: 0;
@@ -13,6 +14,7 @@
 
     & > svg {
       fill: #c0beff;
+      transition: 1s;
     }
   }
 
@@ -26,12 +28,32 @@
   &_active {
     color: #fff;
 
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      height: inherit;
+      width: 5px;
+      background-color: #ee3637;
+      border-radius: 5px;
+    }
+
     & > span {
       font-style: normal;
       font-weight: bold;
       font-size: 18px;
       line-height: 21px;
     }
+
+    & > figure {
+      & > svg {
+        fill: #fff;
+      }
+    }
+  }
+
+  &:hover {
+    color: #fff;
 
     & > figure {
       & > svg {
