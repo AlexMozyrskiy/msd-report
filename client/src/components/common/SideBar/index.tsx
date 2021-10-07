@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import Slogan from './frames/Slogan';
+import AppTitle from './frames/AppTitle';
 import NavItem from './frames/NavItem';
 // import Logo from 'src/library/components/Logo';
 
@@ -13,7 +13,7 @@ const SideBar: FC = () => {
     <section className={st.sidebar}>
       <article className={st.sidebar__logo}>
         {/* <Logo /> */} {/* Как выберем лого раскомментируем */}
-        <Slogan text='MsdReport' />
+        <AppTitle text='MsdReport' />
       </article>
 
       <nav>
