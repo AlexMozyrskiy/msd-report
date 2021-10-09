@@ -5,11 +5,11 @@ import st from './index.module.scss';
 
 interface AppTitleProps {
   text: string;
-  sidebarArrowDirection: 'left' | 'right';
+  isSidebarActive: boolean;
 }
 
-const AppTitle: FC<AppTitleProps> = ({ text, sidebarArrowDirection }) => {
-  return <h1 className={cn(st.appTitle, sidebarArrowDirection === 'right' && st.appTitle_sideBarNotActive)}>{text}</h1>;
+const AppTitle: FC<AppTitleProps> = ({ text, isSidebarActive }) => {
+  return <h1 className={cn(st.appTitle, !isSidebarActive && st.appTitle_sideBarNotActive)}>{text}</h1>;
 };
 
 export default AppTitle;

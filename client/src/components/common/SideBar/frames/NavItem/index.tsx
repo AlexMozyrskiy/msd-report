@@ -10,23 +10,21 @@ interface NavItemProps {
   path: string;
   exact?: boolean;
   text: string;
-  sidebarArrowDirection: 'left' | 'right';
+  isSidebarActive: boolean;
 }
 
-const NavItem: FC<NavItemProps> = ({ svg, path, exact = false, text, sidebarArrowDirection }) => {
+const NavItem: FC<NavItemProps> = ({ svg, path, exact = false, text, isSidebarActive }) => {
   return (
     <NavLink
       exact={exact}
       to={path}
-      className={cn(st.link, sidebarArrowDirection === 'right' && st.link_sideBarNotActive)}
+      className={cn(st.link, !isSidebarActive && st.link_sideBarNotActive)}
       activeClassName={st.link_active}
     >
       <figure className={st.link__icon}>
         <SVG src={svg} />
       </figure>
-      <span className={cn(st.link__text, sidebarArrowDirection === 'right' && st.link__text_sideBarNotActive)}>
-        {text}
-      </span>
+      <span className={cn(st.link__text, !isSidebarActive && st.link__text_sideBarNotActive)}>{text}</span>
     </NavLink>
   );
 };

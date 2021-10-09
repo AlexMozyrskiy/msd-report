@@ -4,15 +4,15 @@ import cn from 'classnames';
 import st from './index.module.scss';
 
 interface ArrowProps {
-  direction: 'left' | 'right';
-  setDirection: Dispatch<SetStateAction<'left' | 'right'>>;
+  isSidebarActive: boolean;
+  setIsSidebarActive: Dispatch<SetStateAction<boolean>>;
 }
 
-const Arrow: FC<ArrowProps> = ({ direction, setDirection }) => {
+const Arrow: FC<ArrowProps> = ({ isSidebarActive, setIsSidebarActive }) => {
   return (
     <button
-      className={cn(st.arrow, direction === 'right' && st.arrow_right, direction === 'left' && st.arrow_left)}
-      onClick={() => setDirection(direction === 'left' ? 'right' : 'left')}
+      className={cn(st.arrow, !isSidebarActive && st.arrow_right, isSidebarActive && st.arrow_left)}
+      onClick={() => setIsSidebarActive(!isSidebarActive)}
     />
   );
 };
