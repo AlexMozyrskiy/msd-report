@@ -37,7 +37,7 @@ const SideBar: FC<SideBarProps> = ({ sidebarArrowDirection, setSidebarArowDirect
         ))}
       </nav>
 
-      <div className={st.sidebar__slogan}>
+      <div className={cn(st.sidebar__slogan, sidebarArrowDirection === 'right' && st.sidebar__slogan_sideBarNotActive)}>
         <Slogan />
       </div>
 

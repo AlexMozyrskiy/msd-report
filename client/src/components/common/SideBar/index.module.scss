@@ -39,6 +39,10 @@ $marginTop: 45px;
     justify-content: center;
     width: 100%;
     height: 100%;
+
+    &_sideBarNotActive {
+      display: none;
+    }
   }
 
   &__arrow {
