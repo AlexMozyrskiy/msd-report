@@ -34,11 +34,8 @@ const SideBar: FC<SideBarProps> = ({ sidebarArrowDirection, setSidebarArowDirect
         <Slogan />
       </div>
 
-      <div
-        className={st.sidebar__arrow}
-        onClick={() => setSidebarArowDirection(sidebarArrowDirection === 'left' ? 'right' : 'left')}
-      >
-        <Arrow direction={sidebarArrowDirection} />
+      <div className={st.sidebar__arrow}>
+        <Arrow direction={sidebarArrowDirection} setDirection={setSidebarArowDirection} />
       </div>
     </section>
   );

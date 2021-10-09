@@ -20,9 +20,9 @@ const App: FC = () => {
         <SideBar sidebarArrowDirection={sidebarArrowDirection} setSidebarArowDirection={setSidebarArowDirection} />
       </div>
 
-      <div className={st.app__content}>
+      <main className={st.app__content}>
         <Routes />
-      </div>
+      </main>
     </div>
   );
 };
