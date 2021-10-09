@@ -19,13 +19,18 @@ $marginTop: 45px;
     }
   }
 
-  nav {
+  &__nav {
     margin-top: 60px;
+    padding-left: 27%;
 
     & > a {
       &:not(:first-child) {
         margin-top: 20px;
       }
+    }
+
+    &_sideBarNotActive {
+      padding-left: 0%;
     }
   }
 

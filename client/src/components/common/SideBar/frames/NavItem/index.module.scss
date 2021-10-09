@@ -5,10 +5,13 @@
   align-items: center;
   text-decoration: none;
   color: #c0beff;
-  padding-left: 27%;
   transition: color 1s;
 
-  & > figure {
+  &_sideBarNotActive {
+    justify-content: center;
+  }
+
+  &__icon {
     margin: 0;
     margin-right: 10px;
 
@@ -18,11 +21,15 @@
     }
   }
 
-  & > span {
+  &__text {
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
     line-height: 19px;
+
+    &_sideBarNotActive {
+      display: none;
+    }
   }
 
   &_active {
@@ -38,7 +45,7 @@
       border-radius: 5px;
     }
 
-    & > span {
+    &__text {
       font-style: normal;
       font-weight: bold;
       font-size: 18px;

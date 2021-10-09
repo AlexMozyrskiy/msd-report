@@ -5,7 +5,7 @@ import AppTitle from './frames/AppTitle';
 import NavItem from './frames/NavItem';
 import Slogan from './frames/Slogan';
 import Arrow from './frames/Arrow';
-import Logo from 'src/library/components/Logo';
+// import Logo from 'src/library/components/Logo';
 
 import { routes } from 'src/core/Routes';
 
@@ -24,9 +24,16 @@ const SideBar: FC<SideBarProps> = ({ sidebarArrowDirection, setSidebarArowDirect
         <AppTitle text='MsdReport' sidebarArrowDirection={sidebarArrowDirection} />
       </article>
 
-      <nav>
+      <nav className={cn(st.sidebar__nav, sidebarArrowDirection === 'right' && st.sidebar__nav_sideBarNotActive)}>
         {routes.map((route) => (
-          <NavItem path={route.path} text={route.linkText} exact={route.exact} svg={route.linkIcon} key={route.path} />
+          <NavItem
+            path={route.path}
+            text={route.linkText}
+            exact={route.exact}
+            svg={route.linkIcon}
+            sidebarArrowDirection={sidebarArrowDirection}
+            key={route.path}
+          />
         ))}
       </nav>
 

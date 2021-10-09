@@ -10,6 +10,7 @@ import st from './App.module.scss';
 
 const App: FC = () => {
   const [sidebarArrowDirection, setSidebarArowDirection] = useState<'left' | 'right'>('right');
+
   return (
     <div className={cn(st.app, sidebarArrowDirection === 'right' && st.app_sideBarNotActive)}>
       <div className={st.app__header}>
