@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import cn from 'classnames';
 
 import Header from './components/common/Header';
 import SideBar from './components/common/SideBar';
@@ -8,19 +9,21 @@ import './library/styles/fonts/SFPro/index.scss';
 import st from './App.module.scss';
 
 const App: FC = () => {
+  const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
+
   return (
-    <div className={st.app}>
+    <div className={cn(st.app, !isSidebarActive && st.app_sideBarNotActive)}>
       <div className={st.app__header}>
         <Header />
       </div>
 
       <div className={st.app__sidebar}>
-        <SideBar />
+        <SideBar isSidebarActive={isSidebarActive} setIsSidebarActive={setIsSidebarActive} />
       </div>
 
-      <div className={st.app__content}>
+      <main className={st.app__content}>
         <Routes />
-      </div>
+      </main>
     </div>
   );
 };

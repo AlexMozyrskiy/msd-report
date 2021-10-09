@@ -6,8 +6,8 @@ import { routes } from '../../core/Routes';
 const Rotes: FC = () => {
   return (
     <Switch>
-      {routes.map((item) => (
-        <Route exact={item.exact} path={item.route} component={item.component} />
+      {routes.map((route) => (
+        <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
       ))}
       <div>404</div>
     </Switch>

@@ -1,0 +1,71 @@
+.link {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #c0beff;
+  transition: color 1s;
+
+  &_sideBarNotActive {
+    justify-content: center;
+  }
+
+  &__icon {
+    margin: 0;
+    margin-right: 10px;
+
+    & > svg {
+      fill: #c0beff;
+      transition: 1s;
+    }
+  }
+
+  &__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    &_sideBarNotActive {
+      display: none;
+    }
+  }
+
+  &_active {
+    color: #fff;
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      height: inherit;
+      width: 5px;
+      background-color: #ee3637;
+      border-radius: 5px;
+    }
+
+    &__text {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+    }
+
+    & > figure {
+      & > svg {
+        fill: #fff;
+      }
+    }
+  }
+
+  &:hover {
+    color: #fff;
+
+    & > figure {
+      & > svg {
+        fill: #fff;
+      }
+    }
+  }
+}

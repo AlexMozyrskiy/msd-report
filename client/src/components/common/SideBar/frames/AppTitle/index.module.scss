@@ -1,0 +1,12 @@
+.appTitle {
+  margin: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 48px;
+  color: #acafd1;
+
+  &_sideBarNotActive {
+    font-size: 22px;
+  }
+}
