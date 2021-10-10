@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router';
 
 import { routes } from '../../core/Routes';
 
-const Rotes: FC = () => {
+const Routes: FC = () => {
   return (
     <Switch>
       {routes.map((route) => (
@@ -14,4 +14,4 @@ const Rotes: FC = () => {
   );
 };
 
-export default Rotes;
+export default Routes;
