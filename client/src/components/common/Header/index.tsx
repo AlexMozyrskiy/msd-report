@@ -1,19 +1,17 @@
 import { FC } from 'react';
-import SVG from 'react-inlinesvg';
 
 import Icon from './frames/Icon';
 import Search from './frames/Search';
 
 import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
-import searchIcon from 'src/library/icons/header/search.svg';
 
 import st from './index.module.scss';
 
 const Header: FC = () => {
   return (
     <header className={st.header}>
-      <Search icon={searchIcon} />
+      <Search />
 
       <div className={st.header__separator}></div>
 
