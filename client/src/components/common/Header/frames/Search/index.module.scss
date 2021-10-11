@@ -1,0 +1,27 @@
+.search {
+  display: flex;
+  width: 1000px;
+  height: 100%;
+
+  & > figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-left: 20px;
+  }
+
+  & > input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0 20px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    color: #8695a0;
+  }
+}

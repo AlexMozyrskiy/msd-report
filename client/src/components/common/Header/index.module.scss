@@ -1,3 +1,44 @@
 .header {
-  color: green;
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  &__separator {
+    width: 2px;
+    background-color: #07102f;
+    opacity: 0.2;
+    height: 100%;
+  }
+
+  &__icon {
+    margin-left: 20px;
+  }
+
+  &__avatar {
+    background-color: rosybrown;
+    height: 100%;
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__name {
+      margin: 0;
+      background-color: khaki;
+      height: 50%;
+    }
+
+    &__affiliation {
+      margin: 0;
+      background-color: lavender;
+      height: 50%;
+    }
+  }
+
+  &__dots {
+    background-color: salmon;
+    height: 100%;
+  }
 }
