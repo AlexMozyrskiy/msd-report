@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import Icon from './frames/Icon';
 import Search from './frames/Search';
+import Photo from './frames/Photo';
 
 import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
@@ -23,7 +24,9 @@ const Header: FC = () => {
         <Icon icon={bellIcon} color='red' />
       </div>
 
-      <div className={st.header__avatar}>header__avatar</div>
+      <div className={st.header__photo}>
+        <Photo />
+      </div>
 
       <div className={st.header__user}>
         <h3 className={st.header__user__name}>name</h3>
