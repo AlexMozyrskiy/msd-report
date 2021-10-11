@@ -1,18 +1,26 @@
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
+
+import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
 
 import st from './index.module.scss';
 
 const Dots: FC = () => {
   const [isDropDownActive, setIsDropDownActive] = useState<boolean>(false);
+  const ref = useRef(null);
+  useOutsideAlerter(ref, () => setIsDropDownActive(false));
 
   return (
-    <div className={st.dots}>
-      <div className={st.dots__wrapper}>
-        <span />
-        <span />
-        <span />
+    <section className={st.wrapper}>
+      <div className={st.dots} onClick={() => setIsDropDownActive(true)}>
+        <div className={st.dots__wrapper}>
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
-    </div>
+
+      {isDropDownActive && <div className={st.dots__dropDown} ref={ref}></div>}
+    </section>
   );
 };
 
