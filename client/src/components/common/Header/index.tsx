@@ -13,27 +13,31 @@ import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 const Header: FC = () => {
   return (
     <header className={st.header}>
-      <Search />
+      <section className={st.header__search}>
+        <Search />
+      </section>
 
-      <span className={st.header__separator} />
+      <section className={st.header__info}>
+        <span className={st.header__separator} />
 
-      <div className={st.header__icon}>
-        <Icon icon={messagesIcon} color='green' />
-      </div>
+        <div className={st.header__icon}>
+          <Icon icon={messagesIcon} color='green' />
+        </div>
 
-      <div className={st.header__icon}>
-        <Icon icon={bellIcon} color='red' />
-      </div>
+        <div className={st.header__icon}>
+          <Icon icon={bellIcon} color='red' />
+        </div>
 
-      <div className={st.header__photo}>
-        <Photo />
-      </div>
+        <div className={st.header__photo}>
+          <Photo />
+        </div>
 
-      <div className={st.header__user}>
-        <UserNameAndAffiliation />
-      </div>
+        <div className={st.header__user}>
+          <UserNameAndAffiliation />
+        </div>
 
-      <div className={st.header__dots}>header__dots</div>
+        <div className={st.header__dots}>header__dots</div>
+      </section>
     </header>
   );
 };
