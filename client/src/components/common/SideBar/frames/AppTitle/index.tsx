@@ -9,7 +9,7 @@ interface AppTitleProps {
 }
 
 const AppTitle: FC<AppTitleProps> = ({ text, isSidebarActive }) => {
-  return <h1 className={cn(st.appTitle, !isSidebarActive && st.appTitle_sideBarNotActive)}>{text}</h1>;
+  return <h1 className={cn(st.appTitle, { [st.appTitle_sideBarNotActive]: !isSidebarActive })}>{text}</h1>;
 };
 
 export default AppTitle;

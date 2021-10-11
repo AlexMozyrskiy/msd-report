@@ -19,12 +19,12 @@ interface SideBarProps {
 const SideBar: FC<SideBarProps> = ({ isSidebarActive, setIsSidebarActive }) => {
   return (
     <section className={st.sidebar}>
-      <article className={cn(st.sidebar__logo, !isSidebarActive && st.sidebar__logo_sideBarNotActive)}>
+      <article className={cn(st.sidebar__logo, { [st.sidebar__logo_sideBarNotActive]: !isSidebarActive })}>
         {/* <Logo /> */} {/* Как выберем лого раскомментируем */}
         <AppTitle text='MsdReport' isSidebarActive={isSidebarActive} />
       </article>
 
-      <nav className={cn(st.sidebar__nav, !isSidebarActive && st.sidebar__nav_sideBarNotActive)}>
+      <nav className={cn(st.sidebar__nav, { [st.sidebar__nav_sideBarNotActive]: !isSidebarActive })}>
         {routes.map((route) => (
           <NavItem
             path={route.path}
@@ -37,7 +37,7 @@ const SideBar: FC<SideBarProps> = ({ isSidebarActive, setIsSidebarActive }) => {
         ))}
       </nav>
 
-      <div className={cn(st.sidebar__slogan, !isSidebarActive && st.sidebar__slogan_sideBarNotActive)}>
+      <div className={cn(st.sidebar__slogan, { [st.sidebar__slogan_sideBarNotActive]: !isSidebarActive })}>
         <Slogan />
       </div>
 

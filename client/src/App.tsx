@@ -12,7 +12,7 @@ const App: FC = () => {
   const [isSidebarActive, setIsSidebarActive] = useState<boolean>(false);
 
   return (
-    <div className={cn(st.app, !isSidebarActive && st.app_sideBarNotActive)}>
+    <div className={cn(st.app, { [st.app_sideBarNotActive]: !isSidebarActive })}>
       <div className={st.app__header}>
         <Header />
       </div>

@@ -18,8 +18,8 @@ const Icon: FC<IconProps> = ({ icon, color }) => {
       <span
         className={cn(
           st.icon__circle,
-          color === 'green' && st.icon__circle_green,
-          color === 'red' && st.icon__circle_red
+          { [st.icon__circle_green]: color === 'green' },
+          { [st.icon__circle_red]: color === 'red' }
         )}
       />
     </div>
