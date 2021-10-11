@@ -30,7 +30,9 @@
   &__user {
     display: flex;
     flex-direction: column;
+    width: 150px;
     height: 100%;
+    margin-left: 10px;
 
     &__name {
       margin: 0;

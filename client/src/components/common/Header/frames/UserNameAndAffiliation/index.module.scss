@@ -1,0 +1,29 @@
+.user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.02em;
+    color: #0a043c;
+    margin: 0;
+    margin-bottom: 5px;
+  }
+
+  &__affiliation {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.02em;
+    color: #0a043c;
+    opacity: 0.7;
+    margin: 0;
+  }
+}
