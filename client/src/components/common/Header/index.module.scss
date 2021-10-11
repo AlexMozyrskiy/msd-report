@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  padding-right: 20px;
 
   &__search {
     width: 100%;
@@ -12,13 +13,14 @@
   &__info {
     display: flex;
     align-items: center;
+    height: 100%;
   }
 
   &__separator {
     width: 2px;
+    height: 80%;
     background-color: #07102f;
     opacity: 0.2;
-    height: 100%;
   }
 
   &__icon {
@@ -60,7 +62,7 @@
   }
 
   &__dots {
-    background-color: salmon;
-    height: 100%;
+    margin-left: 20px;
+    border-radius: 50%;
   }
 }

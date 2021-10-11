@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Icon from './frames/Icon';
 import Search from './frames/Search';
 import Photo from './frames/Photo';
+import Dots from './frames/Dots';
 
 import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
@@ -36,7 +37,9 @@ const Header: FC = () => {
           <UserNameAndAffiliation />
         </div>
 
-        <div className={st.header__dots}>header__dots</div>
+        <div className={st.header__dots}>
+          <Dots />
+        </div>
       </section>
     </header>
   );

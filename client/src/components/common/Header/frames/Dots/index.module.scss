@@ -1,0 +1,36 @@
+@import 'src/library/styles/variables/colors.scss';
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+
+    & > span {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: #9592a6;
+    }
+  }
+
+  &:hover {
+    background-color: $brandColor;
+
+    span {
+      background-color: #fff;
+    }
+  }
+}
