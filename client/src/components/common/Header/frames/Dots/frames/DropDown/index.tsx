@@ -22,8 +22,8 @@ const DropDown: FC<DropDownProps> = ({ setIsDropDownActive }) => {
       <nav className={st.dropDown__nav}>
         <ul>
           {routes.map((route) => (
-            <li>
-              <NavItem path={route.path} text={route.linkText} svg={route.linkIcon} key={route.path} />
+            <li key={route.path}>
+              <NavItem path={route.path} text={route.linkText} svg={route.linkIcon} />
             </li>
           ))}
         </ul>
