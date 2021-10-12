@@ -41,7 +41,7 @@ export const sideBarRoutes: IRoute[] = [
   },
 ];
 
-/* роуты для дроплауна в хедере при нажатии на три точки */
+/* роуты для дропдауна в хедере при нажатии на три точки */
 export const headerDropDownRoutes: IRoute[] = [
   {
     path: '/accountsettings',
