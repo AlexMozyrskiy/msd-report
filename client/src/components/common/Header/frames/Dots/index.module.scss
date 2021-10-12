@@ -31,6 +31,14 @@
     }
   }
 
+  &_active {
+    background-color: $brandColor;
+
+    span {
+      background-color: #fff;
+    }
+  }
+
   &:hover {
     background-color: $brandColor;
 

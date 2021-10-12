@@ -3,7 +3,8 @@ import { FC } from 'react';
 import Test from '../../pages/Test';
 import Test1 from '../../pages/Test1';
 
-import homeIcon from 'src/library/icons/link/home.svg';
+import homeIcon from 'src/library/icons/sideBar/home.svg';
+import videoIcon from 'src/library/icons/sideBar/video.svg';
 
 interface IRoute {
   path: string;
@@ -26,6 +27,17 @@ export const routes: IRoute[] = [
     component: Test1,
     exact: true,
     linkText: 'Test',
+    linkIcon: videoIcon,
+  },
+];
+
+/* роуты для дроплауна в хедере при нажатии на три точки */
+export const dotsDropdownItems: IRoute[] = [
+  {
+    path: '/accountsettings',
+    component: Test,
+    exact: true,
+    linkText: 'Settings',
     linkIcon: homeIcon,
   },
 ];

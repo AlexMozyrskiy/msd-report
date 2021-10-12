@@ -1,4 +1,5 @@
 import { FC, useRef, useState } from 'react';
+import cn from 'classnames';
 
 import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
 
@@ -11,7 +12,7 @@ const Dots: FC = () => {
 
   return (
     <section className={st.wrapper}>
-      <div className={st.dots} onClick={() => setIsDropDownActive(true)}>
+      <div className={cn(st.dots, { [st.dots_active]: isDropDownActive })} onClick={() => setIsDropDownActive(true)}>
         <div className={st.dots__wrapper}>
           <span />
           <span />
