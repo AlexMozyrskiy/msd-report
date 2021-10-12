@@ -1,14 +1,12 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import cn from 'classnames';
 
-import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
+import DropDown from './frames/DropDown';
 
 import st from './index.module.scss';
 
 const Dots: FC = () => {
   const [isDropDownActive, setIsDropDownActive] = useState<boolean>(false);
-  const ref = useRef(null);
-  useOutsideAlerter(ref, () => setIsDropDownActive(false));
 
   return (
     <section className={st.wrapper}>
@@ -20,7 +18,7 @@ const Dots: FC = () => {
         </div>
       </div>
 
-      {isDropDownActive && <div className={st.dots__dropDown} ref={ref}></div>}
+      {isDropDownActive && <DropDown setIsDropDownActive={setIsDropDownActive} />}
     </section>
   );
 };
