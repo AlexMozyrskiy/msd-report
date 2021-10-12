@@ -47,7 +47,7 @@ export const headerDropDownRoutes: IRoute[] = [
     path: '/accountsettings',
     component: AccountSettings,
     exact: true,
-    linkText: 'Settings',
+    linkText: 'Настройки аккаунта',
     linkIcon: settingsIcon,
   },
 ];
