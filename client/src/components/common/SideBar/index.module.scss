@@ -21,7 +21,13 @@ $marginTop: 45px;
 
   &__nav {
     margin-top: 60px;
+    height: 100%;
     padding-left: 27%;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 
     & > a {
       &:not(:first-child) {
