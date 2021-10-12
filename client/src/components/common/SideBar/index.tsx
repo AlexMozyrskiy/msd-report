@@ -7,7 +7,7 @@ import Slogan from './frames/Slogan';
 import Arrow from './frames/Arrow';
 // import Logo from 'src/library/components/Logo';
 
-import { routes } from 'src/core/Routes';
+import { sideBarRoutes as routes } from 'src/core/Routes';
 
 import st from './index.module.scss';
 

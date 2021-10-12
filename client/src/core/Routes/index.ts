@@ -14,7 +14,7 @@ interface IRoute {
   linkIcon: string;
 }
 
-export const routes: IRoute[] = [
+export const sideBarRoutes: IRoute[] = [
   {
     path: '/',
     component: Test,
@@ -32,7 +32,7 @@ export const routes: IRoute[] = [
 ];
 
 /* роуты для дроплауна в хедере при нажатии на три точки */
-export const dotsDropdownItems: IRoute[] = [
+export const headerDropDownRoutes: IRoute[] = [
   {
     path: '/accountsettings',
     component: Test,
