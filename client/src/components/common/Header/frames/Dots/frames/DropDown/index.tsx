@@ -1,5 +1,4 @@
 import { Dispatch, FC, SetStateAction, useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
 import { headerDropDownRoutes as routes } from 'src/core/Routes';
