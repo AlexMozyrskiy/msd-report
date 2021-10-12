@@ -14,10 +14,14 @@
   &__icon {
     margin: 0;
     margin-right: 10px;
+    width: 30px;
+    height: 30px;
 
     & > svg {
       fill: #c0beff;
       transition: 1s;
+      width: 100%;
+      height: 100%;
     }
   }
 

@@ -18,13 +18,13 @@ const NavItem: FC<NavItemProps> = ({ svg, path, exact = false, text, isSidebarAc
     <NavLink
       exact={exact}
       to={path}
-      className={cn(st.link, !isSidebarActive && st.link_sideBarNotActive)}
+      className={cn(st.link, { [st.link_sideBarNotActive]: !isSidebarActive })}
       activeClassName={st.link_active}
     >
       <figure className={st.link__icon}>
         <SVG src={svg} />
       </figure>
-      <span className={cn(st.link__text, !isSidebarActive && st.link__text_sideBarNotActive)}>{text}</span>
+      <span className={cn(st.link__text, { [st.link__text_sideBarNotActive]: !isSidebarActive })}>{text}</span>
     </NavLink>
   );
 };

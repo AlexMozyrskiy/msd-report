@@ -1,0 +1,60 @@
+@import 'src/library/styles/variables/colors.scss';
+
+$messagesWidth: 30px;
+
+.icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $messagesWidth;
+  width: $messagesWidth;
+  border-radius: 50%;
+  background-color: $brandColor;
+  cursor: pointer;
+  transition: 0.5s;
+
+  figure {
+    height: 15px;
+    width: 15px;
+    margin: 0;
+
+    & > svg {
+      width: 15px;
+      height: 15px;
+
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: #fff;
+
+    figure {
+      & > svg {
+        path {
+          fill: $brandColor;
+        }
+      }
+    }
+  }
+
+  &__circle {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+
+    &_green {
+      background-color: #6fcf97;
+    }
+
+    &_red {
+      background-color: #ff2c55;
+    }
+  }
+}

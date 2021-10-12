@@ -1,0 +1,57 @@
+@import 'src/library/styles/variables/colors.scss';
+
+.logout {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-top: 20px;
+
+  & > figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    margin-left: 20%;
+
+    & > svg {
+      & > path {
+        fill: #333269;
+      }
+    }
+  }
+
+  & > span {
+    margin-left: 20px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.24px;
+    color: #333269;
+  }
+
+  &:hover {
+    background-color: $brandColor;
+
+    & > figure {
+      & > svg {
+        & > path {
+          fill: #fff;
+        }
+      }
+    }
+
+    & > span {
+      color: #fff;
+    }
+  }
+}

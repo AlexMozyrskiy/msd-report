@@ -11,7 +11,7 @@ interface ArrowProps {
 const Arrow: FC<ArrowProps> = ({ isSidebarActive, setIsSidebarActive }) => {
   return (
     <button
-      className={cn(st.arrow, !isSidebarActive && st.arrow_right, isSidebarActive && st.arrow_left)}
+      className={cn(st.arrow, { [st.arrow_right]: !isSidebarActive }, { [st.arrow_left]: isSidebarActive })}
       onClick={() => setIsSidebarActive(!isSidebarActive)}
     />
   );
