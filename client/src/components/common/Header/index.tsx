@@ -21,9 +21,9 @@ const Header: FC = () => {
       <section className={st.header__info}>
         <span className={st.header__separator} />
 
-        <div className={st.header__icon}>
+        {/* <div className={st.header__icon}>
           <Icon icon={messagesIcon} color='green' />
-        </div>
+        </div> */}
 
         <div className={st.header__icon}>
           <Icon icon={bellIcon} color='red' />
