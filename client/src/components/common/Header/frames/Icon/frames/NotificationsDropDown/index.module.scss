@@ -8,15 +8,14 @@
   border-radius: 4px;
   padding: 10px;
 
-  &__haveNoNotifications {
+  &__notifications {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.02em;
-    color: #c0beff;
+
+    &_have {
+      align-items: flex-start;
+    }
   }
 }

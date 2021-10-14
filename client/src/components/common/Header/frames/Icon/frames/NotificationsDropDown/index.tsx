@@ -1,31 +1,34 @@
-import { Dispatch, FC, SetStateAction, useMemo, useRef } from 'react';
+import { FC, useRef } from 'react';
+import cn from 'classnames';
+
+import Notification from './frames/Notification';
 
 import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
 
+import { IMockNotification } from 'src/components/common/Header';
+
 import st from './index.module.scss';
 
-/* Временный интерфейс для mockNotifications, потом будем получать их с сервера */
-interface IMockNotifications {
-  id: number;
-  title: string;
-  text: string;
-}
-
 interface NotificationsDropDownProps {
-  setIsNotificationsDropDownActive: Dispatch<SetStateAction<boolean>>;
-  mockNotifications: IMockNotifications[];
+  closeDropDown: () => void;
+  notifications: IMockNotification[];
 }
 
-const NotificationsDropDown: FC<NotificationsDropDownProps> = ({
-  setIsNotificationsDropDownActive,
-  mockNotifications,
-}) => {
+const NotificationsDropDown: FC<NotificationsDropDownProps> = ({ closeDropDown, notifications }) => {
   const ref = useRef(null);
-  useOutsideAlerter(ref, () => setIsNotificationsDropDownActive(false));
+  useOutsideAlerter(ref, closeDropDown);
 
   return (
     <div className={st.dropDown} ref={ref}>
-      {mockNotifications.length === 0 && <p className={st.dropDown__haveNoNotifications}>У вас нет новых сообщений</p>}
+      {notifications.length === 0 ? (
+        <p className={st.dropDown__notifications}>У вас нет новых сообщений</p>
+      ) : (
+        <div className={cn(st.dropDown__notifications, st.dropDown__notifications_have)}>
+          {notifications.map((notification) => (
+            <Notification notification={notification} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
