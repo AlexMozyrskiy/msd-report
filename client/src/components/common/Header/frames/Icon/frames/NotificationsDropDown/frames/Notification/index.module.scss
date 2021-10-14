@@ -12,7 +12,7 @@
   cursor: pointer;
   transition: 0.5s;
 
-  & > span {
+  &__title {
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -21,6 +21,11 @@
     color: #c0beff;
     cursor: pointer;
     transition: 0.5s;
+
+    &_notReaded {
+      font-weight: 500;
+      color: #000;
+    }
   }
 
   & > figure {

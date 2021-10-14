@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import SVG from 'react-inlinesvg';
 import cn from 'classnames';
 
@@ -21,6 +21,14 @@ interface IconProps {
   Если color === 'red' то это компонент уведомлений (колокольчик),
 */
 const Icon: FC<IconProps> = ({ icon, color, isDropdownActive = false, notifications = [], closeDropDown }) => {
+  const isNotificationsReaded = useMemo(() => {
+    /* Если это уведомления */
+    if (color === 'red') {
+      const notReadedNotification = notifications.find((notification) => !notification.readed);
+      return notReadedNotification !== undefined;
+    }
+  }, [notifications]);
+
   return (
     /* Если кликаем по иконке с уведомлениями (колокольчик) */
     <div className={st.wrapper}>
@@ -31,10 +39,8 @@ const Icon: FC<IconProps> = ({ icon, color, isDropdownActive = false, notificati
 
         {/*
           Красный или зеленый кружочек над иконкой для сигнализации о новых сообщениях или уведомлениях,
-          пока закоментировали, как на сервере появится модель для уведомлений или сообщений
-          раскомментируем и будем записывать эту информацию в стейт
         */}
-        {notifications.length !== 0 && (
+        {isNotificationsReaded && (
           <span
             className={cn(
               st.icon__circle,

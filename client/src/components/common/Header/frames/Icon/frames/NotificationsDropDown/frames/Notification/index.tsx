@@ -1,5 +1,6 @@
 import { FC, MouseEvent, useState } from 'react';
 import SVG from 'react-inlinesvg';
+import cn from 'classnames';
 
 import NotificationModal from './frames/NotificationModal';
 
@@ -24,7 +25,9 @@ const NotificationDropDown: FC<NotificationDropDownProps> = ({ notification }) =
   return (
     <>
       <button className={st.notification} onClick={() => setIsModalOpen(true)}>
-        <span>{notification.title}</span>
+        <span className={cn(st.notification__title, { [st.notification__title_notReaded]: !notification.readed })}>
+          {notification.title}
+        </span>
 
         <figure onClick={deleteHandler}>
           <SVG src={deleteIcon}></SVG>

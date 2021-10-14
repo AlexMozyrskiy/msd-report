@@ -16,6 +16,7 @@ export interface IMockNotification {
   id: number;
   title: string;
   text: string;
+  readed: boolean;
 }
 
 const Header: FC = () => {
@@ -29,11 +30,13 @@ const Header: FC = () => {
         id: 1,
         title: 'Обновление какого-то модуля ',
         text: 'Обновлен какой-то модуль. Сделано слудующее: 1. Первое; 2. Второе; 3. Третье',
+        readed: true,
       },
       {
         id: 2,
         title: 'Обновление другого какого-то модуля ',
         text: 'Обновлен другой какой-то модуль. Сделано слудующее: 1. Первое; 2. Второе; 3. Третье',
+        readed: false,
       },
     ],
     []
