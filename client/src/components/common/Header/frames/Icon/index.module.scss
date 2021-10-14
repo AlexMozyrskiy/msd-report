@@ -2,8 +2,11 @@
 
 $messagesWidth: 30px;
 
-.icon {
+.wrapper {
   position: relative;
+}
+
+.icon {
   display: flex;
   justify-content: center;
   align-items: center;
