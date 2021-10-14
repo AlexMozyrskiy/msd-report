@@ -18,14 +18,15 @@
   }
 
   &:hover {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
 
   &::before,
   &::after {
     position: absolute;
     content: '';
-    top: 55%;
+    top: 65%;
+    left: 45%;
     width: 3px;
     height: 20px;
     background-color: $brandColor;
@@ -36,10 +37,10 @@
   }
 
   &::before {
-    transform: translateY(-55%) rotate(45deg);
+    transform: translateY(-65%) rotate(45deg);
   }
 
   &::after {
-    transform: translateY(-55%) rotate(-45deg);
+    transform: translateY(-65%) rotate(-45deg);
   }
 }
