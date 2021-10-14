@@ -1,6 +1,8 @@
 import { FC, MouseEvent, useState } from 'react';
 import SVG from 'react-inlinesvg';
 
+import NotificationModal from './frames/NotificationModal';
+
 import deleteIcon from 'src/library/icons/common/delete.svg';
 
 import { IMockNotification } from 'src/components/common/Header';
@@ -21,12 +23,15 @@ const NotificationDropDown: FC<NotificationDropDownProps> = ({ notification }) =
 
   return (
     <>
-      <button className={st.notification} key={notification.id}>
+      <button className={st.notification} onClick={() => setIsModalOpen(true)}>
         <span>{notification.title}</span>
+
         <figure onClick={deleteHandler}>
           <SVG src={deleteIcon}></SVG>
         </figure>
       </button>
+
+      {isModalOpen && <NotificationModal notification={notification} close={() => setIsModalOpen(false)} />}
     </>
   );
 };

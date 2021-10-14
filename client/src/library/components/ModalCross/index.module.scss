@@ -1,0 +1,45 @@
+@import 'src/library/styles/variables/colors.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -2px;
+  right: -34px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+
+  @media screen and (max-width: 860px) {
+    right: 10px;
+    top: 10px;
+  }
+
+  &:hover {
+    transform: rotate(180deg);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    top: 55%;
+    width: 3px;
+    height: 20px;
+    background-color: $brandColor;
+
+    @media screen and (max-width: 860px) {
+      background-color: rgba(28, 29, 29, 0.26);
+    }
+  }
+
+  &::before {
+    transform: translateY(-55%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateY(-55%) rotate(-45deg);
+  }
+}

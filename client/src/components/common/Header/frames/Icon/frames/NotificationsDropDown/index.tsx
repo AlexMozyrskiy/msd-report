@@ -25,7 +25,7 @@ const NotificationsDropDown: FC<NotificationsDropDownProps> = ({ closeDropDown, 
       ) : (
         <div className={cn(st.dropDown__notifications, st.dropDown__notifications_have)}>
           {notifications.map((notification) => (
-            <Notification notification={notification} />
+            <Notification notification={notification} key={notification.id} />
           ))}
         </div>
       )}
