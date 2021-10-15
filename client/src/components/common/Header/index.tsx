@@ -1,15 +1,20 @@
 import { FC, useMemo, useState } from 'react';
 
+import { useHttp } from 'src/library/hooks/useHttp';
+import { setAuthorizationToken, removeAuthorizationToken } from 'src/library/helpers/token';
+import $api from 'src/library/helpers/axiosInstance';
+
 import Search from './frames/Search';
 import Icon from './frames/Icon';
 import Photo from './frames/Photo';
 import Dots from './frames/Dots';
+import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 
 // import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
 
 import st from './index.module.scss';
-import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
+import { AxiosResponse } from 'axios';
 
 /* Временный интерфейс для mockNotifications, потом будем получать их с сервера */
 export interface IMockNotification {
@@ -22,6 +27,8 @@ export interface IMockNotification {
 const Header: FC = () => {
   const [isNotificationsDropDownActive, setIsNotificationsDropDownActive] = useState<boolean>(false);
   // const [isMessagesDropDownActive, setIsMessagesDropDownActive] = useState<boolean>(false);
+
+  const { isFetching, registration, login, logout, getUsers, error, clearError } = useHttp();
 
   /* Как разработаю апи буду брать эти данные с сервера, а сюда из стейта */
   const mockNotifications: IMockNotification[] | [] = useMemo(
@@ -42,10 +49,31 @@ const Header: FC = () => {
     []
   );
 
+  const registrationHandler = async () => {
+    const response = await registration('alexeymozyrskiydev@gmail.com', '12345');
+  };
+
+  const loginHandler = async () => {
+    const response = await login('alexeymozyrskiydev@gmail.com', '12345');
+  };
+
+  const logoutHandler = async () => {
+    const response = await logout();
+  };
+
+  const usersHandler = async () => {
+    const response = await getUsers();
+    console.log(response);
+  };
+
   return (
     <header className={st.header}>
       <section className={st.header__search}>
         <Search />
+        <button onClick={registrationHandler}>Регистрация</button>
+        <button onClick={loginHandler}>Лог Ин</button>
+        <button onClick={logoutHandler}>Лог Аут</button>
+        <button onClick={usersHandler}>Юзеры</button>
       </section>
 
       <section className={st.header__info}>
