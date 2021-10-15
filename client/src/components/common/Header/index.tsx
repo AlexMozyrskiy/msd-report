@@ -25,8 +25,6 @@ const Header: FC = () => {
   const [isNotificationsDropDownActive, setIsNotificationsDropDownActive] = useState<boolean>(false);
   // const [isMessagesDropDownActive, setIsMessagesDropDownActive] = useState<boolean>(false);
 
-  const { isFetching, registration, login, logout, getUsers, error, clearError } = useHttp();
-
   /* Как разработаю апи буду брать эти данные с сервера, а сюда из стейта */
   const mockNotifications: IMockNotification[] | [] = useMemo(
     () => [
@@ -46,31 +44,10 @@ const Header: FC = () => {
     []
   );
 
-  const registrationHandler = async () => {
-    const response = await registration('alexeymozyrskiydev@gmail.com', '12345');
-  };
-
-  const loginHandler = async () => {
-    const response = await login('alexeymozyrskiydev@gmail.com', '12345');
-  };
-
-  const logoutHandler = async () => {
-    const response = await logout();
-  };
-
-  const usersHandler = async () => {
-    const response = await getUsers();
-    console.log(response);
-  };
-
   return (
     <header className={st.header}>
       <section className={st.header__search}>
         <Search />
-        <button onClick={registrationHandler}>Регистрация</button>
-        <button onClick={loginHandler}>Лог Ин</button>
-        <button onClick={logoutHandler}>Лог Аут</button>
-        <button onClick={usersHandler}>Юзеры</button>
       </section>
 
       <section className={st.header__info}>
