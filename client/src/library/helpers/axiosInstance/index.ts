@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getAuthorizationToken } from '../token';
+import { getAccessToken } from '../token';
 
 export const API_URL = 'http://localhost:5000/api';
 
@@ -17,7 +17,7 @@ export const apiWithoutToken = axios.create({
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
 apiWithToken.interceptors.request.use((config) => {
   if (config.headers) {
-    config.headers.Authorization = 'Bearer ' + getAuthorizationToken();
+    config.headers.Authorization = 'Bearer ' + getAccessToken();
     return config;
   }
 });

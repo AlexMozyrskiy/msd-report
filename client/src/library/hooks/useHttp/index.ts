@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance';
 
-import { getAuthorizationToken, setAuthorizationToken, removeAuthorizationToken } from '../../helpers/token';
+import { setAccessToken, removeAccessToken } from '../../helpers/token';
 
 interface IAuthResponse {
   accessToken: string;
@@ -36,11 +36,12 @@ export const useHttp = () => {
 
   const login = useCallback(async (email: string, password: string): Promise<AxiosResponse<IAuthResponse>> => {
     setIsFetching(true);
+    setIsRefreshTokenRequestMade(false);
 
     try {
       const response = await apiWithToken.post<IAuthResponse>('/user/login', { email, password });
 
-      setAuthorizationToken(response.data.accessToken);
+      setAccessToken(response.data.accessToken);
 
       return response;
     } catch (error: any) {
@@ -53,11 +54,12 @@ export const useHttp = () => {
 
   const registration = useCallback(async (email: string, password: string): Promise<AxiosResponse<IAuthResponse>> => {
     setIsFetching(true);
+    setIsRefreshTokenRequestMade(false);
 
     try {
       const response = await apiWithToken.post<IAuthResponse>('/user/registration', { email, password });
 
-      setAuthorizationToken(response.data.accessToken);
+      setAccessToken(response.data.accessToken);
 
       return response;
     } catch (error: any) {
@@ -70,11 +72,12 @@ export const useHttp = () => {
 
   const logout = useCallback(async (): Promise<AxiosResponse<ILogoutResponse>> => {
     setIsFetching(true);
+    setIsRefreshTokenRequestMade(false);
 
     try {
       const response = await apiWithToken.post<ILogoutResponse>('/user/logout');
 
-      removeAuthorizationToken();
+      removeAccessToken();
 
       return response;
     } catch (error: any) {
@@ -99,7 +102,7 @@ export const useHttp = () => {
       if (error.response.status === 401 && !isRefreshTokenRequestMade) {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
-          setAuthorizationToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+          setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
           const response = await apiWithToken.get<IUsersResponse[]>('/user/users'); // еще раз запрос уже авторизованный за искомыми данными
           return response;
         } catch (error: any) {
