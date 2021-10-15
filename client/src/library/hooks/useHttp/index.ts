@@ -99,8 +99,8 @@ export const useHttp = () => {
       if (error.response.status === 401 && !isRefreshTokenRequestMade) {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
-          setAuthorizationToken(refreshResponse.data.accessToken); // сетаем токен в локал стограг
-          const response = await apiWithToken.get<IUsersResponse[]>('/user/users'); // еще раз запрос уже авторизованные за искомыми данными
+          setAuthorizationToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+          const response = await apiWithToken.get<IUsersResponse[]>('/user/users'); // еще раз запрос уже авторизованный за искомыми данными
           return response;
         } catch (error: any) {
           setIsRefreshTokenRequestMade(true);
