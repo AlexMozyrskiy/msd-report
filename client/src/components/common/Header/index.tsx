@@ -1,8 +1,6 @@
 import { FC, useMemo, useState } from 'react';
 
 import { useHttp } from 'src/library/hooks/useHttp';
-import { setAuthorizationToken, removeAuthorizationToken } from 'src/library/helpers/token';
-import $api from 'src/library/helpers/axiosInstance';
 
 import Search from './frames/Search';
 import Icon from './frames/Icon';
@@ -14,7 +12,6 @@ import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 import bellIcon from 'src/library/icons/header/bell.svg';
 
 import st from './index.module.scss';
-import { AxiosResponse } from 'axios';
 
 /* Временный интерфейс для mockNotifications, потом будем получать их с сервера */
 export interface IMockNotification {
