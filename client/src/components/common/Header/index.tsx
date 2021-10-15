@@ -1,7 +1,5 @@
 import { FC, useMemo, useState } from 'react';
 
-import { useHttp } from 'src/library/hooks/useHttp';
-
 import Search from './frames/Search';
 import Icon from './frames/Icon';
 import Photo from './frames/Photo';
