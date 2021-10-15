@@ -4,12 +4,12 @@ import Search from './frames/Search';
 import Icon from './frames/Icon';
 import Photo from './frames/Photo';
 import Dots from './frames/Dots';
+import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 
 // import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
 
 import st from './index.module.scss';
-import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 
 /* Временный интерфейс для mockNotifications, потом будем получать их с сервера */
 export interface IMockNotification {
