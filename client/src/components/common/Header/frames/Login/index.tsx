@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 
 import LoginModal from './frames/LoginModal';
+import Button from 'src/library/components/Button';
 
 import st from './index.module.scss';
 
@@ -9,14 +10,7 @@ const Login: FC = () => {
 
   return (
     <div className={st.login}>
-      <button
-        className={st.login__button}
-        onClick={() => {
-          setIsLoginModalActive(true);
-        }}
-      >
-        Логин
-      </button>
+      <Button text='Логин' onCkickHandler={() => setIsLoginModalActive(true)} />
 
       {isLoginModalActive && <LoginModal setIsLoginModalActive={setIsLoginModalActive} />}
     </div>
