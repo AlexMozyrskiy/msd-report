@@ -15,7 +15,7 @@ export interface IAuthResponse {
   message?: string;
 }
 
-interface ILogoutResponse {
+export interface ILogoutResponse {
   deletedCount: number;
 }
 

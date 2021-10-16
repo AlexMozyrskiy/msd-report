@@ -2,7 +2,7 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useHttp } from 'src/library/hooks/useHttp';
-import { setUser as setUserThunk } from 'src/state/redux/features/user/thunk';
+import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk';
 
 import Button from 'src/library/components/Button';
 import ModalCross from 'src/library/components/ModalCross';
@@ -21,9 +21,7 @@ const LoginModal: FC<LoginModalProps> = ({ setIsLoginModalActive }) => {
   const { login, isFetching, error, clearError } = useHttp();
 
   const onSubmitHandler = () => {
-    dispath(setUserThunk(login, email, password));
-    // const response = await login(email, password);
-    // response.status === 200 && setIsLoginModalActive(false);
+    dispath(loginUserThunk(login, email, password));
   };
 
   /**

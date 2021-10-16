@@ -28,7 +28,6 @@ const Header: FC = () => {
   // const [isMessagesDropDownActive, setIsMessagesDropDownActive] = useState<boolean>(false);
 
   const { id } = useSelector(getUser);
-  console.log(id);
 
   /* Как разработаю апи буду брать эти данные с сервера, а сюда из стейта */
   const mockNotifications: IMockNotification[] | [] = useMemo(
