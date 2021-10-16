@@ -40,12 +40,14 @@ export const useHttp = () => {
 
     try {
       const response = await apiWithToken.post<IAuthResponse>('/user/login', { email, password });
+      console.log(response);
 
       setAccessToken(response.data.accessToken);
 
       return response;
     } catch (error: any) {
       console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
+      setError(error.response?.data?.message);
       return error;
     } finally {
       setIsFetching(false);
@@ -58,12 +60,14 @@ export const useHttp = () => {
 
     try {
       const response = await apiWithToken.post<IAuthResponse>('/user/registration', { email, password });
+      console.log(response);
 
       setAccessToken(response.data.accessToken);
 
       return response;
     } catch (error: any) {
       console.log(error.response?.data?.message);
+      setError(error.response?.data?.message);
       return error;
     } finally {
       setIsFetching(false);
@@ -76,12 +80,14 @@ export const useHttp = () => {
 
     try {
       const response = await apiWithToken.post<ILogoutResponse>('/user/logout');
+      console.log(response);
 
       removeAccessToken();
 
       return response;
     } catch (error: any) {
       console.log(error.response?.data?.message);
+      setError(error.response?.data?.message);
       return error;
     } finally {
       setIsFetching(false);
@@ -93,12 +99,14 @@ export const useHttp = () => {
 
     try {
       const response = await apiWithToken.get<IUsersResponse[]>('/user/users');
+      console.log(response);
 
       /* возможно будем сетать в стейт тут после ответа с сервера */
 
       return response;
     } catch (error: any) {
       /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
+      setError(error.response?.data?.message);
       if (error.response.status === 401 && !isRefreshTokenRequestMade) {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
@@ -107,6 +115,7 @@ export const useHttp = () => {
           return response;
         } catch (error: any) {
           setIsRefreshTokenRequestMade(true);
+          setError(error.response?.data?.message);
           console.log(error.response?.data?.message);
           return error;
         }
