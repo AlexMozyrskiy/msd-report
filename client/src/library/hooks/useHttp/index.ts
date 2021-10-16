@@ -4,7 +4,7 @@ import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance
 
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
 
-interface IAuthResponse {
+export interface IAuthResponse {
   accessToken: string;
   refreshToken: string;
   user: {
@@ -12,7 +12,7 @@ interface IAuthResponse {
     id: string;
     isActivated: boolean;
   };
-  error?: string;
+  message?: string;
 }
 
 interface ILogoutResponse {
@@ -48,7 +48,7 @@ export const useHttp = () => {
     } catch (error: any) {
       console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
       setError(error.response?.data?.message);
-      return error;
+      return error.response;
     } finally {
       setIsFetching(false);
     }
@@ -68,7 +68,7 @@ export const useHttp = () => {
     } catch (error: any) {
       console.log(error.response?.data?.message);
       setError(error.response?.data?.message);
-      return error;
+      return error.response;
     } finally {
       setIsFetching(false);
     }
@@ -88,7 +88,7 @@ export const useHttp = () => {
     } catch (error: any) {
       console.log(error.response?.data?.message);
       setError(error.response?.data?.message);
-      return error;
+      return error.response;
     } finally {
       setIsFetching(false);
     }
@@ -117,13 +117,13 @@ export const useHttp = () => {
           setIsRefreshTokenRequestMade(true);
           setError(error.response?.data?.message);
           console.log(error.response?.data?.message);
-          return error;
+          return error.response;
         }
       }
 
       /* тут обработка ошибок (например пользователь не авторизован даже после попытки рефреша токена), например сетаем в стейт и рендерим ее пользователю */
       // console.log(error.response?.data?.message);
-      return error;
+      return error.response;
     } finally {
       setIsFetching(false);
     }

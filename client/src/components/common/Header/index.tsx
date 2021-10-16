@@ -27,7 +27,8 @@ const Header: FC = () => {
   const [isNotificationsDropDownActive, setIsNotificationsDropDownActive] = useState<boolean>(false);
   // const [isMessagesDropDownActive, setIsMessagesDropDownActive] = useState<boolean>(false);
 
-  const { _id } = useSelector(getUser);
+  const { id } = useSelector(getUser);
+  console.log(id);
 
   /* Как разработаю апи буду брать эти данные с сервера, а сюда из стейта */
   const mockNotifications: IMockNotification[] | [] = useMemo(
@@ -54,7 +55,7 @@ const Header: FC = () => {
         <Search />
       </section>
 
-      {_id ? (
+      {id ? (
         <section className={st.header__info}>
           <span className={st.header__separator} />
 

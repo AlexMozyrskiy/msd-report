@@ -4,10 +4,9 @@ import { TSetUser as TSetUserType } from './actionTypes';
 import { IUser } from './actionCreators';
 
 interface IInitialState {
-  _id: string | null;
   email: string | null;
+  id: string | null;
   isActivated: boolean | null;
-  activationLink: string | null;
 }
 
 interface IAction {
@@ -16,10 +15,9 @@ interface IAction {
 }
 
 const initialState: IInitialState = {
-  _id: null,
+  id: null,
   email: null,
   isActivated: null,
-  activationLink: null,
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -27,10 +25,9 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
     case SET_USER_TYPE: {
       const superState = {
         ...state,
-        _id: action.user._id,
+        id: action.user.id,
         email: action.user.email,
         isActivated: action.user.isActivated,
-        activationLink: action.user.activationLink,
       };
       return superState;
     }

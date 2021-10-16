@@ -1,5 +1,5 @@
-import { createStore, combineReducers /*, applyMiddleware -*/ } from 'redux';
-// import thunkMiddleWare from 'redux-thunk';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunkMiddleWare from 'redux-thunk';
 import { compose } from 'redux';
 import userReducers from '../features/user/reducer';
 
@@ -12,6 +12,6 @@ export type TRootReducerState = ReturnType<TRootReducer>; // тут мы выт�
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // это для использования extension'а redux dev tools в Google Chrome
-const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(/* applyMiddleware(thunkMiddleWare)*/));
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunkMiddleWare)));
 
 export default store;
