@@ -6,7 +6,7 @@ import st from './index.module.scss';
 
 const Photo: FC = () => {
   /* После того как создадим стейт будем useSelector брать оттуда ссылку на фото */
-  return <img className={st.photo} src={haveNoPhoto} />;
+  return <img className={st.photo} src={haveNoPhoto} alt='user' />;
 };
 
 export default Photo;

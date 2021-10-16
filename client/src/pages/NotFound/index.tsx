@@ -7,7 +7,7 @@ import st from './index.module.scss';
 const NotFound: FC = () => {
   return (
     <div className={st.notFound}>
-      <img src={notFoundPicture} />
+      <img src={notFoundPicture} alt='destroyed wagon laboratory' />
       <h4>
         <span>Пути нет</span>
         <span>404</span> <span>Страница не найдена</span>

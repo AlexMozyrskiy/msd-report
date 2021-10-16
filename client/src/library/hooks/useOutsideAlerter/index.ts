@@ -1,4 +1,4 @@
-import { MouseEvent, MutableRefObject, useEffect } from 'react';
+import { MutableRefObject, useEffect } from 'react';
 
 export function useOutsideAlerter(ref: MutableRefObject<any>, handler: () => void) {
   useEffect(() => {
@@ -17,5 +17,5 @@ export function useOutsideAlerter(ref: MutableRefObject<any>, handler: () => voi
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, handler]);
 }

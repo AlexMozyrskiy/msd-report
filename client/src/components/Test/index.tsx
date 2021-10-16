@@ -5,23 +5,22 @@ import { useHttp } from 'src/library/hooks/useHttp';
 // import st from './index.module.scss';
 
 const Test: FC = () => {
-  const { isFetching, registration, login, logout, getUsers, error, clearError } = useHttp();
+  const { registration, login, logout, getUsers } = useHttp();
 
   const registrationHandler = async () => {
-    const response = await registration('alexeymozyrskiydev@gmail.com', '12345');
+    await registration('alexeymozyrskiydev@gmail.com', '12345');
   };
 
   const loginHandler = async () => {
-    const response = await login('alexeymozyrskiydev@gmail.com', '12345');
+    await login('alexeymozyrskiydev@gmail.com', '12345');
   };
 
   const logoutHandler = async () => {
-    const response = await logout();
+    await logout();
   };
 
   const usersHandler = async () => {
-    const response = await getUsers();
-    console.log(response);
+    await getUsers();
   };
 
   return (

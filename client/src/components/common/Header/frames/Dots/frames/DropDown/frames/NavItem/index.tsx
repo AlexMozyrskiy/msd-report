@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
-import cn from 'classnames';
 
 import st from './index.module.scss';
 

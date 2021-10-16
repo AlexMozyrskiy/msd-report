@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import SVG from 'react-inlinesvg';
+// import SVG from 'react-inlinesvg';
 
-import searchIcon from 'src/library/icons/header/search.svg';
+// import searchIcon from 'src/library/icons/header/search.svg';
 
 import st from './index.module.scss';
 

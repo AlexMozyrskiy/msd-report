@@ -27,7 +27,7 @@ const Icon: FC<IconProps> = ({ icon, color, isDropdownActive = false, notificati
       const notReadedNotification = notifications.find((notification) => !notification.readed);
       return notReadedNotification !== undefined;
     }
-  }, [notifications]);
+  }, [notifications, color]);
 
   return (
     /* Если кликаем по иконке с уведомлениями (колокольчик) */
