@@ -4,14 +4,16 @@ import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance
 
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
 
+export interface IUser {
+  email: string;
+  id: string;
+  isActivated: boolean;
+}
+
 export interface IAuthResponse {
   accessToken: string;
   refreshToken: string;
-  user: {
-    email: string;
-    id: string;
-    isActivated: boolean;
-  };
+  user: IUser;
   message?: string;
 }
 
@@ -101,8 +103,6 @@ export const useHttp = () => {
       const response = await apiWithToken.get<IUsersResponse[]>('/user/users');
       console.log(response);
 
-      /* возможно будем сетать в стейт тут после ответа с сервера */
-
       return response;
     } catch (error: any) {
       /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
@@ -129,7 +129,40 @@ export const useHttp = () => {
     }
   }, [isRefreshTokenRequestMade]);
 
+  const check = useCallback(async (): Promise<AxiosResponse<IUser>> => {
+    setIsFetching(true);
+
+    try {
+      const response = await apiWithToken.post<IUser>('/user/check');
+      console.log(response);
+
+      return response;
+    } catch (error: any) {
+      /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
+      setError(error.response?.data?.message);
+      if (error.response.status === 401 && !isRefreshTokenRequestMade) {
+        try {
+          const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
+          setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+          const response = await apiWithToken.post<IUser>('/user/check');
+          return response;
+        } catch (error: any) {
+          setIsRefreshTokenRequestMade(true);
+          setError(error.response?.data?.message);
+          console.log(error.response?.data?.message);
+          return error.response;
+        }
+      }
+
+      /* тут обработка ошибок (например пользователь не авторизован даже после попытки рефреша токена), например сетаем в стейт и рендерим ее пользователю */
+      // console.log(error.response?.data?.message);
+      return error.response;
+    } finally {
+      setIsFetching(false);
+    }
+  }, [isRefreshTokenRequestMade]);
+
   const clearError = useCallback(() => setError(null), []);
 
-  return { isFetching, registration, login, logout, getUsers, error, clearError };
+  return { isFetching, registration, login, logout, getUsers, check, error, clearError };
 };
