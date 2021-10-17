@@ -12,7 +12,7 @@ const Test: FC = () => {
   };
 
   const loginHandler = async () => {
-    await login('alexeymozyrskiydev@gmail.com', '12345');
+    await login('asd@gmail.com', '12345');
   };
 
   const logoutHandler = async () => {
