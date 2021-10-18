@@ -1,10 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import cn from 'classnames';
 
-import { useHttp } from 'src/library/hooks/useHttp';
-import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk';
-
-import Button from 'src/library/components/Button';
+import LoginForm from './frames/LoginForm';
 import ModalCross from 'src/library/components/ModalCross';
 
 import st from './index.module.scss';
@@ -14,48 +11,29 @@ interface LoginModalProps {
 }
 
 const LoginModal: FC<LoginModalProps> = ({ setIsLoginModalActive }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const dispath = useDispatch();
-
-  const { login, isFetching, error, clearError } = useHttp();
-
-  const onSubmitHandler = () => {
-    dispath(loginUserThunk(login, email, password));
-  };
-
-  /**
-   *
-   * @param e
-   * @param field - имя заполняемого поля
-   */
-  const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>, field: 'email' | 'password'): void => {
-    if (field === 'email') {
-      setEmail(e.target.value);
-    } else if (field === 'password') {
-      setPassword(e.target.value);
-    }
-    error && clearError();
-  };
+  /* какая сейчас вкладка активна */
+  const [activeModalName, setActiveModalName] = useState<'registration' | 'login' | 'forgotPasword'>('login');
 
   return (
     <div className={st.modal__overlay}>
       <article className={st.modal}>
-        <h2 className={st.modal__header}>Логин</h2>
+        <div className={st.modal__shown__wrapper}>
+          <div
+            className={cn(
+              st.modal__shown,
+              { [st.modal__shown_registration]: activeModalName === 'registration' },
+              { [st.modal__shown_forgotPassword]: activeModalName === 'forgotPasword' }
+            )}
+          >
+            <div className={st.modal__registration}>Регистрация</div>
 
-        <form>
-          <input type='text' placeholder='Ваш логин' value={email} onChange={(e) => onChangeInputHandler(e, 'email')} />
-          <input
-            type='password'
-            placeholder='Ваш пароль'
-            value={password}
-            onChange={(e) => onChangeInputHandler(e, 'password')}
-          />
+            <div className={st.modal__login}>
+              <LoginForm setActiveModalName={setActiveModalName} />
+            </div>
 
-          <Button text='Войти' onCkickHandler={onSubmitHandler} />
-
-          {error && error}
-        </form>
+            <div className={st.modal__forgotPasword}>Забыли пароль</div>
+          </div>
+        </div>
 
         <ModalCross onClick={() => setIsLoginModalActive(false)} />
       </article>
