@@ -23,6 +23,10 @@ export interface ILogoutResponse {
   deletedCount: number;
 }
 
+export interface ISendForgotPasswordLinkResponse {
+  isLinkSend: boolean;
+}
+
 interface IUsersResponse {
   _id: string;
   email: string;
@@ -177,7 +181,40 @@ export const useHttp = () => {
     }
   }, [isRefreshTokenRequestMade]);
 
+  const sendForgotPasswordLink = useCallback(
+    async (email: string): Promise<AxiosResponse<ISendForgotPasswordLinkResponse>> => {
+      setIsFetching(true);
+
+      try {
+        const response = await apiWithToken.post<ISendForgotPasswordLinkResponse>('/user/sendforgotpasswordlink', {
+          email,
+        });
+        console.log(response);
+
+        return response;
+      } catch (error: any) {
+        /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
+        setError(error.response?.data?.message);
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
+
   const clearError = useCallback(() => setError(null), []);
 
-  return { isFetching, registration, login, logout, getUsers, check, error, setError, clearError };
+  return {
+    isFetching,
+    registration,
+    login,
+    logout,
+    getUsers,
+    check,
+    sendForgotPasswordLink,
+    error,
+    setError,
+    clearError,
+  };
 };

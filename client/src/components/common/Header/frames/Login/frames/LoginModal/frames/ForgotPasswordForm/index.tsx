@@ -19,7 +19,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
   const [email, setEmail] = useState<string>('');
   // const dispath = useDispatch();
 
-  const { isFetching, error, setError, clearError } = useHttp();
+  const { sendForgotPasswordLink, isFetching, error, setError, clearError } = useHttp();
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
     } else if (!validate.isEmail(email)) {
       setError("Вы ввели неверный 'Email'");
     } else {
-      // dispath(loginUserThunk(loginService, login, password));
+      sendForgotPasswordLink(email);
     }
   };
 
