@@ -179,5 +179,5 @@ export const useHttp = () => {
 
   const clearError = useCallback(() => setError(null), []);
 
-  return { isFetching, registration, login, logout, getUsers, check, error, clearError };
+  return { isFetching, registration, login, logout, getUsers, check, error, setError, clearError };
 };
