@@ -7,24 +7,26 @@ const UserDto = require('../dtos/user');
 const ApiError = require('../exceptions/api-error');
 
 class UserService {
-  async registration(email, password) {
-    const candidate = await UserModel.findOne({ email });
+  async registration(login, email, affiliation, password) {
+    let candidate = await UserModel.findOne({ email });
     if (candidate) {
-      throw ApiError.badRequest(
-        'Пользователь с почтовым адресом ' + email + ' уже существует'
-      );
+      throw ApiError.badRequest('Пользователь с почтовым адресом ' + email + ' уже существует');
     }
+    candidate = await UserModel.findOne({ login });
+    if (candidate) {
+      throw ApiError.badRequest('Пользователь с логином ' + login + ' уже существует');
+    }
+
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
     const user = await UserModel.create({
+      login,
       email,
+      affiliation,
       password: hashPassword,
       activationLink,
     });
-    await MailService.sendActivationMail(
-      email,
-      `${process.env.SERVER_URL}/api/user/activate/${activationLink}`
-    );
+    await MailService.sendActivationMail(email, `${process.env.SERVER_URL}/api/user/activate/${activationLink}`);
 
     /* так как нельзя отправлять можель, получим объект через ДТО с теми же свойствами что и модель */
     const userDto = new UserDto(user);

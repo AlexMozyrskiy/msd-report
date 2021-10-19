@@ -56,25 +56,38 @@ export const useHttp = () => {
     }
   }, []);
 
-  const registration = useCallback(async (email: string, password: string): Promise<AxiosResponse<IAuthResponse>> => {
-    setIsFetching(true);
-    setIsRefreshTokenRequestMade(false);
+  const registration = useCallback(
+    async (
+      login: string,
+      email: string,
+      affiliation: string,
+      password: string
+    ): Promise<AxiosResponse<IAuthResponse>> => {
+      setIsFetching(true);
+      setIsRefreshTokenRequestMade(false);
 
-    try {
-      const response = await apiWithToken.post<IAuthResponse>('/user/registration', { email, password });
-      console.log(response);
+      try {
+        const response = await apiWithToken.post<IAuthResponse>('/user/registration', {
+          login,
+          email,
+          affiliation,
+          password,
+        });
+        console.log(response);
 
-      setAccessToken(response.data.accessToken);
+        setAccessToken(response.data.accessToken);
 
-      return response;
-    } catch (error: any) {
-      console.log(error.response?.data?.message);
-      setError(error.response?.data?.message);
-      return error.response;
-    } finally {
-      setIsFetching(false);
-    }
-  }, []);
+        return response;
+      } catch (error: any) {
+        console.log(error.response?.data?.message);
+        setError(error.response?.data?.message);
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
 
   const logout = useCallback(async (): Promise<AxiosResponse<ILogoutResponse>> => {
     setIsFetching(true);
