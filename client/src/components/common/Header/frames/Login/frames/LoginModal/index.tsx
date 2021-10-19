@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import LoginForm from './frames/LoginForm';
 import RegistrationForm from './frames/RegistrationForm';
+import ForgotPasswordForm from './frames/ForgotPasswordForm';
 import ModalCross from 'src/library/components/ModalCross';
 
 import st from './index.module.scss';
@@ -34,7 +35,9 @@ const LoginModal: FC<LoginModalProps> = ({ setIsLoginModalActive }) => {
               <LoginForm setActiveModalName={setActiveModalName} />
             </div>
 
-            <div className={st.modal__forgotPasword}>Забыли пароль</div>
+            <div className={st.modal__forgotPasword}>
+              <ForgotPasswordForm moveToLoginForm={() => setActiveModalName('login')} />
+            </div>
           </div>
         </div>
 

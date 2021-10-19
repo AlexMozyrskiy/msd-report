@@ -6,6 +6,17 @@ class Validate {
 
     return false;
   }
+
+  isEmail(value: string): boolean {
+    const dogInclude = value.includes('@');
+    const dotInclude = value.includes('.');
+
+    if (!dogInclude || !dotInclude) {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 export default Validate;
