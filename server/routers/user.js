@@ -23,6 +23,11 @@ router.post('/logout', UserController.logout);
 router.post('/check', authMiddleware, UserController.check);
 router.get('/activate/:link', UserController.activate);
 router.get('/refresh', UserController.refresh);
+router.post(
+  '/sendforgotpasswordlink',
+  check('email').isEmail().normalizeEmail().withMessage('Неверный формат email'),
+  UserController.sendForgotPasswordLink
+);
 router.get('/users', authMiddleware, UserController.getUsers);
 
 // router.get('/auth');

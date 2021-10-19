@@ -99,6 +99,21 @@ class UserService {
     };
   }
 
+  async sendForgotPasswordLink(email) {
+    let user = await UserModel.findOne({ email });
+
+    const restorePasswordLink = uuid.v4();
+    await MailService.sendForgotPasswordMail(
+      email,
+      `${process.env.CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
+    );
+
+    if (user) {
+      user.restorePasswordLink = restorePasswordLink;
+      await user.save();
+    }
+  }
+
   async getAllUsers() {
     const users = await UserModel.find();
     return users;

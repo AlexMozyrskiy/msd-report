@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   affiliation: { type: String, required: true },
   isActivated: { type: Boolean, default: false },
   activationLink: { type: String },
+  restorePasswordLink: { type: String, default: null },
 });
 
 module.exports = model('User', UserSchema);

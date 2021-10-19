@@ -86,6 +86,17 @@ class UserController {
     }
   }
 
+  async sendForgotPasswordLink(req, res, next) {
+    try {
+      const { email } = req.body;
+      await userService.sendForgotPasswordLink(email);
+
+      return res.json({ isLinkSend: true });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();
