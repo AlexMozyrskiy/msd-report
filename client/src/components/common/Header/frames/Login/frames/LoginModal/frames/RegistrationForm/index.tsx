@@ -30,6 +30,8 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
       setError("Поле 'Логин' обязательлно для заполнения");
     } else if (validate.isEmpty(email)) {
       setError("Поле 'Email' обязательлно для заполнения");
+    } else if (!validate.isEmail(email)) {
+      setError("Вы ввели неверный 'Email'");
     } else if (validate.isEmpty(password)) {
       setError("Поле 'Пароль' обязательлно для заполнения");
     } else {
