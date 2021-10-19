@@ -49,10 +49,10 @@ class UserService {
     await user.save();
   }
 
-  async login(email, password) {
-    const user = await UserModel.findOne({ email });
+  async login(login, password) {
+    const user = await UserModel.findOne({ login });
     if (!user) {
-      throw ApiError.badRequest('Пользователь с таким email не найден');
+      throw ApiError.badRequest('Пользователь с таким login не найден');
     }
 
     const isPasswordsEqual = await bcrypt.compare(password, user.password);

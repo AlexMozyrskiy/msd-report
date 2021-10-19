@@ -36,12 +36,12 @@ export const useHttp = () => {
   /* Если уже пробовали авторизоваться с помощью рефрешь токена больше пробовать не будем */
   const [isRefreshTokenRequestMade, setIsRefreshTokenRequestMade] = useState<boolean>(false);
 
-  const login = useCallback(async (email: string, password: string): Promise<AxiosResponse<IAuthResponse>> => {
+  const login = useCallback(async (login: string, password: string): Promise<AxiosResponse<IAuthResponse>> => {
     setIsFetching(true);
     setIsRefreshTokenRequestMade(false);
 
     try {
-      const response = await apiWithToken.post<IAuthResponse>('/user/login', { email, password });
+      const response = await apiWithToken.post<IAuthResponse>('/user/login', { login, password });
       console.log(response);
 
       setAccessToken(response.data.accessToken);

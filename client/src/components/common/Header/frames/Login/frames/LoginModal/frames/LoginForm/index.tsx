@@ -15,15 +15,15 @@ interface LoginModalProps {
 }
 
 const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
-  const [email, setEmail] = useState<string>('');
+  const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispath = useDispatch();
 
-  const { login, isFetching, error, clearError } = useHttp();
+  const { login: loginService, isFetching, error, clearError } = useHttp();
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispath(loginUserThunk(login, email, password));
+    dispath(loginUserThunk(loginService, login, password));
   };
 
   /**
@@ -31,9 +31,9 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
    * @param e
    * @param field - имя заполняемого поля
    */
-  const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>, field: 'email' | 'password'): void => {
-    if (field === 'email') {
-      setEmail(e.target.value);
+  const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>, field: 'login' | 'password'): void => {
+    if (field === 'login') {
+      setLogin(e.target.value);
     } else if (field === 'password') {
       setPassword(e.target.value);
     }
@@ -45,7 +45,7 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
       <h2 className={st.header}>Логин</h2>
 
       <form>
-        <input type='text' placeholder='Ваш логин' value={email} onChange={(e) => onChangeInputHandler(e, 'email')} />
+        <input type='text' placeholder='Ваш логин' value={login} onChange={(e) => onChangeInputHandler(e, 'login')} />
         <input
           type='password'
           placeholder='Ваш пароль'
