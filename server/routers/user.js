@@ -2,12 +2,15 @@ const Router = require('express');
 const router = new Router();
 const UserController = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 // const authMiddleware = require('../middleware/authMiddleware');
 
 router.post(
   '/registration',
-  check('email').isEmail().withMessage('Введите email'),
+  check('email').isEmail().normalizeEmail().withMessage('Неверный формат email'),
+  body('email').trim().escape(),
+  check('login').isLength({ min: 3 }).withMessage('Минимальная дина логина 3 символа'),
+  body('login').trim().escape(),
   check('password')
     .isLength({ min: 5 })
     .withMessage('Минимальная дина пароля 5 символов')
