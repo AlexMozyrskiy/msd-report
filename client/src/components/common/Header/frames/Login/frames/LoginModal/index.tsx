@@ -2,6 +2,7 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 import cn from 'classnames';
 
 import LoginForm from './frames/LoginForm';
+import RegistrationForm from './frames/RegistrationForm';
 import ModalCross from 'src/library/components/ModalCross';
 
 import st from './index.module.scss';
@@ -25,7 +26,9 @@ const LoginModal: FC<LoginModalProps> = ({ setIsLoginModalActive }) => {
               { [st.modal__shown_forgotPassword]: activeModalName === 'forgotPasword' }
             )}
           >
-            <div className={st.modal__registration}>Регистрация</div>
+            <div className={st.modal__registration}>
+              <RegistrationForm moveToLoginForm={() => setActiveModalName('login')} />
+            </div>
 
             <div className={st.modal__login}>
               <LoginForm setActiveModalName={setActiveModalName} />

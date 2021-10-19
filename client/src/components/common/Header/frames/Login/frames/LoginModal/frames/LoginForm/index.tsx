@@ -62,11 +62,11 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
 
       <div className={st.link__wrapper}>
         <span className={cn(st.link, st.link_notRegister)} onClick={() => setActiveModalName('registration')}>
-          <Link to='/registrition'>Зарегистрироваться</Link>
+          Зарегистрироваться
         </span>
 
         <span className={cn(st.link, st.link_forgotPassword)} onClick={() => setActiveModalName('forgotPasword')}>
-          <Link to='/forgotPassword'>Забыли пароль?</Link>
+          Забыли пароль?
         </span>
       </div>
     </>
