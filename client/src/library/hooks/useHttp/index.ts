@@ -5,8 +5,10 @@ import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
 
 export interface IUser {
-  email: string;
   id: string;
+  email: string;
+  login: string;
+  affiliation: string;
   isActivated: boolean;
 }
 

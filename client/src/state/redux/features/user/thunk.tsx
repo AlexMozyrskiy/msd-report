@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
 
 type TloginUser = (
-  login: (email: string, password: string) => Promise<AxiosResponse<IAuthResponse>>,
+  loginService: (email: string, password: string) => Promise<AxiosResponse<IAuthResponse>>,
   email: string,
   password: string
 ) => (dispatch: Dispatch) => void;
@@ -14,8 +14,8 @@ type TlogoutUser = (logout: () => Promise<AxiosResponse<ILogoutResponse>>) => (d
 
 type TCheckUser = (check: () => Promise<AxiosResponse<IUser>>) => (dispatch: Dispatch) => void;
 
-export const loginUser: TloginUser = (login, email, password) => async (dispatch) => {
-  const response = await login(email, password);
+export const loginUser: TloginUser = (loginService, login, password) => async (dispatch) => {
+  const response = await loginService(login, password);
 
   if (response.status === 200) {
     dispatch(setUserAction(response.data.user));
@@ -29,6 +29,8 @@ export const logoutUser: TlogoutUser = (logout) => async (dispatch) => {
     const user = {
       id: null,
       email: null,
+      login: null,
+      affiliation: null,
       isActivated: null,
     };
 

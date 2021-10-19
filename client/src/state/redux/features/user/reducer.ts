@@ -4,8 +4,10 @@ import { TSetUser as TSetUserType } from './actionTypes';
 import { IUser } from './actionCreators';
 
 interface IInitialState {
-  email: string | null;
   id: string | null;
+  email: string | null;
+  login: string | null;
+  affiliation: string | null;
   isActivated: boolean | null;
 }
 
@@ -17,6 +19,8 @@ interface IAction {
 const initialState: IInitialState = {
   id: null,
   email: null,
+  login: null,
+  affiliation: null,
   isActivated: null,
 };
 
@@ -27,6 +31,8 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
         ...state,
         id: action.user.id,
         email: action.user.email,
+        login: action.user.login,
+        affiliation: action.user.affiliation,
         isActivated: action.user.isActivated,
       };
       return superState;

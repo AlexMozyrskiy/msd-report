@@ -4,7 +4,9 @@ import { TSetUser } from './actionTypes';
 
 export interface IUser {
   id: string | null;
+  login: string | null;
   email: string | null;
+  affiliation: string | null;
   isActivated: boolean | null;
 }
 
