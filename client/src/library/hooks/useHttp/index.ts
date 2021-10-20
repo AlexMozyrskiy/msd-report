@@ -35,6 +35,10 @@ interface IUsersResponse {
   __v: number;
 }
 
+interface IIsRestorePasswordLinkExistResponse {
+  isExist: boolean;
+}
+
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -190,7 +194,30 @@ export const useHttp = () => {
         const response = await apiWithToken.post<ISendForgotPasswordLinkResponse>('/user/sendforgotpasswordlink', {
           email,
         });
-        console.log(response);
+
+        return response;
+      } catch (error: any) {
+        /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
+        setError(error.response?.data?.message);
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
+
+  const isRestorePasswordLinkExist = useCallback(
+    async (restorePasswordLink: string): Promise<AxiosResponse<IIsRestorePasswordLinkExistResponse>> => {
+      setIsFetching(true);
+
+      try {
+        const response = await apiWithoutToken.post<IIsRestorePasswordLinkExistResponse>(
+          '/user/isrestorepasswordlinkexist',
+          {
+            restorePasswordLink,
+          }
+        );
 
         return response;
       } catch (error: any) {
@@ -214,6 +241,7 @@ export const useHttp = () => {
     getUsers,
     check,
     sendForgotPasswordLink,
+    isRestorePasswordLinkExist,
     error,
     setError,
     success,

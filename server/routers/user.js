@@ -29,6 +29,7 @@ router.post(
   UserController.sendForgotPasswordLink
 );
 router.post('/restorepassword', UserController.restorePassword);
+router.post('/isrestorepasswordlinkexist', UserController.isRestorePasswordLinkExist);
 router.get('/users', authMiddleware, UserController.getUsers);
 
 // router.get('/auth');

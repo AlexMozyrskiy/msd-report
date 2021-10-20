@@ -116,7 +116,6 @@ class UserService {
 
   async restorePassword(restorePasswordLink, newPassword) {
     let user = await UserModel.findOne({ restorePasswordLink });
-    console.log(restorePasswordLink);
 
     if (user) {
       const userDto = new UserDto(user);
@@ -128,6 +127,16 @@ class UserService {
       return {
         user: userDto,
       };
+    }
+  }
+
+  async isRestorePasswordLinkExist(restorePasswordLink) {
+    let user = await UserModel.findOne({ restorePasswordLink });
+
+    if (user) {
+      return true;
+    } else {
+      return false;
     }
   }
 

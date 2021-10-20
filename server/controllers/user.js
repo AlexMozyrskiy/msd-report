@@ -108,6 +108,17 @@ class UserController {
     }
   }
 
+  async isRestorePasswordLinkExist(req, res, next) {
+    try {
+      const { restorePasswordLink } = req.body;
+      const isExist = await userService.isRestorePasswordLinkExist(restorePasswordLink);
+
+      return res.json({ isExist });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();

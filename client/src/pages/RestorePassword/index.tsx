@@ -1,17 +1,29 @@
-import { FC, useState } from 'react';
-import { useParams } from 'react-router';
+import { FC, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 
 import Validate from 'src/library/helpers/validation';
+import { useHttp } from 'src/library/hooks/useHttp';
 
 import Button from 'src/library/components/Button';
-import ErrorMessage from 'src/library/components/ErrorMessage';
+// import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import st from './index.module.scss';
 
 const RestorePassword: FC = () => {
+  const { push } = useHistory();
   const { link } = useParams<{ link: string }>();
 
   const [newPassword, serNewPassword] = useState<string>('');
+
+  const { isRestorePasswordLinkExist, isFetching, error, setError, clearError } = useHttp();
+
+  useEffect(() => {
+    isRestorePasswordLinkExist(link).then((response) => {
+      if (!response.data.isExist) {
+        push('/notvalidlink');
+      }
+    });
+  }, []);
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
