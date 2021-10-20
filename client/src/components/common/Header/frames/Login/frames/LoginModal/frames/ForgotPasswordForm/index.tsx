@@ -7,6 +7,7 @@ import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk
 
 import Arrow from 'src/components/common/SideBar/frames/Arrow';
 import Button from 'src/library/components/Button';
+import SuccessMessage from 'src/library/components/SuccessMessage';
 import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import st from './index.module.scss';
@@ -19,7 +20,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
   const [email, setEmail] = useState<string>('');
   // const dispath = useDispatch();
 
-  const { sendForgotPasswordLink, isFetching, error, setError, clearError } = useHttp();
+  const { sendForgotPasswordLink, isFetching, error, success, setSucces, setError, clearError } = useHttp();
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
       setError("Вы ввели неверный 'Email'");
     } else {
       sendForgotPasswordLink(email);
+      setSucces('Инструкция по восстановлению пароля была направлена на ваш Email');
     }
   };
 
@@ -68,9 +70,17 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
           <Button text='Восстановить пароль' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
         </div>
 
-        <div className={st.error}>
-          <ErrorMessage text={error} />
-        </div>
+        {error && (
+          <div className={st.message}>
+            <ErrorMessage text={error} />
+          </div>
+        )}
+
+        {success && (
+          <div className={st.message}>
+            <SuccessMessage text={success} />
+          </div>
+        )}
       </form>
 
       <div className={st.arrow} onClick={onArrowClickHandler}>

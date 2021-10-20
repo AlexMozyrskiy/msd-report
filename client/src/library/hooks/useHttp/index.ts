@@ -38,6 +38,7 @@ interface IUsersResponse {
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSucces] = useState<string | null>(null);
 
   /* Если уже пробовали авторизоваться с помощью рефрешь токена больше пробовать не будем */
   const [isRefreshTokenRequestMade, setIsRefreshTokenRequestMade] = useState<boolean>(false);
@@ -215,6 +216,8 @@ export const useHttp = () => {
     sendForgotPasswordLink,
     error,
     setError,
+    success,
+    setSucces,
     clearError,
   };
 };
