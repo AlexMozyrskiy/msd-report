@@ -24,7 +24,7 @@ const App: FC = () => {
   }, []);
 
   return (
-    <div className={cn(st.app, { [st.app_sideBarNotActive]: !isSidebarActive })}>
+    <div className={cn(st.app, { [st.app_sideBarNotActive]: !isSidebarActive }, { [st.app_fetching]: isFetching })}>
       <div className={st.app__header}>
         <Header />
       </div>

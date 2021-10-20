@@ -27,4 +27,8 @@
     grid-area: content;
     background-color: #e5e5e5;
   }
+
+  &_fetching {
+    opacity: 0.2;
+  }
 }
