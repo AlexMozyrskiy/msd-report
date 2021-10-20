@@ -9,6 +9,7 @@ import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk
 
 import Button from 'src/library/components/Button';
 import ErrorMessage from 'src/library/components/ErrorMessage';
+import Loader from 'src/library/components/Loader';
 
 import st from './index.module.scss';
 
@@ -71,7 +72,7 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
         />
 
         <div className={st.button}>
-          <Button text='Войти' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
+          <Button text='Войти' onCkickHandler={(e) => onSubmitHandler(e)} isFetching={isFetching} width='long' />
         </div>
       </form>
 
