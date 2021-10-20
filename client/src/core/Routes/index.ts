@@ -4,6 +4,7 @@ import Home from '../../pages/Home';
 import Video from '../../pages/Video';
 import SideBarSettings from '../../pages/SideBarSettings';
 import AccountSettings from '../../pages/AccountSettings';
+import RestorePassword from 'src/pages/RestorePassword';
 
 import homeIcon from 'src/library/icons/sideBar/home.svg';
 import videoIcon from 'src/library/icons/sideBar/video.svg';
@@ -15,6 +16,12 @@ interface IRoute {
   exact: boolean;
   linkText: string;
   linkIcon: string;
+}
+
+interface IHiddenRoute {
+  path: string;
+  component: FC;
+  exact: boolean;
 }
 
 export const sideBarRoutes: IRoute[] = [
@@ -49,5 +56,14 @@ export const headerDropDownRoutes: IRoute[] = [
     exact: true,
     linkText: 'Настройки аккаунта',
     linkIcon: settingsIcon,
+  },
+];
+
+/* роуты скрытые, без кликабельной ссылки */
+export const hiddenRoutes: IHiddenRoute[] = [
+  {
+    path: '/restorepassword/:link',
+    component: RestorePassword,
+    exact: true,
   },
 ];

@@ -5,7 +5,7 @@ import NotFound from 'src/pages/NotFound';
 
 import Test from '../Test';
 
-import { sideBarRoutes, headerDropDownRoutes } from '../../core/Routes';
+import { sideBarRoutes, headerDropDownRoutes, hiddenRoutes } from '../../core/Routes';
 
 const Routes: FC = () => {
   return (
@@ -14,6 +14,9 @@ const Routes: FC = () => {
         <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
       ))}
       {headerDropDownRoutes.map((route) => (
+        <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
+      ))}
+      {hiddenRoutes.map((route) => (
         <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
       ))}
 

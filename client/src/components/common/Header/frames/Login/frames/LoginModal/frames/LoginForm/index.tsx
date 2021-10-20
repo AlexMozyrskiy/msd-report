@@ -8,9 +8,9 @@ import { useHttp } from 'src/library/hooks/useHttp';
 import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk';
 
 import Button from 'src/library/components/Button';
+import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import st from './index.module.scss';
-import Error from '../library/comonents/Error';
 
 interface LoginModalProps {
   setActiveModalName: Dispatch<SetStateAction<'registration' | 'login' | 'forgotPasword'>>;
@@ -86,7 +86,7 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
       </div>
 
       <div className={st.error}>
-        <Error text={error} />
+        <ErrorMessage text={error} />
       </div>
     </>
   );

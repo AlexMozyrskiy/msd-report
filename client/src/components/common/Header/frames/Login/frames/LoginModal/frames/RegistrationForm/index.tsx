@@ -7,7 +7,7 @@ import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk
 
 import Arrow from 'src/components/common/SideBar/frames/Arrow';
 import Button from 'src/library/components/Button';
-import Error from '../library/comonents/Error';
+import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import st from './index.module.scss';
 
@@ -95,7 +95,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
         </div>
 
         <div className={st.error}>
-          <Error text={error} />
+          <ErrorMessage text={error} />
         </div>
       </form>
 
