@@ -91,7 +91,12 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
         />
 
         <div className={st.button}>
-          <Button text='Зарегистрироваться' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
+          <Button
+            text='Зарегистрироваться'
+            onCkickHandler={(e) => onSubmitHandler(e)}
+            width='long'
+            isFetching={isFetching}
+          />
         </div>
 
         <div className={st.error}>

@@ -23,7 +23,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
   const { sendForgotPasswordLink, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } =
     useHttp();
 
-  const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const validate = new Validate();
     if (validate.isEmpty(email)) {
@@ -31,7 +31,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
     } else if (!validate.isEmail(email)) {
       setError("Вы ввели неверный 'Email'");
     } else {
-      sendForgotPasswordLink(email);
+      await sendForgotPasswordLink(email);
       setSuccess('Инструкция по восстановлению пароля была направлена на ваш Email');
     }
   };
@@ -69,7 +69,12 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
         />
 
         <div className={st.button}>
-          <Button text='Восстановить пароль' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
+          <Button
+            text='Восстановить пароль'
+            onCkickHandler={(e) => onSubmitHandler(e)}
+            width='long'
+            isFetching={isFetching}
+          />
         </div>
 
         {error && (
