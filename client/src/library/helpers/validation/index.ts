@@ -17,6 +17,14 @@ class Validate {
 
     return true;
   }
+
+  isFieldsEqual(value1: string | number, value2: string | number) {
+    if (value1 === value2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 export default Validate;

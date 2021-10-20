@@ -20,7 +20,8 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
   const [email, setEmail] = useState<string>('');
   // const dispath = useDispatch();
 
-  const { sendForgotPasswordLink, isFetching, error, success, setSucces, setError, clearError } = useHttp();
+  const { sendForgotPasswordLink, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } =
+    useHttp();
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
       setError("Вы ввели неверный 'Email'");
     } else {
       sendForgotPasswordLink(email);
-      setSucces('Инструкция по восстановлению пароля была направлена на ваш Email');
+      setSuccess('Инструкция по восстановлению пароля была направлена на ваш Email');
     }
   };
 
@@ -46,6 +47,7 @@ const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) =>
     }
 
     error && clearError();
+    success && clearSuccess();
   };
 
   const onArrowClickHandler = () => {

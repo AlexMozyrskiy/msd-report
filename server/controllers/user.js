@@ -99,6 +99,11 @@ class UserController {
 
   async restorePassword(req, res, next) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.badRequest('Ошибка при валидации', errors.array()));
+      }
+
       const { restorePasswordLink, newPassword } = req.body;
       const userData = await userService.restorePassword(restorePasswordLink, newPassword);
 

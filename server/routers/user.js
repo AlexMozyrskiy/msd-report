@@ -28,7 +28,15 @@ router.post(
   check('email').isEmail().normalizeEmail().withMessage('Неверный формат email'),
   UserController.sendForgotPasswordLink
 );
-router.post('/restorepassword', UserController.restorePassword);
+router.post(
+  '/restorepassword',
+  check('newPassword')
+    .isLength({ min: 5 })
+    .withMessage('Минимальная дина пароля 5 символов')
+    .matches(/\d/)
+    .withMessage('Пароль должен содержать хотя бы 1 цифру'),
+  UserController.restorePassword
+);
 router.post('/isrestorepasswordlinkexist', UserController.isRestorePasswordLinkExist);
 router.get('/users', authMiddleware, UserController.getUsers);
 

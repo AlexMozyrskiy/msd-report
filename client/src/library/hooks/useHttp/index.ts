@@ -42,7 +42,7 @@ interface IIsRestorePasswordLinkExistResponse {
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSucces] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   /* Если уже пробовали авторизоваться с помощью рефрешь токена больше пробовать не будем */
   const [isRefreshTokenRequestMade, setIsRefreshTokenRequestMade] = useState<boolean>(false);
@@ -231,7 +231,28 @@ export const useHttp = () => {
     []
   );
 
+  const restorePassword = useCallback(async (link: string, newPassword: string): Promise<AxiosResponse<IUser>> => {
+    setIsFetching(true);
+
+    try {
+      const response = await apiWithoutToken.post<IUser>('/user/restorepassword', {
+        restorePasswordLink: link,
+        newPassword,
+      });
+
+      return response;
+    } catch (error: any) {
+      /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
+      setError(error.response?.data?.errors[0].msg);
+      return error.response;
+    } finally {
+      setIsFetching(false);
+    }
+  }, []);
+
   const clearError = useCallback(() => setError(null), []);
+
+  const clearSuccess = useCallback(() => setSuccess(null), []);
 
   return {
     isFetching,
@@ -241,11 +262,13 @@ export const useHttp = () => {
     getUsers,
     check,
     sendForgotPasswordLink,
+    restorePassword,
     isRestorePasswordLinkExist,
     error,
     setError,
     success,
-    setSucces,
+    setSuccess,
     clearError,
+    clearSuccess,
   };
 };
