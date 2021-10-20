@@ -8,6 +8,7 @@ import { checkUser as checkUserThunk } from 'src/state/redux/features/user/thunk
 import Header from './components/common/Header';
 import SideBar from './components/common/SideBar';
 import Routes from './components/Routes';
+import AppLoader from './library/components/AppLoader';
 
 import './library/styles/fonts/SFPro/index.scss';
 import st from './App.module.scss';
@@ -24,19 +25,22 @@ const App: FC = () => {
   }, []);
 
   return (
-    <div className={cn(st.app, { [st.app_sideBarNotActive]: !isSidebarActive }, { [st.app_fetching]: isFetching })}>
-      <div className={st.app__header}>
-        <Header />
-      </div>
+    <>
+      {isFetching && <AppLoader />}
+      <div className={cn(st.app, { [st.app_sideBarNotActive]: !isSidebarActive }, { [st.app_fetching]: isFetching })}>
+        <div className={st.app__header}>
+          <Header />
+        </div>
 
-      <div className={st.app__sidebar}>
-        <SideBar isSidebarActive={isSidebarActive} setIsSidebarActive={setIsSidebarActive} />
-      </div>
+        <div className={st.app__sidebar}>
+          <SideBar isSidebarActive={isSidebarActive} setIsSidebarActive={setIsSidebarActive} />
+        </div>
 
-      <main className={st.app__content}>
-        <Routes />
-      </main>
-    </div>
+        <main className={st.app__content}>
+          <Routes />
+        </main>
+      </div>
+    </>
   );
 };
 
