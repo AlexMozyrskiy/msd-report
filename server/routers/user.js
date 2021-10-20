@@ -28,6 +28,7 @@ router.post(
   check('email').isEmail().normalizeEmail().withMessage('Неверный формат email'),
   UserController.sendForgotPasswordLink
 );
+router.post('/restorepassword', UserController.restorePassword);
 router.get('/users', authMiddleware, UserController.getUsers);
 
 // router.get('/auth');

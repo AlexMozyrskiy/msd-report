@@ -97,6 +97,17 @@ class UserController {
     }
   }
 
+  async restorePassword(req, res, next) {
+    try {
+      const { restorePasswordLink, newPassword } = req.body;
+      const userData = await userService.restorePassword(restorePasswordLink, newPassword);
+
+      return res.json(userData);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();

@@ -114,6 +114,23 @@ class UserService {
     }
   }
 
+  async restorePassword(restorePasswordLink, newPassword) {
+    let user = await UserModel.findOne({ restorePasswordLink });
+    console.log(restorePasswordLink);
+
+    if (user) {
+      const userDto = new UserDto(user);
+      const hashPassword = await bcrypt.hash(newPassword, 3);
+      user.restorePasswordLink = null;
+      user.password = hashPassword;
+      await user.save();
+
+      return {
+        user: userDto,
+      };
+    }
+  }
+
   async getAllUsers() {
     const users = await UserModel.find();
     return users;
