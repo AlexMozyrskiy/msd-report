@@ -10,7 +10,7 @@ type TloginUser = (
   password: string
 ) => (dispatch: Dispatch) => void;
 
-type TlogoutUser = (logout: () => Promise<AxiosResponse<ILogoutResponse>>) => (dispatch: Dispatch) => void;
+type TLogoutUser = (logout: () => Promise<AxiosResponse<ILogoutResponse>>) => (dispatch: Dispatch) => void;
 
 type TCheckUser = (check: () => Promise<AxiosResponse<IUser>>) => (dispatch: Dispatch) => void;
 
@@ -22,7 +22,7 @@ export const loginUser: TloginUser = (loginService, login, password) => async (d
   }
 };
 
-export const logoutUser: TlogoutUser = (logout) => async (dispatch) => {
+export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
   const response = await logout();
 
   if (response.status === 200) {
@@ -32,6 +32,7 @@ export const logoutUser: TlogoutUser = (logout) => async (dispatch) => {
       login: null,
       affiliation: null,
       isActivated: null,
+      role: null,
     };
 
     dispatch(setUserAction(user));

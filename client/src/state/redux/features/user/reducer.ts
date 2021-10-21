@@ -9,6 +9,7 @@ interface IInitialState {
   login: string | null;
   affiliation: string | null;
   isActivated: boolean | null;
+  role: TRole[] | null;
 }
 
 interface IAction {
@@ -16,12 +17,15 @@ interface IAction {
   user: IUser;
 }
 
+type TRole = 'user' | 'moderator' | 'admin';
+
 const initialState: IInitialState = {
   id: null,
   email: null,
   login: null,
   affiliation: null,
   isActivated: null,
+  role: null,
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -34,6 +38,7 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
         login: action.user.login,
         affiliation: action.user.affiliation,
         isActivated: action.user.isActivated,
+        role: action.user.role,
       };
       return superState;
     }
