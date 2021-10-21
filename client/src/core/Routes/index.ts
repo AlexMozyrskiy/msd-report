@@ -13,6 +13,7 @@ import { TRole } from 'src/state/redux/features/user/actionCreators';
 import homeIcon from 'src/library/icons/sideBar/home.svg';
 import videoIcon from 'src/library/icons/sideBar/video.svg';
 import settingsIcon from 'src/library/icons/sideBar/settings.svg';
+import devIcon from 'src/library/icons/sideBar/dev.svg';
 
 interface IRoute {
   path: string;
@@ -71,6 +72,14 @@ export const sideBarRoutes: IRoute[] = [
     linkIcon: settingsIcon,
     availableRole: 'user',
   },
+  {
+    path: '/test',
+    component: Test,
+    exact: true,
+    linkText: 'Тест',
+    linkIcon: devIcon,
+    availableRole: 'admin',
+  },
 ];
 
 /* роуты для дропдауна в хедере при нажатии на три точки */
@@ -92,11 +101,5 @@ export const hiddenRoutes: IHiddenRoute[] = [
     component: RestorePassword,
     exact: true,
     availableRole: 'user',
-  },
-  {
-    path: '/test',
-    component: Test,
-    exact: true,
-    availableRole: 'admin',
   },
 ];

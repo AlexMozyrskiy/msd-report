@@ -33,7 +33,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
       login: null,
       affiliation: null,
       isActivated: null,
-      role: ['admin'],
+      role: ['guest'],
     };
 
     dispatch(setUserAction(user));
