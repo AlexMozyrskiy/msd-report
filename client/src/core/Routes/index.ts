@@ -7,6 +7,7 @@ import AccountSettings from 'src/pages/AccountSettings';
 import RestorePassword from 'src/pages/RestorePassword';
 import Forbidden from 'src/pages/Forbidden';
 import Test from 'src/components/Test';
+import Registration from 'src/pages/Registration';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -101,5 +102,11 @@ export const hiddenRoutes: IHiddenRoute[] = [
     component: RestorePassword,
     exact: true,
     availableRole: 'user',
+  },
+  {
+    path: '/registration',
+    component: Registration,
+    exact: true,
+    availableRole: 'guest',
   },
 ];
