@@ -58,6 +58,7 @@ class UserController {
       return res.redirect(process.env.CLIENT_URL);
     } catch (error) {
       next(error);
+      return res.redirect(process.env.CLIENT_URL);
     }
   }
 

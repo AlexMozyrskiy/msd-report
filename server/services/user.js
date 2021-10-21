@@ -40,13 +40,17 @@ class UserService {
   }
 
   async activate(activationLink) {
-    const user = await UserModel.findOne({ activationLink });
-    if (!user) {
-      throw ApiError.badRequest('Некорректная ссылка активации');
-    }
+    try {
+      const user = await UserModel.findOne({ activationLink });
+      if (!user) {
+        throw ApiError.badRequest('Некорректная ссылка активации');
+      }
 
-    user.isActivated = true;
-    await user.save();
+      user.isActivated = true;
+      await user.save();
+    } catch (error) {
+      return 'Некорректная ссылка активации';
+    }
   }
 
   async login(login, password) {
