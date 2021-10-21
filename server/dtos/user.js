@@ -9,6 +9,7 @@ module.exports = class UserDto {
   affiliation;
   id;
   isActivated;
+  role;
 
   constructor(model) {
     this.login = model.login;
@@ -16,5 +17,6 @@ module.exports = class UserDto {
     this.affiliation = model.affiliation;
     this.id = model._id; // монго к id добавляет нижнее подчеркивание
     this.isActivated = model.isActivated;
+    this.role = model.role;
   }
 };
