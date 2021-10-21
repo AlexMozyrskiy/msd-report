@@ -10,53 +10,55 @@ import Button from 'src/library/components/Button';
 import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import st from './index.module.scss';
+import { Link } from 'react-router-dom';
 
 interface RegistrationFormProps {
   moveToLoginForm: () => void;
+  closeModal: () => void;
 }
 
-const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
-  const [login, setLogin] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  // const dispath = useDispatch();
+const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm, closeModal }) => {
+  // const [login, setLogin] = useState<string>('');
+  // const [email, setEmail] = useState<string>('');
+  // const [password, setPassword] = useState<string>('');
+  // // const dispath = useDispatch();
 
-  const { isFetching, error, setError, clearError } = useHttp();
+  const { /* isFetching, error, setError, */ clearError } = useHttp();
 
-  const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const validate = new Validate();
-    if (validate.isEmpty(login)) {
-      setError("Поле 'Логин' обязательлно для заполнения");
-    } else if (validate.isEmpty(email)) {
-      setError("Поле 'Email' обязательлно для заполнения");
-    } else if (!validate.isEmail(email)) {
-      setError("Вы ввели неверный 'Email'");
-    } else if (validate.isEmpty(password)) {
-      setError("Поле 'Пароль' обязательлно для заполнения");
-    } else {
-      // dispath(loginUserThunk(loginService, login, password));
-    }
-  };
+  // const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   const validate = new Validate();
+  //   if (validate.isEmpty(login)) {
+  //     setError("Поле 'Логин' обязательлно для заполнения");
+  //   } else if (validate.isEmpty(email)) {
+  //     setError("Поле 'Email' обязательлно для заполнения");
+  //   } else if (!validate.isEmail(email)) {
+  //     setError("Вы ввели неверный 'Email'");
+  //   } else if (validate.isEmpty(password)) {
+  //     setError("Поле 'Пароль' обязательлно для заполнения");
+  //   } else {
+  //     // dispath(loginUserThunk(loginService, login, password));
+  //   }
+  // };
 
-  /**
-   *
-   * @param e
-   * @param field - имя заполняемого поля
-   */
-  const onChangeInputHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    field: 'email' | 'password' | 'login'
-  ): void => {
-    if (field === 'email') {
-      setEmail(e.target.value);
-    } else if (field === 'password') {
-      setPassword(e.target.value);
-    } else if (field === 'login') {
-      setLogin(e.target.value);
-    }
-    error && clearError();
-  };
+  // /**
+  //  *
+  //  * @param e
+  //  * @param field - имя заполняемого поля
+  //  */
+  // const onChangeInputHandler = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   field: 'email' | 'password' | 'login'
+  // ): void => {
+  //   if (field === 'email') {
+  //     setEmail(e.target.value);
+  //   } else if (field === 'password') {
+  //     setPassword(e.target.value);
+  //   } else if (field === 'login') {
+  //     setLogin(e.target.value);
+  //   }
+  //   error && clearError();
+  // };
 
   const onArrowClickHandler = () => {
     moveToLoginForm();
@@ -67,7 +69,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
     <section style={{ position: 'relative' }}>
       <h2 className={st.header}>Регистрация</h2>
 
-      <form>
+      {/* <form>
         <input
           type='text'
           placeholder='Ваш логин'
@@ -102,7 +104,11 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm }) => {
         <div className={st.error}>
           <ErrorMessage text={error} />
         </div>
-      </form>
+      </form> */}
+
+      <p className={st.registration} onClick={closeModal}>
+        Чтобы зарегистрироваться пройдите по <Link to='/registration'>ссылке</Link>{' '}
+      </p>
 
       <div className={st.arrow} onClick={onArrowClickHandler}>
         <Arrow isSidebarActive={false} setIsSidebarActive={() => {}} />

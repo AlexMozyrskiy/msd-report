@@ -28,7 +28,10 @@ const LoginModal: FC<LoginModalProps> = ({ setIsLoginModalActive }) => {
             )}
           >
             <div className={st.modal__registration}>
-              <RegistrationForm moveToLoginForm={() => setActiveModalName('login')} />
+              <RegistrationForm
+                moveToLoginForm={() => setActiveModalName('login')}
+                closeModal={() => setIsLoginModalActive(false)}
+              />
             </div>
 
             <div className={st.modal__login}>
