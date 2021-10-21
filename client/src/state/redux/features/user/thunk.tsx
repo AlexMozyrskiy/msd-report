@@ -1,6 +1,7 @@
 import { setUser as setUserAction } from './actionCreators';
 
-import { IAuthResponse, ILogoutResponse, IUser } from 'src/library/hooks/useHttp';
+import { IAuthResponse, ILogoutResponse } from 'src/library/hooks/useHttp';
+import { IUser } from './actionCreators';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
 
@@ -26,13 +27,13 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
   const response = await logout();
 
   if (response.status === 200) {
-    const user = {
+    const user: IUser = {
       id: null,
       email: null,
       login: null,
       affiliation: null,
       isActivated: null,
-      role: null,
+      role: ['admin'],
     };
 
     dispatch(setUserAction(user));
@@ -42,6 +43,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
 /* Проверяем авторизован ли пользователь */
 export const checkUser: TCheckUser = (check) => async (dispatch) => {
   const response = await check();
+  debugger;
 
   if (response.status === 200) {
     dispatch(setUserAction(response.data));

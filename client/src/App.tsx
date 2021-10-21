@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useHttp } from 'src/library/hooks/useHttp';
 import { checkUser as checkUserThunk } from 'src/state/redux/features/user/thunk';
+import { getUser as getUserSelector } from './state/redux/features/user/selectors';
 
 import Header from './components/common/Header';
 import SideBar from './components/common/SideBar';
@@ -18,7 +19,9 @@ const App: FC = () => {
 
   const dispatch = useDispatch();
 
-  const { check, isFetching, error, clearError } = useHttp();
+  const { check, isFetching } = useHttp();
+
+  const { role } = useSelector(getUserSelector);
 
   useEffect(() => {
     dispatch(checkUserThunk(check));
@@ -33,11 +36,11 @@ const App: FC = () => {
         </div>
 
         <div className={st.app__sidebar}>
-          <SideBar isSidebarActive={isSidebarActive} setIsSidebarActive={setIsSidebarActive} />
+          <SideBar isSidebarActive={isSidebarActive} setIsSidebarActive={setIsSidebarActive} role={role} />
         </div>
 
         <main className={st.app__content}>
-          <Routes />
+          <Routes role={role} />
         </main>
       </div>
     </>

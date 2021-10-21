@@ -8,10 +8,10 @@ export interface IUser {
   email: string | null;
   affiliation: string | null;
   isActivated: boolean | null;
-  role: TRole[] | null;
+  role: TRole[];
 }
 
-export type TRole = 'user' | 'moderator' | 'admin';
+export type TRole = 'user' | 'moderator' | 'admin' | 'guest';
 
 interface ISetUserReturn {
   type: TSetUser;

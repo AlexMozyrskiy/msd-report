@@ -1,7 +1,7 @@
 import { SET_USER as SET_USER_TYPE } from './actionTypes';
 
 import { TSetUser as TSetUserType } from './actionTypes';
-import { IUser } from './actionCreators';
+import { IUser, TRole } from './actionCreators';
 
 interface IInitialState {
   id: string | null;
@@ -9,7 +9,7 @@ interface IInitialState {
   login: string | null;
   affiliation: string | null;
   isActivated: boolean | null;
-  role: TRole[] | null;
+  role: TRole[];
 }
 
 interface IAction {
@@ -17,15 +17,13 @@ interface IAction {
   user: IUser;
 }
 
-type TRole = 'user' | 'moderator' | 'admin';
-
 const initialState: IInitialState = {
   id: null,
   email: null,
   login: null,
   affiliation: null,
   isActivated: null,
-  role: null,
+  role: ['guest'],
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {

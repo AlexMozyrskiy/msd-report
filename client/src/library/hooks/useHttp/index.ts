@@ -1,18 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { useState, useCallback } from 'react';
 import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance';
-import { TRole } from 'src/state/redux/features/user/actionCreators';
+import { TRole, IUser } from 'src/state/redux/features/user/actionCreators';
 
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
-
-export interface IUser {
-  id: string;
-  email: string;
-  login: string;
-  affiliation: string;
-  isActivated: boolean;
-  role: TRole[];
-}
 
 export interface IAuthResponse {
   accessToken: string;
