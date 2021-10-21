@@ -17,6 +17,8 @@ router.post(
     .withMessage('Минимальная дина пароля 5 символов')
     .matches(/\d/)
     .withMessage('Пароль должен содержать хотя бы 1 цифру'),
+  authMiddleware,
+  adminMiddleware,
   UserController.registration
 );
 router.post('/login', UserController.login);
