@@ -2,6 +2,7 @@ const Router = require('express');
 const router = new Router();
 const UserController = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
+const adminMiddleware = require('../middlewares/admin');
 const { check, body } = require('express-validator');
 // const authMiddleware = require('../middleware/authMiddleware');
 
@@ -38,7 +39,7 @@ router.post(
   UserController.restorePassword
 );
 router.post('/isrestorepasswordlinkexist', UserController.isRestorePasswordLinkExist);
-router.get('/users', authMiddleware, UserController.getUsers);
+router.get('/users', authMiddleware, adminMiddleware, UserController.getUsers);
 
 // router.get('/auth');
 
