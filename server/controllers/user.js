@@ -51,11 +51,27 @@ class UserController {
     }
   }
 
+  async isActivationLinkExist(req, res, next) {
+    try {
+      const { activationLink } = req.body;
+      const isExist = await userService.isActivationLinkExist(activationLink);
+
+      return res.json({ isExist });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async activate(req, res, next) {
     try {
-      const activationLink = req.params.link;
-      const response = await userService.activate(activationLink);
-      return res.json(response.isActivated);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.badRequest('Ошибка при валидации', errors.array()));
+      }
+
+      const { activationLink, password } = req.body;
+      const response = await userService.activate(activationLink, password);
+      return res.json({ isActivated: response.isActivated });
     } catch (error) {
       next(error);
     }

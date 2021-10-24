@@ -32,6 +32,14 @@ interface IIsRestorePasswordLinkExistResponse {
   isExist: boolean;
 }
 
+interface IIsActivationLinkExistResponse {
+  isExist: boolean;
+}
+
+interface IActivateResponse {
+  isActivated: boolean;
+}
+
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -214,7 +222,6 @@ export const useHttp = () => {
 
         return response;
       } catch (error: any) {
-        /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
         setError(error.response?.data?.message);
         return error.response;
       } finally {
@@ -243,6 +250,46 @@ export const useHttp = () => {
     }
   }, []);
 
+  const isActivationLinkExist = useCallback(
+    async (activationLink: string): Promise<AxiosResponse<IIsActivationLinkExistResponse>> => {
+      setIsFetching(true);
+
+      try {
+        const response = await apiWithoutToken.post<IIsActivationLinkExistResponse>('/user/isactivationlinkexist', {
+          activationLink,
+        });
+
+        return response;
+      } catch (error: any) {
+        setError(error.response?.data?.message);
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
+
+  const activate = useCallback(async (link: string, password: string): Promise<AxiosResponse<IActivateResponse>> => {
+    setIsFetching(true);
+
+    try {
+      const response = await apiWithoutToken.post<IActivateResponse>('/user/activate', {
+        activationLink: link,
+        password,
+      });
+
+      return response;
+    } catch (error: any) {
+      console.log(error.response);
+      setError(error.response?.data?.errors[0]?.msg);
+      // setError(error.response?.data?.message);
+      return error.response;
+    } finally {
+      setIsFetching(false);
+    }
+  }, []);
+
   const clearError = useCallback(() => setError(null), []);
 
   const clearSuccess = useCallback(() => setSuccess(null), []);
@@ -257,6 +304,8 @@ export const useHttp = () => {
     sendForgotPasswordLink,
     restorePassword,
     isRestorePasswordLinkExist,
+    isActivationLinkExist,
+    activate,
     error,
     setError,
     success,

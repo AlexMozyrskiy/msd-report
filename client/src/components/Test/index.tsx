@@ -8,7 +8,7 @@ const Test: FC = () => {
   const { registration, login, logout, getUsers } = useHttp();
 
   const registrationHandler = async () => {
-    await registration('asd', 'alexeymozyrskiydev@gmial.com', 'РЦДМ Ростов', '12345');
+    await registration('asd', 'alexeymozyrskiydev@gmail.com', 'РЦДМ Ростов', '12345');
   };
 
   const loginHandler = async () => {

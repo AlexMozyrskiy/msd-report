@@ -8,6 +8,7 @@ import RestorePassword from 'src/pages/RestorePassword';
 import Forbidden from 'src/pages/Forbidden';
 import Test from 'src/components/Test';
 import Registration from 'src/pages/Registration';
+import Activate from 'src/pages/guest/Activation';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -106,6 +107,12 @@ export const hiddenRoutes: IHiddenRoute[] = [
   {
     path: '/registration',
     component: Registration,
+    exact: true,
+    availableRole: 'guest',
+  },
+  {
+    path: '/activate/:link',
+    component: Activate,
     exact: true,
     availableRole: 'guest',
   },

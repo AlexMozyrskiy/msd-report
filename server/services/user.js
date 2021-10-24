@@ -26,7 +26,7 @@ class UserService {
       password: hashPassword,
       activationLink,
     });
-    await MailService.sendActivationMail(email, `${process.env.SERVER_URL}/api/user/activate/${activationLink}`);
+    await MailService.sendActivationMail(email, `${process.env.CLIENT_URL}/#/activate/${activationLink}`);
 
     /* так как нельзя отправлять можель, получим объект через ДТО с теми же свойствами что и модель */
     const userDto = new UserDto(user);
@@ -39,14 +39,19 @@ class UserService {
     };
   }
 
-  async activate(activationLink) {
+  async activate(activationLink, password) {
     try {
       const user = await UserModel.findOne({ activationLink });
       if (!user) {
         throw ApiError.badRequest('Некорректная ссылка активации');
       }
 
+      const hashPassword = await bcrypt.hash(password, 3);
+
+      user.password = hashPassword;
       user.isActivated = true;
+      user.activationLink = null;
+
       await user.save();
       return { isActivated: true };
     } catch (error) {
@@ -137,6 +142,16 @@ class UserService {
 
   async isRestorePasswordLinkExist(restorePasswordLink) {
     let user = await UserModel.findOne({ restorePasswordLink });
+
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async isActivationLinkExist(activationLink) {
+    let user = await UserModel.findOne({ activationLink });
 
     if (user) {
       return true;
