@@ -1,13 +1,15 @@
 import { SET_USER as SET_USER_TYPE } from './actionTypes';
 
 import { TSetUser as TSetUserType } from './actionTypes';
-import { IUser } from './actionCreators';
+import { IUser, TRole } from './actionCreators';
 
 interface IInitialState {
-  _id: string | null;
+  id: string | null;
   email: string | null;
+  login: string | null;
+  affiliation: string | null;
   isActivated: boolean | null;
-  activationLink: string | null;
+  role: TRole[];
 }
 
 interface IAction {
@@ -16,10 +18,12 @@ interface IAction {
 }
 
 const initialState: IInitialState = {
-  _id: null,
+  id: null,
   email: null,
+  login: null,
+  affiliation: null,
   isActivated: null,
-  activationLink: null,
+  role: ['guest'],
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -27,10 +31,12 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
     case SET_USER_TYPE: {
       const superState = {
         ...state,
-        _id: action.user._id,
+        id: action.user.id,
         email: action.user.email,
+        login: action.user.login,
+        affiliation: action.user.affiliation,
         isActivated: action.user.isActivated,
-        activationLink: action.user.activationLink,
+        role: action.user.role,
       };
       return superState;
     }

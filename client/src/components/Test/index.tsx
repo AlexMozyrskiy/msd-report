@@ -7,12 +7,14 @@ import { useHttp } from 'src/library/hooks/useHttp';
 const Test: FC = () => {
   const { registration, login, logout, getUsers } = useHttp();
 
+  const password = Math.floor(Math.random() * 100000000000).toString();
+
   const registrationHandler = async () => {
-    await registration('alexeymozyrskiydev@gmail.com', '12345');
+    await registration('asd', 'alexeymozyrskiydev@gmail.com', 'РЦДМ Ростов', password);
   };
 
   const loginHandler = async () => {
-    await login('asd@gmail.com', '12345');
+    await login('asd@gmail.com', password);
   };
 
   const logoutHandler = async () => {

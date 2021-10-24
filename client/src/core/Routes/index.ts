@@ -1,13 +1,21 @@
 import { FC } from 'react';
 
-import Home from '../../pages/Home';
-import Video from '../../pages/Video';
-import SideBarSettings from '../../pages/SideBarSettings';
-import AccountSettings from '../../pages/AccountSettings';
+import Home from 'src/pages/Home';
+import Video from 'src/pages/Video';
+import SideBarSettings from 'src/pages/SideBarSettings';
+import AccountSettings from 'src/pages/AccountSettings';
+import RestorePassword from 'src/pages/RestorePassword';
+import Forbidden from 'src/pages/Forbidden';
+import Test from 'src/components/Test';
+import Registration from 'src/pages/Registration';
+import Activate from 'src/pages/guest/Activation';
+
+import { TRole } from 'src/state/redux/features/user/actionCreators';
 
 import homeIcon from 'src/library/icons/sideBar/home.svg';
 import videoIcon from 'src/library/icons/sideBar/video.svg';
 import settingsIcon from 'src/library/icons/sideBar/settings.svg';
+import devIcon from 'src/library/icons/sideBar/dev.svg';
 
 interface IRoute {
   path: string;
@@ -15,6 +23,14 @@ interface IRoute {
   exact: boolean;
   linkText: string;
   linkIcon: string;
+  availableRole: TRole; // этот роут будет доступен определенной роли
+}
+
+interface IHiddenRoute {
+  path: string;
+  component: FC;
+  exact: boolean;
+  availableRole: TRole;
 }
 
 export const sideBarRoutes: IRoute[] = [
@@ -24,6 +40,15 @@ export const sideBarRoutes: IRoute[] = [
     exact: true,
     linkText: 'Home',
     linkIcon: homeIcon,
+    availableRole: 'guest',
+  },
+  {
+    path: '/',
+    component: Home,
+    exact: true,
+    linkText: 'Home',
+    linkIcon: homeIcon,
+    availableRole: 'user',
   },
   {
     path: '/video',
@@ -31,6 +56,15 @@ export const sideBarRoutes: IRoute[] = [
     exact: true,
     linkText: 'Видео Контроль',
     linkIcon: videoIcon,
+    availableRole: 'user',
+  },
+  {
+    path: '/video',
+    component: Forbidden,
+    exact: true,
+    linkText: 'Видео Контроль',
+    linkIcon: videoIcon,
+    availableRole: 'guest',
   },
   {
     path: '/sidebarsettings',
@@ -38,6 +72,15 @@ export const sideBarRoutes: IRoute[] = [
     exact: true,
     linkText: 'Настройки',
     linkIcon: settingsIcon,
+    availableRole: 'user',
+  },
+  {
+    path: '/test',
+    component: Test,
+    exact: true,
+    linkText: 'Тест',
+    linkIcon: devIcon,
+    availableRole: 'admin',
   },
 ];
 
@@ -49,5 +92,28 @@ export const headerDropDownRoutes: IRoute[] = [
     exact: true,
     linkText: 'Настройки аккаунта',
     linkIcon: settingsIcon,
+    availableRole: 'user',
+  },
+];
+
+/* роуты скрытые, без кликабельной ссылки */
+export const hiddenRoutes: IHiddenRoute[] = [
+  {
+    path: '/restorepassword/:link',
+    component: RestorePassword,
+    exact: true,
+    availableRole: 'guest',
+  },
+  {
+    path: '/registration',
+    component: Registration,
+    exact: true,
+    availableRole: 'guest',
+  },
+  {
+    path: '/activate/:link',
+    component: Activate,
+    exact: true,
+    availableRole: 'guest',
   },
 ];

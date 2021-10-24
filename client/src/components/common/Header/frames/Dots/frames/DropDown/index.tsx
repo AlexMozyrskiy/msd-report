@@ -1,9 +1,12 @@
 import { Dispatch, FC, SetStateAction, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useOutsideAlerter } from 'src/library/hooks/useOutsideAlerter';
 import { headerDropDownRoutes as routes } from 'src/core/Routes';
+import { useHttp } from 'src/library/hooks/useHttp';
+import { logoutUser as logoutUserThunk } from 'src/state/redux/features/user/thunk';
 
-import LogoutButton from './frames/LogoutButton';
+import Button from 'src/library/components/Button';
 import NavItem from './frames/NavItem';
 
 import st from './index.module.scss';
@@ -15,6 +18,14 @@ interface DropDownProps {
 const DropDown: FC<DropDownProps> = ({ setIsDropDownActive }) => {
   const ref = useRef(null);
   useOutsideAlerter(ref, () => setIsDropDownActive(false));
+
+  const { logout, isFetching } = useHttp();
+
+  const dispath = useDispatch();
+
+  const onLogoutHandler = () => {
+    dispath(logoutUserThunk(logout));
+  };
 
   return (
     <div className={st.dropDown} ref={ref}>
@@ -28,7 +39,9 @@ const DropDown: FC<DropDownProps> = ({ setIsDropDownActive }) => {
         </ul>
       </nav>
 
-      <LogoutButton />
+      <div className={st.dropDown__logoutButton}>
+        <Button text='Выйти' isFetching={isFetching} onCkickHandler={onLogoutHandler} />
+      </div>
     </div>
   );
 };

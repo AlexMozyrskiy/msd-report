@@ -3,11 +3,15 @@ import { SET_USER as SET_USER_TYPE } from './actionTypes';
 import { TSetUser } from './actionTypes';
 
 export interface IUser {
-  _id: string | null;
+  id: string | null;
+  login: string | null;
   email: string | null;
+  affiliation: string | null;
   isActivated: boolean | null;
-  activationLink: string | null;
+  role: TRole[];
 }
+
+export type TRole = 'user' | 'moderator' | 'admin' | 'guest';
 
 interface ISetUserReturn {
   type: TSetUser;

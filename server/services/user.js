@@ -7,24 +7,26 @@ const UserDto = require('../dtos/user');
 const ApiError = require('../exceptions/api-error');
 
 class UserService {
-  async registration(email, password) {
-    const candidate = await UserModel.findOne({ email });
+  async registration(login, email, affiliation, password) {
+    let candidate = await UserModel.findOne({ email });
     if (candidate) {
-      throw ApiError.badRequest(
-        'Пользователь с почтовым адресом ' + email + ' уже существует'
-      );
+      throw ApiError.badRequest('Пользователь с почтовым адресом ' + email + ' уже существует');
     }
+    candidate = await UserModel.findOne({ login });
+    if (candidate) {
+      throw ApiError.badRequest('Пользователь с логином ' + login + ' уже существует');
+    }
+
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
     const user = await UserModel.create({
+      login,
       email,
+      affiliation,
       password: hashPassword,
       activationLink,
     });
-    await MailService.sendActivationMail(
-      email,
-      `${process.env.SERVER_URL}/api/user/activate/${activationLink}`
-    );
+    await MailService.sendActivationMail(email, `${process.env.CLIENT_URL}/#/activate/${activationLink}`);
 
     /* так как нельзя отправлять можель, получим объект через ДТО с теми же свойствами что и модель */
     const userDto = new UserDto(user);
@@ -37,20 +39,30 @@ class UserService {
     };
   }
 
-  async activate(activationLink) {
-    const user = await UserModel.findOne({ activationLink });
-    if (!user) {
-      throw ApiError.badRequest('Некорректная ссылка активации');
-    }
+  async activate(activationLink, password) {
+    try {
+      const user = await UserModel.findOne({ activationLink });
+      if (!user) {
+        throw ApiError.badRequest('Некорректная ссылка активации');
+      }
 
-    user.isActivated = true;
-    await user.save();
+      const hashPassword = await bcrypt.hash(password, 3);
+
+      user.password = hashPassword;
+      user.isActivated = true;
+      user.activationLink = null;
+
+      await user.save();
+      return { isActivated: true };
+    } catch (error) {
+      return 'Некорректная ссылка активации';
+    }
   }
 
-  async login(email, password) {
-    const user = await UserModel.findOne({ email });
+  async login(login, password) {
+    const user = await UserModel.findOne({ login });
     if (!user) {
-      throw ApiError.badRequest('Пользователь с таким email не найден');
+      throw ApiError.badRequest('Пользователь с таким login не найден');
     }
 
     const isPasswordsEqual = await bcrypt.compare(password, user.password);
@@ -95,6 +107,57 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async sendForgotPasswordLink(email) {
+    let user = await UserModel.findOne({ email });
+
+    if (user) {
+      const restorePasswordLink = uuid.v4();
+      await MailService.sendForgotPasswordMail(
+        email,
+        `${process.env.CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
+      );
+
+      user.restorePasswordLink = restorePasswordLink;
+      await user.save();
+    }
+  }
+
+  async restorePassword(restorePasswordLink, newPassword) {
+    let user = await UserModel.findOne({ restorePasswordLink });
+
+    if (user) {
+      const userDto = new UserDto(user);
+      const hashPassword = await bcrypt.hash(newPassword, 3);
+      user.restorePasswordLink = null;
+      user.password = hashPassword;
+      await user.save();
+
+      return {
+        user: userDto,
+      };
+    }
+  }
+
+  async isRestorePasswordLinkExist(restorePasswordLink) {
+    let user = await UserModel.findOne({ restorePasswordLink });
+
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async isActivationLinkExist(activationLink) {
+    let user = await UserModel.findOne({ activationLink });
+
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async getAllUsers() {
