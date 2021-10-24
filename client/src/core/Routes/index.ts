@@ -102,7 +102,7 @@ export const hiddenRoutes: IHiddenRoute[] = [
     path: '/restorepassword/:link',
     component: RestorePassword,
     exact: true,
-    availableRole: 'user',
+    availableRole: 'guest',
   },
   {
     path: '/registration',

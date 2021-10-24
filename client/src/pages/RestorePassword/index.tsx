@@ -51,7 +51,10 @@ const RestorePassword: FC = () => {
     } else {
       restorePassword(link, newPassword).then((response) => {
         if (response.status === 200) {
-          setSuccess('Пароль успешно изменён');
+          setSuccess(
+            'Пароль успешно изменён. Вы можете войти в аккаунт используя свой логин и пароль. Через 5 секунд вы будете перенаправлены на главную страницу.'
+          );
+          setTimeout(() => push('/'), 5000);
         }
       });
     }
@@ -100,7 +103,12 @@ const RestorePassword: FC = () => {
         />
 
         <div className={st.button}>
-          <Button text='Восстановить пароль' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
+          <Button
+            text='Восстановить пароль'
+            onCkickHandler={(e) => onSubmitHandler(e)}
+            width='long'
+            isFetching={success ? true : false} // чтобы заблокировать кнопку
+          />
         </div>
       </form>
 

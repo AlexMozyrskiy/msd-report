@@ -103,7 +103,12 @@ const Activate: FC = () => {
         />
 
         <div className={st.button}>
-          <Button text='Активировать аккаунт' onCkickHandler={(e) => onSubmitHandler(e)} width='long' />
+          <Button
+            text='Активировать аккаунт'
+            onCkickHandler={(e) => onSubmitHandler(e)}
+            width='long'
+            isFetching={success ? true : false} // чтобы заблокировать кнопку
+          />
         </div>
       </form>
 
