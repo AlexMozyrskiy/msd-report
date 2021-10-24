@@ -48,6 +48,7 @@ class UserService {
 
       user.isActivated = true;
       await user.save();
+      return { isActivated: true };
     } catch (error) {
       return 'Некорректная ссылка активации';
     }
