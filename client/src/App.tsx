@@ -21,7 +21,7 @@ const App: FC = () => {
 
   const { check, isFetching } = useHttp();
 
-  const { role } = useSelector(getUserSelector);
+  const { role, isActivated, id } = useSelector(getUserSelector);
 
   useEffect(() => {
     dispatch(checkUserThunk(check));
@@ -40,7 +40,7 @@ const App: FC = () => {
         </div>
 
         <main className={st.app__content}>
-          <Routes role={role} />
+          <Routes role={role} isActivated={isActivated} id={id} />
         </main>
       </div>
     </>
