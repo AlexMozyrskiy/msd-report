@@ -9,6 +9,7 @@ import Forbidden from 'src/pages/Forbidden';
 import Test from 'src/components/Test';
 import Registration from 'src/pages/Registration';
 import Activate from 'src/pages/guest/Activation';
+import UserAgreement from 'src/pages/UserAgreement';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -16,6 +17,7 @@ import homeIcon from 'src/library/icons/sideBar/home.svg';
 import videoIcon from 'src/library/icons/sideBar/video.svg';
 import settingsIcon from 'src/library/icons/sideBar/settings.svg';
 import devIcon from 'src/library/icons/sideBar/dev.svg';
+import agreementIcon from 'src/library/icons/sideBar/agreement.svg';
 
 interface IRoute {
   path: string;
@@ -65,6 +67,22 @@ export const sideBarRoutes: IRoute[] = [
     linkText: 'Видео Контроль',
     linkIcon: videoIcon,
     availableRole: 'guest',
+  },
+  {
+    path: '/agreement',
+    component: UserAgreement,
+    exact: true,
+    linkText: 'Пользовательское соглашение',
+    linkIcon: agreementIcon,
+    availableRole: 'guest',
+  },
+  {
+    path: '/agreement',
+    component: UserAgreement,
+    exact: true,
+    linkText: 'Пользовательское соглашение',
+    linkIcon: agreementIcon,
+    availableRole: 'user',
   },
   {
     path: '/sidebarsettings',
