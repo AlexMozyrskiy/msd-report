@@ -12,13 +12,16 @@ class UserController {
 
       const { login, email, affiliation, password } = req.body;
       const userData = await userService.registration(login, email, affiliation, password);
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        // secure: true,  // если используем https
-      });
 
-      return res.json(userData);
+      /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
+      // res.cookie('refreshToken', userData.refreshToken, {
+      //   maxAge: 30 * 24 * 60 * 60 * 1000,
+      //   httpOnly: true,
+      //   // secure: true,  // если используем https
+      // });
+
+      // return res.json(userData);  закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере
+      return res.json({ isRegistered: true });
     } catch (error) {
       next(error);
     }

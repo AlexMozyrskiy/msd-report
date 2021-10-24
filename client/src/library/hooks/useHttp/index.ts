@@ -5,6 +5,10 @@ import { TRole, IUser } from 'src/state/redux/features/user/actionCreators';
 
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
 
+export interface IRegisterResponse {
+  isRegistered: boolean;
+}
+
 export interface IAuthResponse {
   accessToken: string;
   refreshToken: string;
@@ -74,12 +78,12 @@ export const useHttp = () => {
       email: string,
       affiliation: string,
       password: string
-    ): Promise<AxiosResponse<IAuthResponse>> => {
+    ): Promise<AxiosResponse<IRegisterResponse>> => {
       setIsFetching(true);
       setIsRefreshTokenRequestMade(false);
 
       try {
-        const response = await apiWithToken.post<IAuthResponse>('/user/registration', {
+        const response = await apiWithToken.post<IRegisterResponse>('/user/registration', {
           login,
           email,
           affiliation,
@@ -87,7 +91,8 @@ export const useHttp = () => {
         });
         console.log(response);
 
-        setAccessToken(response.data.accessToken);
+        /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
+        // setAccessToken(response.data.accessToken);
 
         return response;
       } catch (error: any) {
