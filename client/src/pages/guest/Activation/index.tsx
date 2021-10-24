@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { useHttp } from 'src/library/hooks/useHttp';
 import Validate from 'src/library/helpers/validation';
@@ -16,6 +17,8 @@ const Activate: FC = () => {
 
   const [newPassword, serNewPassword] = useState<string>('');
   const [newPasswordAgain, serNewPasswordAgain] = useState<string>('');
+
+  const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
 
   const {
     isActivationLinkExist,
@@ -48,6 +51,8 @@ const Activate: FC = () => {
       setError("Поле 'Ваш Новый Пароль еще раз' обязательлно для заполнения");
     } else if (!validate.isFieldsEqual(newPassword, newPasswordAgain)) {
       setError('Пароли не совпадают');
+    } else if (!isAgreementAccepted) {
+      setError('Без согласия с Пользовательским согдашением использование сайта невозможно');
     } else {
       activate(link, newPassword).then((response) => {
         if (response.data.isActivated) {
@@ -101,6 +106,20 @@ const Activate: FC = () => {
           onChange={(e) => onChangeInputHandler(e, 'newPasswordAgain')}
           required
         />
+
+        <div className={st.agreement}>
+          <input
+            type='checkbox'
+            checked={isAgreementAccepted}
+            onChange={() => setIsAgreementAccepted(!isAgreementAccepted)}
+          />
+          <span>
+            Я согласен с{' '}
+            <Link to='/agreement' target='_blank'>
+              Пользовательским соглашением
+            </Link>
+          </span>
+        </div>
 
         <div className={st.button}>
           <Button
