@@ -10,6 +10,7 @@ import Test from 'src/components/Test';
 import Registration from 'src/pages/guest/Registration';
 import Activate from 'src/pages/guest/Activation';
 import UserAgreement from 'src/pages/user/UserAgreement';
+import AboutCookie from 'src/pages/user/AboutCookie';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -18,6 +19,7 @@ import videoIcon from 'src/library/icons/sideBar/video.svg';
 import settingsIcon from 'src/library/icons/sideBar/settings.svg';
 import devIcon from 'src/library/icons/sideBar/dev.svg';
 import agreementIcon from 'src/library/icons/sideBar/agreement.svg';
+import cookieIcon from 'src/library/icons/sideBar/cookie.svg';
 
 interface IRoute {
   path: string;
@@ -82,6 +84,14 @@ export const sideBarRoutes: IRoute[] = [
     exact: true,
     linkText: 'Пользовательское соглашение',
     linkIcon: agreementIcon,
+    availableRole: 'user',
+  },
+  {
+    path: '/aboutcookie',
+    component: AboutCookie,
+    exact: true,
+    linkText: 'О файлах Cookie',
+    linkIcon: cookieIcon,
     availableRole: 'user',
   },
   {
