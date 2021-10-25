@@ -10,7 +10,7 @@ import Test from 'src/components/Test';
 import Registration from 'src/pages/guest/Registration';
 import Activate from 'src/pages/guest/Activation';
 import UserAgreement from 'src/pages/user/UserAgreement';
-import AboutCookie from 'src/pages/user/AboutCookie';
+import AboutCookie from 'src/pages/common/AboutCookie';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 

@@ -6,10 +6,10 @@ import cn from 'classnames';
 import Validate from 'src/library/helpers/validation';
 import { useHttp } from 'src/library/hooks/useHttp';
 import { loginUser as loginUserThunk } from 'src/state/redux/features/user/thunk';
+import { getIsCookieAccepted as getIsCookieAcceptedLocalStorage } from 'src/library/helpers/localStorage';
 
 import Button from 'src/library/components/Button';
 import ErrorMessage from 'src/library/components/ErrorMessage';
-import Loader from 'src/library/components/Loader';
 
 import st from './index.module.scss';
 
@@ -20,6 +20,7 @@ interface LoginModalProps {
 const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
   const dispath = useDispatch();
 
   const { login: loginService, isFetching, error, setError, clearError } = useHttp();
@@ -32,6 +33,8 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
       setError("Поле 'Логин' обязательлно для заполнения");
     } else if (validate.isEmpty(password)) {
       setError("Поле 'Пароль' обязательлно для заполнения");
+    } else if (getIsCookieAcceptedLocalStorage() === 'false') {
+      setError('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна.');
     } else {
       dispath(loginUserThunk(loginService, login, password));
     }
