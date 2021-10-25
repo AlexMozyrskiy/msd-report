@@ -1,15 +1,15 @@
 import { FC } from 'react';
 
-import Home from 'src/pages/Home';
-import Video from 'src/pages/Video';
-import SideBarSettings from 'src/pages/SideBarSettings';
-import AccountSettings from 'src/pages/AccountSettings';
-import RestorePassword from 'src/pages/RestorePassword';
-import Forbidden from 'src/pages/Forbidden';
+import Home from 'src/pages/common/Home';
+import Video from 'src/pages/common/Video';
+import SideBarSettings from 'src/pages/user/SideBarSettings';
+import AccountSettings from 'src/pages/user/AccountSettings';
+import RestorePassword from 'src/pages/user/RestorePassword';
+import Forbidden from 'src/pages/common/Forbidden';
 import Test from 'src/components/Test';
-import Registration from 'src/pages/Registration';
+import Registration from 'src/pages/guest/Registration';
 import Activate from 'src/pages/guest/Activation';
-import UserAgreement from 'src/pages/UserAgreement';
+import UserAgreement from 'src/pages/user/UserAgreement';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
