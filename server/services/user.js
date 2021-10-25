@@ -39,7 +39,7 @@ class UserService {
     };
   }
 
-  async activate(activationLink, password, isCookieAccepted) {
+  async activate(activationLink, password) {
     try {
       const user = await UserModel.findOne({ activationLink });
       if (!user) {
@@ -50,7 +50,6 @@ class UserService {
 
       user.password = hashPassword;
       user.isActivated = true;
-      user.isCookieAccepted = isCookieAccepted;
       user.activationLink = null;
 
       await user.save();
@@ -118,6 +117,7 @@ class UserService {
       const restorePasswordLink = uuid.v4();
       await MailService.sendForgotPasswordMail(
         email,
+        user.login,
         `${process.env.CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
       );
 

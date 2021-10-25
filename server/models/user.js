@@ -8,7 +8,6 @@ const UserSchema = new Schema({
   isActivated: { type: Boolean, default: false },
   activationLink: { type: String },
   restorePasswordLink: { type: String, default: null },
-  isCookieAccepted: { type: Boolean, default: false },
   role: { type: Array, default: ['user'] },
 });
 

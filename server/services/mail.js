@@ -28,7 +28,7 @@ class MailService {
     });
   }
 
-  async sendForgotPasswordMail(to, link) {
+  async sendForgotPasswordMail(to, login, link) {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
@@ -38,6 +38,7 @@ class MailService {
           <div>
             <h1>Для восстановления пароля перейдите по ссылке</h1>
             <a href="${link}">${link}</a>
+            <p>Ваш логин на сервисе: ${login}</p>
           </div>
         `,
     });

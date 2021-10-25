@@ -72,8 +72,8 @@ class UserController {
         return next(ApiError.badRequest('Ошибка при валидации', errors.array()));
       }
 
-      const { activationLink, password, isCookieAccepted } = req.body;
-      const response = await userService.activate(activationLink, password, isCookieAccepted);
+      const { activationLink, password } = req.body;
+      const response = await userService.activate(activationLink, password);
       return res.json({ isActivated: response.isActivated });
     } catch (error) {
       next(error);
@@ -98,8 +98,8 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const { id, login, email, affiliation, isActivated, role, isCookieAccepted } = req.user;
-      return res.json({ id, login, email, affiliation, isActivated, role, isCookieAccepted });
+      const { id, login, email, affiliation, isActivated, role } = req.user;
+      return res.json({ id, login, email, affiliation, isActivated, role });
     } catch (error) {
       next(error);
     }
