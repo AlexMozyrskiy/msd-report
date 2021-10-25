@@ -16,7 +16,8 @@ export const apiWithoutToken = axios.create({
 
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
 apiWithToken.interceptors.request.use((config) => {
-  if (getIsCookieAccepted() === 'false' || getIsCookieAccepted() === null) {
+  const isCookieAccepted = getIsCookieAccepted();
+  if (isCookieAccepted === 'false' || isCookieAccepted === null) {
     throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
   }
 

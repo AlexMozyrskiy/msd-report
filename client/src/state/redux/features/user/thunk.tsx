@@ -4,6 +4,7 @@ import { IAuthResponse, ILogoutResponse } from 'src/library/hooks/useHttp';
 import { IUser } from './actionCreators';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
+import { getIsCookieAccepted } from 'src/library/helpers/localStorage';
 
 type TloginUser = (
   loginService: (email: string, password: string) => Promise<AxiosResponse<IAuthResponse>>,
@@ -34,6 +35,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
       affiliation: null,
       isActivated: null,
       role: ['guest'],
+      isCookieAccepted: getIsCookieAccepted() === 'true' ? true : false,
     };
 
     dispatch(setUserAction(user));

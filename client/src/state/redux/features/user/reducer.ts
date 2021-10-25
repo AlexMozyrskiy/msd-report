@@ -1,6 +1,6 @@
-import { SET_USER as SET_USER_TYPE } from './actionTypes';
+import { SET_USER as SET_USER_TYPE, SET_IS_COOKIE_ACCEPTED as SET_IS_COOKIE_ACCEPTED_TYPE } from './actionTypes';
 
-import { TSetUser as TSetUserType } from './actionTypes';
+import { TSetUser as TSetUserType, TSetIsCookieAccepted as TSetIsCookieAcceptedType } from './actionTypes';
 import { IUser, TRole } from './actionCreators';
 
 interface IInitialState {
@@ -10,11 +10,13 @@ interface IInitialState {
   affiliation: string | null;
   isActivated: boolean | null;
   role: TRole[];
+  isCookieAccepted: boolean;
 }
 
 interface IAction {
-  type: TSetUserType;
+  type: TSetUserType | TSetIsCookieAcceptedType;
   user: IUser;
+  isCookieAccepted: boolean;
 }
 
 const initialState: IInitialState = {
@@ -24,6 +26,7 @@ const initialState: IInitialState = {
   affiliation: null,
   isActivated: null,
   role: ['guest'],
+  isCookieAccepted: false,
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -37,6 +40,14 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
         affiliation: action.user.affiliation,
         isActivated: action.user.isActivated,
         role: action.user.role,
+      };
+      return superState;
+    }
+
+    case SET_IS_COOKIE_ACCEPTED_TYPE: {
+      const superState = {
+        ...state,
+        isCookieAccepted: action.isCookieAccepted,
       };
       return superState;
     }

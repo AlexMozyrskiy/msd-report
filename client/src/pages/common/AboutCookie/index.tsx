@@ -1,22 +1,26 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   getIsCookieAccepted as getIsCookieAcceptedLocalStorage,
   setIsCookieAccepted as setIsCookieAcceptedLocalStorage,
 } from 'src/library/helpers/localStorage';
+import { getUser as getUserSelector } from 'src/state/redux/features/user/selectors';
+import { setIsCookieAccepted as setIsCookieAcceptedAC } from 'src/state/redux/features/user/actionCreators';
 
 import Button from 'src/library/components/Button';
 
 import st from './index.module.scss';
 
 const AboutCookie: FC = () => {
-  const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(
-    getIsCookieAcceptedLocalStorage() === 'true' ? true : false
-  );
+  const { isCookieAccepted: isCookieAcceptedState } = useSelector(getUserSelector);
 
-  const toggleIsCookieAccepted = (): void => {
-    setIsCookieAccepted(!isCookieAccepted);
-    setIsCookieAcceptedLocalStorage(isCookieAccepted ? 'false' : 'true');
+  const dispatch = useDispatch();
+
+  const toggleIsCookieAccepted = () => {
+    setIsCookieAcceptedLocalStorage(isCookieAcceptedState ? 'false' : 'true');
+    dispatch(setIsCookieAcceptedAC(!isCookieAcceptedState));
   };
 
   return (
@@ -46,7 +50,7 @@ const AboutCookie: FC = () => {
       <br />
       <br />
 
-      {isCookieAccepted ? (
+      {isCookieAcceptedState ? (
         <>
           <p className={st.cookieAccepted}>Вы согласились на использование Cookie</p>
           <Button
