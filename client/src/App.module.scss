@@ -1,3 +1,5 @@
+@import 'src/library/styles/variables/colors.scss';
+
 .app {
   display: grid;
   grid-template-areas:
@@ -26,9 +28,43 @@
   &__content {
     grid-area: content;
     background-color: #e5e5e5;
+    position: relative;
+
+    & > p {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateY(-30%) translateX(-50%);
+      width: 100%;
+      text-align: center;
+      color: $errorColor;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      animation-name: error;
+      animation-duration: 5s;
+      animation-fill-mode: forwards;
+    }
   }
 
   &_fetching {
     opacity: 0.2;
+  }
+}
+
+@keyframes error {
+  from {
+    display: block;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
   }
 }

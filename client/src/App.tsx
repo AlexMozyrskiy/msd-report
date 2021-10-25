@@ -19,7 +19,8 @@ const App: FC = () => {
 
   const dispatch = useDispatch();
 
-  const { check, isFetching } = useHttp();
+  const { check, isFetching, error } = useHttp();
+  console.log(error);
 
   const { role, isActivated, id } = useSelector(getUserSelector);
 
@@ -41,6 +42,7 @@ const App: FC = () => {
 
         <main className={st.app__content}>
           <Routes role={role} isActivated={isActivated} id={id} />
+          {error && <p>{error}</p>}
         </main>
       </div>
     </>

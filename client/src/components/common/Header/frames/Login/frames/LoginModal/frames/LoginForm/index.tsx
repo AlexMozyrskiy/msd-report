@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
@@ -25,7 +25,9 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
 
   const { login: loginService, isFetching, error, setError, clearError } = useHttp();
 
-  const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const isCookieAccepted = useMemo(() => getIsCookieAcceptedLocalStorage(), []);
+
+  function onSubmitHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     const validate = new Validate();
@@ -33,12 +35,12 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
       setError("Поле 'Логин' обязательлно для заполнения");
     } else if (validate.isEmpty(password)) {
       setError("Поле 'Пароль' обязательлно для заполнения");
-    } else if (getIsCookieAcceptedLocalStorage() === 'false') {
-      setError('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна.');
+    } else if (isCookieAccepted === 'false' || isCookieAccepted === null) {
+      setError('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
     } else {
       dispath(loginUserThunk(loginService, login, password));
     }
-  };
+  }
 
   /**
    *
