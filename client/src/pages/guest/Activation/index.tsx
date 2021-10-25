@@ -43,7 +43,7 @@ const Activate: FC = () => {
     } else if (!validate.isFieldsEqual(newPassword, newPasswordAgain)) {
       setError('Пароли не совпадают');
     } else if (!isAgreementAccepted) {
-      setError('Без согласия с Пользовательским согдашением использование сайта невозможно');
+      setError('Без согласия с Пользовательским соглашением использование сайта невозможно');
     } else {
       clearError();
 
@@ -118,7 +118,7 @@ const Activate: FC = () => {
           <input type='checkbox' checked={isCookieAccepted} onChange={() => setIsCookieAccepted(!isCookieAccepted)} />
           <span>
             Я согласен с тем, что этот сайт использует файлы{' '}
-            <Link to='/agreement' target='_blank'>
+            <Link to='/aboutcookie' target='_blank'>
               Cookie
             </Link>
             (Вы в любой момент можете запретить использование файлов Cookie в настройках аккаунта)

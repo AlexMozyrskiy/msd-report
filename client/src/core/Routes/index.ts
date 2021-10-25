@@ -95,6 +95,14 @@ export const sideBarRoutes: IRoute[] = [
     availableRole: 'user',
   },
   {
+    path: '/aboutcookie',
+    component: AboutCookie,
+    exact: true,
+    linkText: 'О файлах Cookie',
+    linkIcon: cookieIcon,
+    availableRole: 'guest',
+  },
+  {
     path: '/sidebarsettings',
     component: SideBarSettings,
     exact: true,
