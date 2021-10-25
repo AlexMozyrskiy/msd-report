@@ -21,17 +21,7 @@ const Activate: FC = () => {
   const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
   const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(false);
 
-  const {
-    isActivationLinkExist,
-    activate,
-    isFetching,
-    error,
-    setError,
-    success,
-    setSuccess,
-    clearSuccess,
-    clearError,
-  } = useHttp();
+  const { isActivationLinkExist, activate, error, setError, success, setSuccess, clearSuccess, clearError } = useHttp();
 
   /* Если ссылки в БД нет переведем юзера на 404 */
   useEffect(() => {
