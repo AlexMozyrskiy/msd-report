@@ -1,3 +1,5 @@
+@import 'src/library/styles/variables/colors.scss';
+
 .aboutCookie {
   max-height: calc(100vh - 80px);
   overflow: scroll;
@@ -11,4 +13,14 @@
   &::-webkit-scrollbar {
     width: 0;
   }
+}
+
+.cookieAccepted {
+  text-align: center;
+  color: $successColor;
+}
+
+.cookieRejected {
+  text-align: center;
+  color: $errorColor;
 }

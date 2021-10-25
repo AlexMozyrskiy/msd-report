@@ -1,7 +1,9 @@
+@import 'src/library/styles/variables/colors.scss';
+
 .success {
   text-align: center;
   margin-top: 20px;
-  color: #4ed964;
+  color: $successColor;
   font-style: italic;
   font-weight: normal;
   font-size: 14px;
