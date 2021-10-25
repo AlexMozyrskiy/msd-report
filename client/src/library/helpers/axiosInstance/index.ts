@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getAccessToken } from '../token';
+import { getAccessToken } from '../localStorage';
 
 export const API_URL = 'http://localhost:5000/api';
 
