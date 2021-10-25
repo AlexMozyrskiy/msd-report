@@ -66,7 +66,7 @@ export const useHttp = () => {
       console.log(response);
 
       setAccessToken(response.data.accessToken);
-      setIsCookieAccepted(response.data.user.isCookieAccepted ? 'true' : 'false');
+      setIsCookieAccepted(response.data.user.isCookieAccepted ? 'true' : 'false'); // так как в локал стораг можем записать только string
 
       return response;
     } catch (error: any) {
@@ -285,25 +285,29 @@ export const useHttp = () => {
     []
   );
 
-  const activate = useCallback(async (link: string, password: string): Promise<AxiosResponse<IActivateResponse>> => {
-    setIsFetching(true);
+  const activate = useCallback(
+    async (link: string, password: string, isCookieAccepted: boolean): Promise<AxiosResponse<IActivateResponse>> => {
+      setIsFetching(true);
 
-    try {
-      const response = await apiWithoutToken.post<IActivateResponse>('/user/activate', {
-        activationLink: link,
-        password,
-      });
+      try {
+        const response = await apiWithoutToken.post<IActivateResponse>('/user/activate', {
+          activationLink: link,
+          password,
+          isCookieAccepted,
+        });
 
-      return response;
-    } catch (error: any) {
-      console.log(error.response);
-      setError(error.response?.data?.errors[0]?.msg);
-      // setError(error.response?.data?.message);
-      return error.response;
-    } finally {
-      setIsFetching(false);
-    }
-  }, []);
+        return response;
+      } catch (error: any) {
+        console.log(error.response);
+        setError(error.response?.data?.errors[0]?.msg);
+        // setError(error.response?.data?.message);
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
 
   const clearError = useCallback(() => setError(null), []);
 

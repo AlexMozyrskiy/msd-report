@@ -19,6 +19,7 @@ const Activate: FC = () => {
   const [newPasswordAgain, serNewPasswordAgain] = useState<string>('');
 
   const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
+  const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(false);
 
   const {
     isActivationLinkExist,
@@ -54,7 +55,9 @@ const Activate: FC = () => {
     } else if (!isAgreementAccepted) {
       setError('Без согласия с Пользовательским согдашением использование сайта невозможно');
     } else {
-      activate(link, newPassword).then((response) => {
+      clearError();
+
+      activate(link, newPassword, isCookieAccepted).then((response) => {
         if (response.data.isActivated) {
           setSuccess(
             'Аккаунт активирован. Вы можете войти в аккаунт используя свой логин и пароль. Через 5 секунд вы будете перенаправлены на главную страницу.'
@@ -118,6 +121,17 @@ const Activate: FC = () => {
             <Link to='/agreement' target='_blank'>
               Пользовательским соглашением
             </Link>
+          </span>
+        </div>
+
+        <div className={st.agreement}>
+          <input type='checkbox' checked={isCookieAccepted} onChange={() => setIsCookieAccepted(!isCookieAccepted)} />
+          <span>
+            Я согласен с тем, что этот сайт использует файлы{' '}
+            <Link to='/agreement' target='_blank'>
+              Cookie
+            </Link>
+            (Вы в любой момент можете запретить использование файлов Cookie в настройках аккаунта)
           </span>
         </div>
 

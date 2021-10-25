@@ -10,7 +10,7 @@ const Test: FC = () => {
   const password = Math.floor(Math.random() * 100000000000).toString();
 
   const registrationHandler = async () => {
-    await registration('lps', 'msd.report.app@gmail.com', 'РЦДМ Ростов', password);
+    await registration('asd', 'alexeymozyrskiydev@gmail.com', 'РЦДМ Ростов', password);
   };
 
   const loginHandler = async () => {

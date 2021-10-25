@@ -39,7 +39,7 @@ class UserService {
     };
   }
 
-  async activate(activationLink, password) {
+  async activate(activationLink, password, isCookieAccepted) {
     try {
       const user = await UserModel.findOne({ activationLink });
       if (!user) {
@@ -50,9 +50,11 @@ class UserService {
 
       user.password = hashPassword;
       user.isActivated = true;
+      user.isCookieAccepted = isCookieAccepted;
       user.activationLink = null;
 
       await user.save();
+
       return { isActivated: true };
     } catch (error) {
       return 'Некорректная ссылка активации';
