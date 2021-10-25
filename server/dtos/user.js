@@ -10,6 +10,7 @@ module.exports = class UserDto {
   id;
   isActivated;
   role;
+  isCookieAccepted;
 
   constructor(model) {
     this.login = model.login;
@@ -18,5 +19,6 @@ module.exports = class UserDto {
     this.id = model._id; // монго к id добавляет нижнее подчеркивание
     this.isActivated = model.isActivated;
     this.role = model.role;
+    this.isCookieAccepted = model.isCookieAccepted;
   }
 };

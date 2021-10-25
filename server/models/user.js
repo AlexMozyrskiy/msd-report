@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   activationLink: { type: String },
   restorePasswordLink: { type: String, default: null },
   role: { type: Array, default: ['user'] },
+  isCookieAccepted: { type: Boolean, default: false },
 });
 
 module.exports = model('User', UserSchema);
