@@ -34,6 +34,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
       affiliation: null,
       isActivated: null,
       role: ['guest'],
+      isCookieAccepted: false,
     };
 
     dispatch(setUserAction(user));
@@ -43,6 +44,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
 /* Проверяем авторизован ли пользователь */
 export const checkUser: TCheckUser = (check) => async (dispatch) => {
   const response = await check();
+  debugger;
 
   if (response.status === 200) {
     dispatch(setUserAction(response.data));

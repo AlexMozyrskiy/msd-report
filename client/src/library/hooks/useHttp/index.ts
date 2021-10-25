@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { useState, useCallback } from 'react';
 import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance';
-import { TRole, IUser } from 'src/state/redux/features/user/actionCreators';
+import { IUser } from 'src/state/redux/features/user/actionCreators';
 
 import { setAccessToken, removeAccessToken } from '../../helpers/token';
 

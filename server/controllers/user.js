@@ -98,8 +98,8 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const { id, login, email, affiliation, isActivated, role } = req.user;
-      return res.json({ id, login, email, affiliation, isActivated, role });
+      const { id, login, email, affiliation, isActivated, role, isCookieAccepted } = req.user;
+      return res.json({ id, login, email, affiliation, isActivated, role, isCookieAccepted });
     } catch (error) {
       next(error);
     }
