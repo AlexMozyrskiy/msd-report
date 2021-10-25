@@ -47,7 +47,7 @@ const Activate: FC = () => {
     } else {
       clearError();
 
-      activate(link, newPassword, isCookieAccepted).then((response) => {
+      activate(link, newPassword).then((response) => {
         if (response.data.isActivated) {
           setSuccess(
             'Аккаунт активирован. Вы можете войти в аккаунт используя свой логин и пароль. Через 5 секунд вы будете перенаправлены на главную страницу.'

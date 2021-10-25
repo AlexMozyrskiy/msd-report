@@ -8,7 +8,6 @@ export interface IUser {
   email: string | null;
   affiliation: string | null;
   isActivated: boolean | null;
-  isCookieAccepted: boolean;
   role: TRole[];
 }
 

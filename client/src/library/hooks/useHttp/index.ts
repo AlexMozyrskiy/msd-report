@@ -3,12 +3,7 @@ import { useState, useCallback } from 'react';
 import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance';
 import { IUser } from 'src/state/redux/features/user/actionCreators';
 
-import {
-  setAccessToken,
-  removeAccessToken,
-  removeIsCookieAccepted,
-  setIsCookieAccepted,
-} from '../../helpers/localStorage';
+import { setAccessToken, removeAccessToken } from '../../helpers/localStorage';
 
 export interface IRegisterResponse {
   isRegistered: boolean;
@@ -66,7 +61,6 @@ export const useHttp = () => {
       console.log(response);
 
       setAccessToken(response.data.accessToken);
-      setIsCookieAccepted(response.data.user.isCookieAccepted ? 'true' : 'false'); // так как в локал стораг можем записать только string
 
       return response;
     } catch (error: any) {
@@ -99,7 +93,6 @@ export const useHttp = () => {
 
         /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
         // setAccessToken(response.data.accessToken);
-        // setIsCookieAccepted(response.data.user.isCookieAccepted ? 'true' : 'false');
 
         return response;
       } catch (error: any) {
@@ -122,7 +115,6 @@ export const useHttp = () => {
       console.log(response);
 
       removeAccessToken();
-      removeIsCookieAccepted();
 
       return response;
     } catch (error: any) {
@@ -149,7 +141,6 @@ export const useHttp = () => {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
-          setIsCookieAccepted(refreshResponse.data.user.isCookieAccepted ? 'true' : 'false');
           const response = await apiWithToken.get<IUsersResponse[]>('/user/users'); // еще раз запрос уже авторизованный за искомыми данными
           return response;
         } catch (error: any) {
@@ -183,7 +174,6 @@ export const useHttp = () => {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
-          setIsCookieAccepted(refreshResponse.data.user.isCookieAccepted ? 'true' : 'false');
           const response = await apiWithToken.post<IUser>('/user/check');
           return response;
         } catch (error: any) {
@@ -285,29 +275,25 @@ export const useHttp = () => {
     []
   );
 
-  const activate = useCallback(
-    async (link: string, password: string, isCookieAccepted: boolean): Promise<AxiosResponse<IActivateResponse>> => {
-      setIsFetching(true);
+  const activate = useCallback(async (link: string, password: string): Promise<AxiosResponse<IActivateResponse>> => {
+    setIsFetching(true);
 
-      try {
-        const response = await apiWithoutToken.post<IActivateResponse>('/user/activate', {
-          activationLink: link,
-          password,
-          isCookieAccepted,
-        });
+    try {
+      const response = await apiWithoutToken.post<IActivateResponse>('/user/activate', {
+        activationLink: link,
+        password,
+      });
 
-        return response;
-      } catch (error: any) {
-        console.log(error.response);
-        setError(error.response?.data?.errors[0]?.msg);
-        // setError(error.response?.data?.message);
-        return error.response;
-      } finally {
-        setIsFetching(false);
-      }
-    },
-    []
-  );
+      return response;
+    } catch (error: any) {
+      console.log(error.response);
+      setError(error.response?.data?.errors[0]?.msg);
+      // setError(error.response?.data?.message);
+      return error.response;
+    } finally {
+      setIsFetching(false);
+    }
+  }, []);
 
   const clearError = useCallback(() => setError(null), []);
 
