@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { useHttp } from 'src/library/hooks/useHttp';
 import Validate from 'src/library/helpers/validation';
@@ -17,17 +18,10 @@ const Activate: FC = () => {
   const [newPassword, serNewPassword] = useState<string>('');
   const [newPasswordAgain, serNewPasswordAgain] = useState<string>('');
 
-  const {
-    isActivationLinkExist,
-    activate,
-    isFetching,
-    error,
-    setError,
-    success,
-    setSuccess,
-    clearSuccess,
-    clearError,
-  } = useHttp();
+  const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
+  const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(false);
+
+  const { isActivationLinkExist, activate, error, setError, success, setSuccess, clearSuccess, clearError } = useHttp();
 
   /* Если ссылки в БД нет переведем юзера на 404 */
   useEffect(() => {
@@ -48,7 +42,11 @@ const Activate: FC = () => {
       setError("Поле 'Ваш Новый Пароль еще раз' обязательлно для заполнения");
     } else if (!validate.isFieldsEqual(newPassword, newPasswordAgain)) {
       setError('Пароли не совпадают');
+    } else if (!isAgreementAccepted) {
+      setError('Без согласия с Пользовательским соглашением использование сайта невозможно');
     } else {
+      clearError();
+
       activate(link, newPassword).then((response) => {
         if (response.data.isActivated) {
           setSuccess(
@@ -101,6 +99,31 @@ const Activate: FC = () => {
           onChange={(e) => onChangeInputHandler(e, 'newPasswordAgain')}
           required
         />
+
+        <div className={st.agreement}>
+          <input
+            type='checkbox'
+            checked={isAgreementAccepted}
+            onChange={() => setIsAgreementAccepted(!isAgreementAccepted)}
+          />
+          <span>
+            Я согласен с{' '}
+            <Link to='/agreement' target='_blank'>
+              Пользовательским соглашением
+            </Link>
+          </span>
+        </div>
+
+        <div className={st.agreement}>
+          <input type='checkbox' checked={isCookieAccepted} onChange={() => setIsCookieAccepted(!isCookieAccepted)} />
+          <span>
+            Я согласен с тем, что этот сайт использует файлы{' '}
+            <Link to='/aboutcookie' target='_blank'>
+              Cookie
+            </Link>
+            (Вы в любой момент можете запретить использование файлов Cookie в настройках аккаунта)
+          </span>
+        </div>
 
         <div className={st.button}>
           <Button

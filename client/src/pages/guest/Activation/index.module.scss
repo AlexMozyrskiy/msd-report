@@ -54,4 +54,20 @@
     justify-content: center;
     margin-top: 20px;
   }
+
+  .agreement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 30%;
+    margin-bottom: 10px;
+
+    & > span {
+      margin-left: 10px;
+
+      & > a {
+        color: #333269;
+      }
+    }
+  }
 }

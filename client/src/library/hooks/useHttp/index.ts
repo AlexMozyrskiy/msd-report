@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { useState, useCallback } from 'react';
 import { apiWithoutToken, apiWithToken } from 'src/library/helpers/axiosInstance';
-import { TRole, IUser } from 'src/state/redux/features/user/actionCreators';
+import { IUser } from 'src/state/redux/features/user/actionCreators';
 
-import { setAccessToken, removeAccessToken } from '../../helpers/token';
+import { setAccessToken, removeAccessToken } from '../../helpers/localStorage';
 
 export interface IRegisterResponse {
   isRegistered: boolean;
@@ -169,8 +169,16 @@ export const useHttp = () => {
       return response;
     } catch (error: any) {
       /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
-      setError(error.response?.data?.message);
-      if (error.response.status === 401 && !isRefreshTokenRequestMade) {
+      // setError(error.response?.data?.message);
+
+      /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+      if (typeof error.message === 'string') {
+        setError(error.message);
+      } else {
+        setError(error.response?.data?.message);
+      }
+
+      if (error.response?.status === 401 && !isRefreshTokenRequestMade) {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг

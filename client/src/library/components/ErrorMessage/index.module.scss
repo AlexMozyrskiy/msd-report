@@ -1,7 +1,9 @@
+@import 'src/library/styles/variables/colors.scss';
+
 .error {
   text-align: center;
   margin-top: 20px;
-  color: #ff2c55;
+  color: $errorColor;
   font-style: italic;
   font-weight: normal;
   font-size: 14px;

@@ -53,6 +53,7 @@ class UserService {
       user.activationLink = null;
 
       await user.save();
+
       return { isActivated: true };
     } catch (error) {
       return 'Некорректная ссылка активации';
@@ -116,6 +117,7 @@ class UserService {
       const restorePasswordLink = uuid.v4();
       await MailService.sendForgotPasswordMail(
         email,
+        user.login,
         `${process.env.CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
       );
 

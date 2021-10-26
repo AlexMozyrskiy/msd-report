@@ -4,6 +4,7 @@ import { IAuthResponse, ILogoutResponse } from 'src/library/hooks/useHttp';
 import { IUser } from './actionCreators';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
+import { getIsCookieAccepted } from 'src/library/helpers/localStorage';
 
 type TloginUser = (
   loginService: (email: string, password: string) => Promise<AxiosResponse<IAuthResponse>>,
@@ -18,7 +19,7 @@ type TCheckUser = (check: () => Promise<AxiosResponse<IUser>>) => (dispatch: Dis
 export const loginUser: TloginUser = (loginService, login, password) => async (dispatch) => {
   const response = await loginService(login, password);
 
-  if (response.status === 200) {
+  if (response?.status === 200) {
     dispatch(setUserAction(response.data.user));
   }
 };
@@ -26,7 +27,7 @@ export const loginUser: TloginUser = (loginService, login, password) => async (d
 export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
   const response = await logout();
 
-  if (response.status === 200) {
+  if (response?.status === 200) {
     const user: IUser = {
       id: null,
       email: null,
@@ -34,6 +35,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
       affiliation: null,
       isActivated: null,
       role: ['guest'],
+      isCookieAccepted: getIsCookieAccepted() === 'true' ? true : false,
     };
 
     dispatch(setUserAction(user));
@@ -44,7 +46,7 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
 export const checkUser: TCheckUser = (check) => async (dispatch) => {
   const response = await check();
 
-  if (response.status === 200) {
+  if (response?.status === 200) {
     dispatch(setUserAction(response.data));
   }
 };

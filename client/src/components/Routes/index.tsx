@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Route, Switch } from 'react-router';
 
-import NotFound from 'src/pages/NotFound';
+import NotFound from 'src/pages/common/NotFound';
 
 import { sideBarRoutes, headerDropDownRoutes, hiddenRoutes } from 'src/core/Routes';
 
