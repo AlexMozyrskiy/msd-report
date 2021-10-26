@@ -10,11 +10,11 @@ import { IMockNotification } from 'src/components/common/Header';
 
 import st from './index.module.scss';
 
-interface NotificationDropDownProps {
+interface NotificationProps {
   notification: IMockNotification;
 }
 
-const NotificationDropDown: FC<NotificationDropDownProps> = ({ notification }) => {
+const Notification: FC<NotificationProps> = ({ notification }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const deleteHandler = (e: MouseEvent<HTMLElement>) => {
@@ -39,4 +39,4 @@ const NotificationDropDown: FC<NotificationDropDownProps> = ({ notification }) =
   );
 };
 
-export default NotificationDropDown;
+export default Notification;
