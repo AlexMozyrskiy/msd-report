@@ -1,9 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useHttp } from 'src/library/hooks/useHttp';
 import Validate from 'src/library/helpers/validation';
+import { setIsCookieAccepted as setIsCookieAcceptedLocalStorage } from 'src/library/helpers/localStorage';
+import { getUser as getUserSelector } from 'src/state/redux/features/user/selectors';
+import { setIsCookieAccepted as setIsCookieAcceptedAC } from 'src/state/redux/features/user/actionCreators';
 
 import Button from 'src/library/components/Button';
 import ErrorMessage from 'src/library/components/ErrorMessage';
@@ -15,11 +19,13 @@ const Activate: FC = () => {
   const { push } = useHistory();
   const { link } = useParams<{ link: string }>();
 
+  const dispatch = useDispatch();
+  const { isCookieAccepted: isCookieAcceptedState } = useSelector(getUserSelector);
+
   const [newPassword, serNewPassword] = useState<string>('');
   const [newPasswordAgain, serNewPasswordAgain] = useState<string>('');
 
   const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
-  const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(false);
 
   const {
     isActivationLinkExist: isActivationLinkExistService,
@@ -57,6 +63,7 @@ const Activate: FC = () => {
       clearError();
 
       activate(link, newPassword).then((response) => {
+        setIsCookieAcceptedLocalStorage(isCookieAcceptedState ? 'true' : 'false');
         if (response.data.isActivated) {
           setSuccess(
             'Аккаунт активирован. Вы можете войти в аккаунт используя свой логин и пароль. Через 5 секунд вы будете перенаправлены на главную страницу.'
@@ -124,7 +131,11 @@ const Activate: FC = () => {
         </div>
 
         <div className={st.agreement}>
-          <input type='checkbox' checked={isCookieAccepted} onChange={() => setIsCookieAccepted(!isCookieAccepted)} />
+          <input
+            type='checkbox'
+            checked={isCookieAcceptedState}
+            onChange={() => dispatch(setIsCookieAcceptedAC(isCookieAcceptedState ? false : true))}
+          />
           <span>
             Я согласен с тем, что этот сайт использует файлы{' '}
             <Link to='/aboutcookie' target='_blank'>

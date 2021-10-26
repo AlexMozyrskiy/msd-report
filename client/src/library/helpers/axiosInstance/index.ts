@@ -25,13 +25,15 @@ apiWithToken.interceptors.request.use((config) => {
     config.headers.Authorization = 'Bearer ' + getAccessToken();
     return config;
   }
+
+  return config;
 });
 
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
-apiWithoutToken.interceptors.request.use((config) => {
-  const isCookieAccepted = getIsCookieAccepted();
-  if (isCookieAccepted === 'false' || isCookieAccepted === null) {
-    throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
-  }
-  return config;
-});
+// apiWithoutToken.interceptors.request.use((config) => {
+//   const isCookieAccepted = getIsCookieAccepted();
+//   if (isCookieAccepted === 'false' || isCookieAccepted === null) {
+//     throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
+//   }
+//   return config;
+// });
