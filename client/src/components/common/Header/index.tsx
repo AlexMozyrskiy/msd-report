@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getUser } from 'src/state/redux/features/user/selectors';
+import { getUser as getUserSelector } from 'src/state/redux/features/user/selectors';
 
 import Search from './frames/Search';
 import Icon from './frames/Icon';
@@ -9,6 +9,7 @@ import Photo from './frames/Photo';
 import Dots from './frames/Dots';
 import UserNameAndAffiliation from './frames/UserNameAndAffiliation';
 import Login from './frames/Login';
+import Coins from 'src/library/components/Coins';
 
 // import messagesIcon from 'src/library/icons/header/messages.svg';
 import bellIcon from 'src/library/icons/header/bell.svg';
@@ -27,7 +28,7 @@ const Header: FC = () => {
   const [isNotificationsDropDownActive, setIsNotificationsDropDownActive] = useState<boolean>(false);
   // const [isMessagesDropDownActive, setIsMessagesDropDownActive] = useState<boolean>(false);
 
-  const { id } = useSelector(getUser);
+  const { id } = useSelector(getUserSelector);
 
   /* Как разработаю апи буду брать эти данные с сервера, а сюда из стейта */
   const mockNotifications: IMockNotification[] | [] = useMemo(
@@ -78,6 +79,10 @@ const Header: FC = () => {
 
           <div className={st.header__user}>
             <UserNameAndAffiliation />
+          </div>
+
+          <div className={st.header__coins}>
+            <Coins />
           </div>
 
           <div className={st.header__dots}>

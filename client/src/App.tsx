@@ -25,7 +25,7 @@ const App: FC = () => {
 
   const dispatch = useDispatch();
 
-  const { check, isFetching, error } = useHttp();
+  const { check, isFetching /* error */ } = useHttp();
 
   const { role, isActivated, id, isCookieAccepted: isCookieAcceptedState } = useSelector(getUserSelector);
 
