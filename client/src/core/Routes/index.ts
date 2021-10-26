@@ -11,6 +11,7 @@ import Registration from 'src/pages/guest/Registration';
 import Activate from 'src/pages/guest/Activation';
 import UserAgreement from 'src/pages/user/UserAgreement';
 import AboutCookie from 'src/pages/common/AboutCookie';
+import AdminRegistration from 'src/pages/admin/AdminRegistration';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -20,6 +21,7 @@ import settingsIcon from 'src/library/icons/sideBar/settings.svg';
 import devIcon from 'src/library/icons/sideBar/dev.svg';
 import agreementIcon from 'src/library/icons/sideBar/agreement.svg';
 import cookieIcon from 'src/library/icons/sideBar/cookie.svg';
+import registrationIcon from 'src/library/icons/sideBar/registration.svg';
 
 interface IRoute {
   path: string;
@@ -109,6 +111,14 @@ export const sideBarRoutes: IRoute[] = [
     linkText: 'Настройки',
     linkIcon: settingsIcon,
     availableRole: 'user',
+  },
+  {
+    path: '/adminregistration',
+    component: AdminRegistration,
+    exact: true,
+    linkText: 'Регистрация',
+    linkIcon: registrationIcon,
+    availableRole: 'admin',
   },
   {
     path: '/test',
