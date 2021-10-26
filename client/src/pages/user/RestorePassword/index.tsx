@@ -20,7 +20,7 @@ const RestorePassword: FC = () => {
   const {
     restorePassword,
     isRestorePasswordLinkExist,
-    isFetching,
+    // isFetching,
     error,
     setError,
     success,
@@ -36,7 +36,7 @@ const RestorePassword: FC = () => {
         push('/notvalidlink');
       }
     });
-  }, []);
+  }, [isRestorePasswordLinkExist, link, push]);
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

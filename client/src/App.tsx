@@ -33,7 +33,7 @@ const App: FC = () => {
     dispatch(checkUserThunk(check));
     const isCookieAccepted = getIsCookieAcceptedLocalStorage();
     dispatch(setIsCookieAcceptedAC(isCookieAccepted === 'true' ? true : false));
-  }, []);
+  }, [dispatch, check]);
 
   const toggleIsCookieAccepted = () => {
     setIsCookieAcceptedLocalStorage(isCookieAcceptedState ? 'false' : 'true');

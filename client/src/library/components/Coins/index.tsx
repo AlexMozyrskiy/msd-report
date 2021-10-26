@@ -21,7 +21,7 @@ const Coins: FC = () => {
       <div className={st.wrapper} onClick={() => setIsPaymentModalOpen(true)}>
         <figure>
           {/* <SVG src={coinIcon} /> */}
-          <img src={coinPicture} />
+          <img src={coinPicture} alt='Coin' />
         </figure>
 
         <span className={st.count}>{coins}</span>

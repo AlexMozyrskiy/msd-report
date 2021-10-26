@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  getIsCookieAccepted as getIsCookieAcceptedLocalStorage,
+  // getIsCookieAccepted as getIsCookieAcceptedLocalStorage,
   setIsCookieAccepted as setIsCookieAcceptedLocalStorage,
 } from 'src/library/helpers/localStorage';
 import { getUser as getUserSelector } from 'src/state/redux/features/user/selectors';

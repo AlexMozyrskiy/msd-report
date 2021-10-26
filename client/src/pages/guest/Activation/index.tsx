@@ -39,7 +39,7 @@ const Activate: FC = () => {
         push('/notvalidlink');
       }
     });
-  }, []);
+  }, [isActivationLinkExistService, link, push]);
 
   const onSubmitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
