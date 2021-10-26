@@ -34,8 +34,9 @@ export const logoutUser: TLogoutUser = (logout) => async (dispatch) => {
       login: null,
       affiliation: null,
       isActivated: null,
-      role: ['guest'],
       isCookieAccepted: getIsCookieAccepted() === 'true' ? true : false,
+      coins: null,
+      role: ['guest'],
     };
 
     dispatch(setUserAction(user));

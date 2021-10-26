@@ -9,8 +9,9 @@ interface IInitialState {
   login: string | null;
   affiliation: string | null;
   isActivated: boolean | null;
-  role: TRole[];
+  coins: number | null;
   isCookieAccepted: boolean;
+  role: TRole[];
 }
 
 interface IAction {
@@ -25,8 +26,9 @@ const initialState: IInitialState = {
   login: null,
   affiliation: null,
   isActivated: null,
-  role: ['guest'],
   isCookieAccepted: false,
+  coins: null,
+  role: ['guest'],
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -39,6 +41,7 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
         login: action.user.login,
         affiliation: action.user.affiliation,
         isActivated: action.user.isActivated,
+        coins: action.user.coins,
         role: action.user.role,
       };
       return superState;

@@ -9,6 +9,7 @@ export interface IUser {
   affiliation: string | null;
   isActivated: boolean | null;
   role: TRole[];
+  coins: number | null;
   isCookieAccepted: boolean;
 }
 
