@@ -65,13 +65,14 @@ export const useHttp = () => {
       return response;
     } catch (error: any) {
       /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
-      if (typeof error.message === 'string') {
-        setError(error.message);
-      } else {
-        setError(error.response?.data?.message);
-        console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
-        setError(error.response?.data?.message);
-      }
+      // if (typeof error.message === 'string') {
+      //   debugger;
+      //   // setError(error.message);
+      // } else {
+      setError(error.response?.data?.message);
+      console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
+      setError(error.response?.data?.message);
+      // }
 
       return error.response;
     } finally {
