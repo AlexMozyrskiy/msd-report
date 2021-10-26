@@ -16,10 +16,10 @@ export const apiWithoutToken = axios.create({
 
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
 apiWithToken.interceptors.request.use((config) => {
-  // const isCookieAccepted = getIsCookieAccepted();
-  // if (isCookieAccepted === 'false' || isCookieAccepted === null) {
-  //   throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
-  // }
+  const isCookieAccepted = getIsCookieAccepted();
+  if (isCookieAccepted === 'false' || isCookieAccepted === null) {
+    throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
+  }
 
   if (config.headers) {
     config.headers.Authorization = 'Bearer ' + getAccessToken();

@@ -150,9 +150,14 @@ export const useHttp = () => {
 
       return response;
     } catch (error: any) {
+      /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+      if (typeof error.message === 'string') {
+        setError(error.message);
+      } else {
+        setError(error.response?.data?.message);
+      }
       /* Если не авторизован по accessToken и не пробовали рефрешнуть accessToken попробуем рефрешнуть */
-      setError(error.response?.data?.message);
-      if (error.response.status === 401 && !isRefreshTokenRequestMade) {
+      if (error.response?.status === 401 && !isRefreshTokenRequestMade) {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг

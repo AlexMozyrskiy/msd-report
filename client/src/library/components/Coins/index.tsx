@@ -13,7 +13,6 @@ import st from './index.module.scss';
 
 const Coins: FC = () => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
-  console.log(isPaymentModalOpen);
 
   const { coins } = useSelector(getUserSelector);
 
