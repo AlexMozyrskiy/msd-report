@@ -64,8 +64,15 @@ export const useHttp = () => {
 
       return response;
     } catch (error: any) {
-      console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
-      setError(error.response?.data?.message);
+      /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+      if (typeof error.message === 'string') {
+        setError(error.message);
+      } else {
+        setError(error.response?.data?.message);
+        console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
+        setError(error.response?.data?.message);
+      }
+
       return error.response;
     } finally {
       setIsFetching(false);
@@ -96,8 +103,15 @@ export const useHttp = () => {
 
         return response;
       } catch (error: any) {
-        console.log(error.response?.data?.message);
-        setError(error.response?.data?.message);
+        /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+        if (typeof error.message === 'string') {
+          setError(error.message);
+        } else {
+          setError(error.response?.data?.message);
+          console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
+          setError(error.response?.data?.message);
+        }
+
         return error.response;
       } finally {
         setIsFetching(false);
@@ -275,6 +289,7 @@ export const useHttp = () => {
         return response;
       } catch (error: any) {
         setError(error.response?.data?.message);
+        console.log(error);
         return error.response;
       } finally {
         setIsFetching(false);

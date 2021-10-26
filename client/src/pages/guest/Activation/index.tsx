@@ -21,12 +21,21 @@ const Activate: FC = () => {
   const [isAgreementAccepted, setIsAgreementAccepted] = useState<boolean>(false);
   const [isCookieAccepted, setIsCookieAccepted] = useState<boolean>(false);
 
-  const { isActivationLinkExist, activate, error, setError, success, setSuccess, clearSuccess, clearError } = useHttp();
+  const {
+    isActivationLinkExist: isActivationLinkExistService,
+    activate,
+    error,
+    setError,
+    success,
+    setSuccess,
+    clearSuccess,
+    clearError,
+  } = useHttp();
 
   /* Если ссылки в БД нет переведем юзера на 404 */
   useEffect(() => {
-    isActivationLinkExist(link).then((response) => {
-      if (!response.data.isExist) {
+    isActivationLinkExistService(link).then((response) => {
+      if (!response?.data.isExist) {
         push('/notvalidlink');
       }
     });

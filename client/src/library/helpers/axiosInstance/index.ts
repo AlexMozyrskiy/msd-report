@@ -16,10 +16,10 @@ export const apiWithoutToken = axios.create({
 
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
 apiWithToken.interceptors.request.use((config) => {
-  const isCookieAccepted = getIsCookieAccepted();
-  if (isCookieAccepted === 'false' || isCookieAccepted === null) {
-    throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
-  }
+  // const isCookieAccepted = getIsCookieAccepted();
+  // if (isCookieAccepted === 'false' || isCookieAccepted === null) {
+  //   throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
+  // }
 
   if (config.headers) {
     config.headers.Authorization = 'Bearer ' + getAccessToken();
@@ -29,7 +29,9 @@ apiWithToken.interceptors.request.use((config) => {
 
 /* перехватываем запрос на сервер и добавляем хедерс авторизации с access токеном */
 apiWithoutToken.interceptors.request.use((config) => {
-  if (getIsCookieAccepted() === 'false') {
+  const isCookieAccepted = getIsCookieAccepted();
+  if (isCookieAccepted === 'false' || isCookieAccepted === null) {
     throw new axios.Cancel('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
   }
+  return config;
 });

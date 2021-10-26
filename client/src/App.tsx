@@ -57,7 +57,7 @@ const App: FC = () => {
 
           {!isCookieAcceptedState && <CookieAgrrement toggleIsCookieAccepted={toggleIsCookieAccepted} />}
 
-          {error && <p>{error}</p>}
+          {/* {error && <p>{error}</p>} */}
         </main>
       </div>
     </>
