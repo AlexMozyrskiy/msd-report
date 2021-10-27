@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
@@ -12,12 +12,14 @@ import st from './index.module.scss';
 
 const Admin: FC = () => {
   const { role } = useSelector(getUserSelectior);
+
+  const history = useHistory();
   /*
     не использовали NavLink для определния activeClassname потому,
     что в core в роутах exact у роута '/admin' === false и вкладка
     Home получается постоянно автивна
   */
-  const [activeLinkPath, setActiveLinkPath] = useState<string>('/admin');
+  const [activeLinkPath, setActiveLinkPath] = useState<string>(history.location.pathname);
 
   return (
     <section className={st.admin}>
