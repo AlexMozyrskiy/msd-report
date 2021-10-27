@@ -346,20 +346,35 @@ export const useHttp = () => {
         return response;
       } catch (error: any) {
         /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
-        // if (typeof error.message === 'string') {
-        //   setError(error.message);
-        // } else {
-        setError(error.response?.data?.message);
-        console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
-        setError(error.response?.data?.message);
-        // }
+        if (typeof error.message === 'string') {
+          setError(error.message);
+        } else {
+          setError(error.response?.data?.message);
+        }
+
+        if (error.response?.status === 401 && !isRefreshTokenRequestMade) {
+          try {
+            const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
+            setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+            const response = await apiWithToken.post<IAddCoinsResponse>('/admin/coins', {
+              login,
+              addCoins: addCoinsCount,
+            });
+            return response;
+          } catch (error: any) {
+            setIsRefreshTokenRequestMade(true);
+            setError(error.response?.data?.message);
+            console.log(error.response?.data?.message);
+            return error.response;
+          }
+        }
 
         return error.response;
       } finally {
         setIsFetching(false);
       }
     },
-    []
+    [isRefreshTokenRequestMade]
   );
 
   const clearError = useCallback(() => setError(null), []);
