@@ -90,7 +90,7 @@ export const useHttp = () => {
       setIsRefreshTokenRequestMade(false);
 
       try {
-        const response = await apiWithToken.post<IRegisterResponse>('/user/registration', {
+        const response = await apiWithToken.post<IRegisterResponse>('/admin/registration', {
           login,
           email,
           affiliation,
