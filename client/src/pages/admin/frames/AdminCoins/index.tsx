@@ -26,9 +26,7 @@ const AdminCoins: FC = () => {
     } else {
       clearError();
       clearSuccess();
-      debugger;
       const response = await addCoins(login, count);
-      debugger;
       response?.status === 200 &&
         setSuccess(
           `Коины успешно добавлены юзеру ${login} в количестве ${response.data.addedCoins}, теперь у ${login} ${response.data.newCoinsCount} монет`
