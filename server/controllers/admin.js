@@ -35,7 +35,7 @@ class AdminController {
       }
 
       const { login, addCoins } = req.body;
-      const response = await AdminService.coins(login, addCoins);
+      const response = await AdminService.coins(login, +addCoins);
 
       return res.json(response);
     } catch (error) {

@@ -44,6 +44,11 @@ interface IActivateResponse {
   isActivated: boolean;
 }
 
+interface IAddCoinsResponse {
+  addedCoins: number;
+  newCoinsCount: number;
+}
+
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -323,6 +328,40 @@ export const useHttp = () => {
     }
   }, []);
 
+  const addCoins = useCallback(
+    async (login: string, addCoinsCount: number): Promise<AxiosResponse<IAddCoinsResponse>> => {
+      setIsFetching(true);
+      setIsRefreshTokenRequestMade(false);
+
+      try {
+        const response = await apiWithToken.post<IAddCoinsResponse>('/admin/coins', {
+          login,
+          addCoins: addCoinsCount,
+        });
+        console.log(response);
+
+        /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
+        // setAccessToken(response.data.accessToken);
+
+        return response;
+      } catch (error: any) {
+        /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+        // if (typeof error.message === 'string') {
+        //   setError(error.message);
+        // } else {
+        setError(error.response?.data?.message);
+        console.log(error.response?.data?.message); // вместо этого консоль лог будет обрботка ошибок, запись в стейт и в компоненте вывод ошибки на экран
+        setError(error.response?.data?.message);
+        // }
+
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
+
   const clearError = useCallback(() => setError(null), []);
 
   const clearSuccess = useCallback(() => setSuccess(null), []);
@@ -339,6 +378,7 @@ export const useHttp = () => {
     isRestorePasswordLinkExist,
     isActivationLinkExist,
     activate,
+    addCoins,
     error,
     setError,
     success,

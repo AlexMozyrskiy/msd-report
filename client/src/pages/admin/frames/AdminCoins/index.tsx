@@ -14,7 +14,7 @@ const AdminCoins: FC = () => {
   const [count, setCount] = useState<number>(0);
   // const dispath = useDispatch();
 
-  const { registration, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } = useHttp();
+  const { addCoins, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } = useHttp();
 
   const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -26,8 +26,13 @@ const AdminCoins: FC = () => {
     } else {
       clearError();
       clearSuccess();
-      // const response = await registration(login, email, affiliation, password);
-      // response.data.isRegistered && setSuccess('Пользователь успешно зарегистрирован');
+      debugger;
+      const response = await addCoins(login, count);
+      debugger;
+      response?.status === 200 &&
+        setSuccess(
+          `Коины успешно добавлены юзеру ${login} в количестве ${response.data.addedCoins}, теперь у ${login} ${response.data.newCoinsCount} монет`
+        );
     }
   };
 
