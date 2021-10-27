@@ -6,21 +6,6 @@ const adminMiddleware = require('../middlewares/admin');
 const { check, body } = require('express-validator');
 // const authMiddleware = require('../middleware/authMiddleware');
 
-router.post(
-  '/registration',
-  check('email').isEmail().normalizeEmail().withMessage('Неверный формат email'),
-  body('email').trim().escape(),
-  check('login').isLength({ min: 3 }).withMessage('Минимальная длина логина 3 символа'),
-  body('login').trim().escape(),
-  check('password')
-    .isLength({ min: 5 })
-    .withMessage('Минимальная длина пароля 5 символов')
-    .matches(/\d/)
-    .withMessage('Пароль должен содержать хотя бы 1 цифру'),
-  authMiddleware,
-  adminMiddleware,
-  UserController.registration
-);
 router.post('/login', UserController.login);
 router.post('/logout', UserController.logout);
 router.post('/check', authMiddleware, UserController.check);
