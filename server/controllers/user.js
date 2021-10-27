@@ -3,36 +3,12 @@ const { validationResult } = require('express-validator');
 const ApiError = require('../exceptions/api-error');
 
 class UserController {
-  async registration(req, res, next) {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return next(ApiError.badRequest('Ошибка при валидации', errors.array()));
-      }
-
-      const { login, email, affiliation, password } = req.body;
-      const userData = await userService.registration(login, email, affiliation, password);
-
-      /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
-      // res.cookie('refreshToken', userData.refreshToken, {
-      //   maxAge: 30 * 24 * 60 * 60 * 1000,
-      //   httpOnly: true,
-      //   // secure: true,  // если используем https
-      // });
-
-      // return res.json(userData);  закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере
-      return res.json({ isRegistered: true });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async login(req, res, next) {
     try {
       const { login, password } = req.body;
       const userData = await userService.login(login, password);
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: 5 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         // secure: true,  // если используем https
       });
@@ -85,7 +61,7 @@ class UserController {
       const { refreshToken } = req.cookies;
       const userData = await userService.refresh(refreshToken);
       res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
+        maxAge: 5 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         // secure: true,  // если используем https
       });
@@ -98,8 +74,18 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const { id, login, email, affiliation, isActivated, coins, role } = req.user;
-      return res.json({ id, login, email, affiliation, isActivated, coins, role });
+      const authorizationHeader = req.headers.authorization;
+
+      const accessToken = authorizationHeader.split(' ')[1];
+
+      const userData = await userService.check(accessToken);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 5 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        // secure: true,  // если используем https
+      });
+
+      return res.json(userData);
     } catch (error) {
       next(error);
     }

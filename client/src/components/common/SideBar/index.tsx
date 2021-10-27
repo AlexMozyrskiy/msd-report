@@ -19,7 +19,7 @@ interface SideBarProps {
   role: TRole[];
 }
 
-const SideBar: FC<SideBarProps> = ({ isSidebarActive, setIsSidebarActive, role }) => {
+const SideBar: FC<SideBarProps> = ({ isSidebarActive, setIsSidebarActive, role = [] }) => {
   return (
     <section className={st.sidebar}>
       <article className={cn(st.sidebar__logo, { [st.sidebar__logo_sideBarNotActive]: !isSidebarActive })}>

@@ -44,6 +44,11 @@ interface IActivateResponse {
   isActivated: boolean;
 }
 
+interface IAddCoinsResponse {
+  addedCoins: number;
+  newCoinsCount: number;
+}
+
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +71,6 @@ export const useHttp = () => {
     } catch (error: any) {
       /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
       // if (typeof error.message === 'string') {
-      //   debugger;
       //   // setError(error.message);
       // } else {
       setError(error.response?.data?.message);
@@ -91,7 +95,7 @@ export const useHttp = () => {
       setIsRefreshTokenRequestMade(false);
 
       try {
-        const response = await apiWithToken.post<IRegisterResponse>('/user/registration', {
+        const response = await apiWithToken.post<IRegisterResponse>('/admin/registration', {
           login,
           email,
           affiliation,
@@ -179,11 +183,11 @@ export const useHttp = () => {
     }
   }, [isRefreshTokenRequestMade]);
 
-  const check = useCallback(async (): Promise<AxiosResponse<IUser>> => {
+  const check = useCallback(async (): Promise<AxiosResponse<IAuthResponse>> => {
     setIsFetching(true);
 
     try {
-      const response = await apiWithToken.post<IUser>('/user/check');
+      const response = await apiWithToken.get<IAuthResponse>('/user/check');
       console.log(response);
 
       return response;
@@ -202,7 +206,7 @@ export const useHttp = () => {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
-          const response = await apiWithToken.post<IUser>('/user/check');
+          const response = await apiWithToken.get<IAuthResponse>('/user/check');
           return response;
         } catch (error: any) {
           setIsRefreshTokenRequestMade(true);
@@ -324,6 +328,55 @@ export const useHttp = () => {
     }
   }, []);
 
+  const addCoins = useCallback(
+    async (login: string, addCoinsCount: number): Promise<AxiosResponse<IAddCoinsResponse>> => {
+      setIsFetching(true);
+      setIsRefreshTokenRequestMade(false);
+
+      try {
+        const response = await apiWithToken.post<IAddCoinsResponse>('/admin/coins', {
+          login,
+          addCoins: addCoinsCount,
+        });
+        console.log(response);
+
+        /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
+        // setAccessToken(response.data.accessToken);
+
+        return response;
+      } catch (error: any) {
+        /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+        if (typeof error.message === 'string') {
+          setError(error.message);
+        } else {
+          setError(error.response?.data?.message);
+        }
+
+        if (error.response?.status === 401 && !isRefreshTokenRequestMade) {
+          try {
+            const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
+            setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+            const response = await apiWithToken.post<IAddCoinsResponse>('/admin/coins', {
+              login,
+              addCoins: addCoinsCount,
+            });
+            return response;
+          } catch (error: any) {
+            setIsRefreshTokenRequestMade(true);
+            setError(error.response?.data?.message);
+            console.log(error.response?.data?.message);
+            return error.response;
+          }
+        }
+
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    [isRefreshTokenRequestMade]
+  );
+
   const clearError = useCallback(() => setError(null), []);
 
   const clearSuccess = useCallback(() => setSuccess(null), []);
@@ -340,6 +393,7 @@ export const useHttp = () => {
     isRestorePasswordLinkExist,
     isActivationLinkExist,
     activate,
+    addCoins,
     error,
     setError,
     success,

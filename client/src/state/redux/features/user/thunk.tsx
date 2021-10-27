@@ -14,7 +14,7 @@ type TloginUser = (
 
 type TLogoutUser = (logout: () => Promise<AxiosResponse<ILogoutResponse>>) => (dispatch: Dispatch) => void;
 
-type TCheckUser = (check: () => Promise<AxiosResponse<IUser>>) => (dispatch: Dispatch) => void;
+type TCheckUser = (check: () => Promise<AxiosResponse<IAuthResponse>>) => (dispatch: Dispatch) => void;
 
 export const loginUser: TloginUser = (loginService, login, password) => async (dispatch) => {
   const response = await loginService(login, password);
@@ -48,6 +48,6 @@ export const checkUser: TCheckUser = (check) => async (dispatch) => {
   const response = await check();
 
   if (response?.status === 200) {
-    dispatch(setUserAction(response.data));
+    dispatch(setUserAction(response.data.user));
   }
 };

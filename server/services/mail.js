@@ -43,6 +43,24 @@ class MailService {
         `,
     });
   }
+
+  async sendCoinsAddMail(to, login, addedCoins, totalCoinsCount) {
+    await this.transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to,
+      subject: 'Добавлены монеты на ' + process.env.CLIENT_URL,
+      text: '',
+      html: `
+          <div>
+            <h1>Вам Добавлены монеты</h1>
+
+            <p>Количество добавленных монет: ${addedCoins}</p>
+            <p>Всего монет на сервисе: ${totalCoinsCount}</p>
+            <p>Ваш логин на сервисе: ${login}</p>
+          </div>
+        `,
+    });
+  }
 }
 
 module.exports = new MailService();
