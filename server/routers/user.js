@@ -8,7 +8,7 @@ const { check, body } = require('express-validator');
 
 router.post('/login', UserController.login);
 router.post('/logout', UserController.logout);
-router.post('/check', authMiddleware, UserController.check);
+router.get('/check', authMiddleware, UserController.check);
 router.post('/isactivationlinkexist', UserController.isActivationLinkExist);
 router.post(
   '/activate',

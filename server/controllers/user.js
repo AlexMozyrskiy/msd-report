@@ -74,8 +74,12 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const { id, login, email, affiliation, isActivated, coins, role } = req.user;
-      return res.json({ id, login, email, affiliation, isActivated, coins, role });
+      const authorizationHeader = req.headers.authorization;
+
+      const accessToken = authorizationHeader.split(' ')[1];
+
+      const userData = await userService.check(accessToken);
+      return res.json(userData);
     } catch (error) {
       next(error);
     }

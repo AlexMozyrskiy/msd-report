@@ -66,7 +66,6 @@ export const useHttp = () => {
     } catch (error: any) {
       /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
       // if (typeof error.message === 'string') {
-      //   debugger;
       //   // setError(error.message);
       // } else {
       setError(error.response?.data?.message);
@@ -179,11 +178,11 @@ export const useHttp = () => {
     }
   }, [isRefreshTokenRequestMade]);
 
-  const check = useCallback(async (): Promise<AxiosResponse<IUser>> => {
+  const check = useCallback(async (): Promise<AxiosResponse<IAuthResponse>> => {
     setIsFetching(true);
 
     try {
-      const response = await apiWithToken.post<IUser>('/user/check');
+      const response = await apiWithToken.get<IAuthResponse>('/user/check');
       console.log(response);
 
       return response;
@@ -202,7 +201,7 @@ export const useHttp = () => {
         try {
           const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
           setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
-          const response = await apiWithToken.post<IUser>('/user/check');
+          const response = await apiWithToken.get<IAuthResponse>('/user/check');
           return response;
         } catch (error: any) {
           setIsRefreshTokenRequestMade(true);
