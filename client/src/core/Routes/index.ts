@@ -11,7 +11,7 @@ import Registration from 'src/pages/guest/Registration';
 import Activate from 'src/pages/guest/Activation';
 import UserAgreement from 'src/pages/user/UserAgreement';
 import AboutCookie from 'src/pages/common/AboutCookie';
-import AdminRegistration from 'src/pages/admin/AdminRegistration';
+import Admin from 'src/pages/admin';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -113,9 +113,9 @@ export const sideBarRoutes: IRoute[] = [
     availableRole: 'user',
   },
   {
-    path: '/adminregistration',
-    component: AdminRegistration,
-    exact: true,
+    path: '/admin',
+    component: Admin,
+    exact: false,
     linkText: 'Регистрация',
     linkIcon: registrationIcon,
     availableRole: 'admin',

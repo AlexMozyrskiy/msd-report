@@ -1,5 +1,5 @@
 class Validate {
-  isEmpty(value: string): boolean {
+  isEmpty(value: string | number): boolean {
     if (!value) {
       return true;
     }

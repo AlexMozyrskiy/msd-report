@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { useHttp } from 'src/library/hooks/useHttp';
 import Validate from 'src/library/helpers/validation';
@@ -17,7 +17,7 @@ const AdminRegistration: FC = () => {
 
   const { registration, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } = useHttp();
 
-  const password = Math.floor(Math.random() * 100000000000).toString();
+  const password = useMemo(() => Math.floor(Math.random() * 100000000000).toString(), []);
 
   const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ const AdminRegistration: FC = () => {
   };
 
   return (
-    <section className={st.regisration}>
+    <section className={st.wrapper}>
       <h2 className={st.header}>Регистрация</h2>
 
       <form>
