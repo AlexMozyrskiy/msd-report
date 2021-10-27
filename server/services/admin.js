@@ -53,6 +53,8 @@ class AdminService {
 
     await user.save();
 
+    await MailService.sendCoinsAddMail(user.email, user.login, addCoins, user.coins);
+
     return { addedCoins: addCoins, newCoinsCount: user.coins };
   }
 }
