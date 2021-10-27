@@ -60,12 +60,6 @@ class TokenService {
 
     return tokenData;
   }
-
-  async findAccessTokenToken(accessToken) {
-    const tokenData = await tokenModel.findOne({ accessToken });
-
-    return tokenData;
-  }
 }
 
 module.exports = new TokenService();

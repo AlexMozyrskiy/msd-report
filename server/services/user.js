@@ -112,9 +112,8 @@ class UserService {
 
   async check(accessToken) {
     const userData = TokenService.validateAccessToken(accessToken);
-    const tokenFromDb = await TokenService.findAccessTokenToken(accessToken);
 
-    if (!userData || !tokenFromDb) {
+    if (!userData) {
       throw ApiError.unauthorizedError();
     }
 
