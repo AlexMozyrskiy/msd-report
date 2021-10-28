@@ -18,16 +18,18 @@ const Video: FC = () => {
     <section className={st.video}>
       <FeatureNav tagsRoutes={tagsRoutes} />
 
-      <Switch>
-        {tagsRoutes.map(
-          (route) =>
-            role?.includes(route.availableRole) && (
-              <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
-            )
-        )}
+      <div className={st.video__content}>
+        <Switch>
+          {tagsRoutes.map(
+            (route) =>
+              role?.includes(route.availableRole) && (
+                <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
+              )
+          )}
 
-        <NotFound />
-      </Switch>
+          <NotFound />
+        </Switch>
+      </div>
     </section>
   );
 };

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import VideoHome from '../frames/VideoHome';
+import Upload from '../frames/Upload';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -29,14 +30,14 @@ export const tagsRoutes: IRoute[] = [
   },
   {
     path: '/video/upload',
-    component: VideoHome,
+    component: Upload,
     exact: true,
     linkText: 'Загрузить',
     availableRole: 'guest',
   },
   {
     path: '/video/upload',
-    component: VideoHome,
+    component: Upload,
     exact: true,
     linkText: 'Загрузить',
     availableRole: 'user',
