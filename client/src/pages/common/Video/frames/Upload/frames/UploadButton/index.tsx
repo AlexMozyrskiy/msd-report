@@ -14,7 +14,7 @@ const UploadButton: FC = () => {
         <figure>
           <SVG src={uploadIcon} />
         </figure>
-        <p>Загрузить файл шаблон</p>
+        <p>Загрузить файл-шаблон</p>
       </label>
     </button>
   );
