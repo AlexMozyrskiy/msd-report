@@ -8,7 +8,7 @@ import { TRole } from 'src/state/redux/features/user/actionCreators';
 
 // import registrationIcon from 'src/library/icons/sideBar/registration.svg';
 
-interface IRoute {
+export interface IRoute {
   path: string;
   component: FC;
   exact: boolean;

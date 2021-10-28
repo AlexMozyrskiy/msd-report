@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
 import { tagsRoutes } from './routes';
-import { getUser as getUserSelectior } from 'src/state/redux/features/user/selectors';
+import { getUser as getUserSelector } from 'src/state/redux/features/user/selectors';
 
 import NotFound from '../common/NotFound';
 
 import st from './index.module.scss';
 
 const Admin: FC = () => {
-  const { role } = useSelector(getUserSelectior);
+  const { role } = useSelector(getUserSelector);
 
   const history = useHistory();
   /*
@@ -36,18 +36,18 @@ const Admin: FC = () => {
             </li>
           ))}
         </ul>
-
-        <Switch>
-          {tagsRoutes.map(
-            (route) =>
-              role?.includes('admin') && (
-                <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
-              )
-          )}
-
-          <NotFound />
-        </Switch>
       </nav>
+
+      <Switch>
+        {tagsRoutes.map(
+          (route) =>
+            role?.includes('admin') && (
+              <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
+            )
+        )}
+
+        <NotFound />
+      </Switch>
     </section>
   );
 };

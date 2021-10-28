@@ -59,7 +59,7 @@ export const sideBarRoutes: IRoute[] = [
   {
     path: '/video',
     component: Video,
-    exact: true,
+    exact: false,
     linkText: 'Видео Контроль',
     linkIcon: videoIcon,
     availableRole: 'user',
@@ -67,7 +67,7 @@ export const sideBarRoutes: IRoute[] = [
   {
     path: '/video',
     component: Forbidden,
-    exact: true,
+    exact: false,
     linkText: 'Видео Контроль',
     linkIcon: videoIcon,
     availableRole: 'guest',
@@ -116,7 +116,7 @@ export const sideBarRoutes: IRoute[] = [
     path: '/admin',
     component: Admin,
     exact: false,
-    linkText: 'Регистрация',
+    linkText: 'Админ',
     linkIcon: registrationIcon,
     availableRole: 'admin',
   },
