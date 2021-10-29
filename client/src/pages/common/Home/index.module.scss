@@ -1,0 +1,23 @@
+.home {
+  max-height: calc(100vh - 80px);
+  padding: 0 50px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #65708d;
+
+  a {
+    color: #65708d;
+  }
+
+  h2 {
+    margin: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 48px;
+    color: #acafd1;
+    text-align: center;
+  }
+}
