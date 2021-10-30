@@ -48,7 +48,7 @@ class FileValidator {
   }
 
   /* Валидация Листа "Данные" */
-  sheetData(parsedObject: any): string[] | [] {
+  sheetData(parsedObject: any): string[] {
     let returnedArr: string[] = [];
 
     if (!parsedObject.A2) {
