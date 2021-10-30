@@ -23,7 +23,14 @@ class FileValidator {
     return missingSheets;
   }
 
-  emptyCellsInColumn(parsedObject: any, columnLetter: string) {
+  /**
+   * Возвращает названия пустых не заполненных пропущенных ячеек в указанной колнке
+   *
+   * @param {Object} parsedObject - объект парс excel файла с помощью библиотеки XLSX
+   * @param {String} columnLetter - литер колонки например "A"
+   * @returns {string[] | []}
+   */
+  emptyCellsInColumn(parsedObject: any, columnLetter: string): string[] | [] {
     let emptyCellsInColumn: string[] = [];
     const countOfFilledRows = countOfFilledRowsFunction(parsedObject, columnLetter);
     const lastFilledRowNumber = lastFilledRowNumberFunction(parsedObject, columnLetter);
