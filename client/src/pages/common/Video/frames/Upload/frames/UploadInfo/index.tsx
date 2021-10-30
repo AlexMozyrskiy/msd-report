@@ -15,7 +15,6 @@ interface IUploadInfo {
 const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
   /* Верменная переменная, пока не написали стейт для загруженных данных с валидацией */
   const isDataUploaded = false;
-  console.log(uploadedFileValidationErrors);
 
   return (
     <article className={st.uploadInfo}>
