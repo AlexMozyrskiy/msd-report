@@ -34,7 +34,7 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
     const selectedFile = e.target.files?.length ? e.target.files[0] : null;
 
     const fileValidator = new FileValidator();
-    if (!fileValidator.isCorrectType(selectedFile?.type)) {
+    if (!fileValidator.isCorrectFileType(selectedFile?.type)) {
       newErrors = ['Загруженный файл не является файлом Excel'];
       setUploadedFileValidationErrors(['Загруженный файл не является файлом Excel']);
       return;
@@ -60,12 +60,14 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
           return;
         }
 
-        const emptyCellsInColumn = fileValidator.emptyCellsInColumn(workBook.Sheets['Отступления'], 'A');
+        const emptyCellsInColumn = fileValidator.sheetRetreatsCellsEmptyValues(workBook.Sheets['Отступления']);
         if (emptyCellsInColumn.length) {
           newErrors.push(
-            "В загруженном файле, в листе 'Отступления', не заполнены ячейки: " + emptyCellsInColumn.join(', ')
+            "В загруженном файле, в листе 'Отступления', все значения в колонках 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'M', 'N', 'O' должны быть заполнены. Не заполненные ячейки: " +
+              emptyCellsInColumn.join(', ')
           );
           setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
           return;
         }
 
@@ -73,6 +75,109 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         if (validatedSheetData.length) {
           newErrors = newErrors.concat(validatedSheetData);
           setUploadedFileValidationErrors(newErrors);
+          return;
+        }
+
+        let wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'A');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'A' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'B');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'B' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'E');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'E' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'F');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'F' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'G');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'G' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongTypeCells = fileValidator.allCellsInColumnMustBeTypeOf('number', workBook.Sheets['Отступления'], 'H');
+        if (wrongTypeCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', все значения в колонке 'H' должны быть числами. Ячейки с не числовыми значениями: " +
+              wrongTypeCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        let wrongValueCells = fileValidator.allCellsInColumnMustHaveValue(
+          ['левая', 'правая', 'обе'],
+          workBook.Sheets['Отступления'],
+          'I'
+        );
+        if (wrongValueCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', значение в колонке 'I' может быть только одним из: 'левая', 'правая', 'обе'. Ячейки с не подходящими значениями: " +
+              wrongValueCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        let wrongSpeedValueCells = fileValidator.speed(workBook.Sheets['Отступления'], 'M');
+        if (wrongSpeedValueCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', значения в колонке 'M' должны быть например: '100/80'. Ячейки с не подходящими значениями: " +
+              wrongSpeedValueCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
+          return;
+        }
+
+        wrongSpeedValueCells = fileValidator.speed(workBook.Sheets['Отступления'], 'N');
+        if (wrongSpeedValueCells.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', значения в колонке 'N' должны быть например: '100/80'. Ячейки с не подходящими значениями: " +
+              wrongSpeedValueCells.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
+          console.log(newErrors);
           return;
         }
 
