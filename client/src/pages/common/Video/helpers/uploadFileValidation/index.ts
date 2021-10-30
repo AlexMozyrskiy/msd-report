@@ -1,3 +1,8 @@
+import {
+  countOfFilledRows as countOfFilledRowsFunction,
+  lastFilledRowNumber as lastFilledRowNumberFunction,
+} from 'src/library/helpers/xlsx';
+
 class FileValidator {
   isCorrectType(type: string | undefined) {
     if (type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
@@ -16,6 +21,22 @@ class FileValidator {
     });
 
     return missingSheets;
+  }
+
+  emptyCellsInColumn(parsedObject: any, columnLetter: string) {
+    let emptyCellsInColumn: string[] = [];
+    const countOfFilledRows = countOfFilledRowsFunction(parsedObject, columnLetter);
+    const lastFilledRowNumber = lastFilledRowNumberFunction(parsedObject, columnLetter);
+
+    if (countOfFilledRows !== lastFilledRowNumber) {
+      for (let num = 1; num <= lastFilledRowNumber; num++) {
+        if (!parsedObject[`${columnLetter}${num}`]) {
+          emptyCellsInColumn.push(`${columnLetter}${num}`);
+        }
+      }
+    }
+
+    return emptyCellsInColumn;
   }
 }
 

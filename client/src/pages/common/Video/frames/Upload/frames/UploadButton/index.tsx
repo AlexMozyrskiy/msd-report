@@ -60,14 +60,13 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
           return;
         }
 
+        const emptyCellsInColumn = fileValidator.emptyCellsInColumn(workBook.Sheets['Отступления'], 'A');
+
         /* Если файл не прошел валидацию останавливаем обработку загруженного файла */
         if (newErrors.length) {
           return;
         }
         /* ---------------- / Валидация загруженного файла ------------------ */
-        const otst = workBook.Sheets['Отступления'];
-        // console.log(otst);
-        xlsxDataToObj(otst);
 
         //     const workSheetOtstDataObj = workBook.Sheets['Отступления'];
         //     const workSheetOtstDataJson = XLSX.utils.sheet_to_json(workSheetOtstDataObj);
