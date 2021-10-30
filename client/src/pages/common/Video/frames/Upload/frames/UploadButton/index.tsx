@@ -3,6 +3,7 @@ import SVG from 'react-inlinesvg';
 import XLSX from 'xlsx';
 
 import FileValidator from '../../../../helpers/uploadFileValidation';
+import { xlsxDataToObj } from '../../../../helpers/xlsxDataToObj';
 
 import uploadIcon from 'src/library/icons/common/upload.svg';
 
@@ -22,13 +23,19 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
     // console.log(inputValue);
     // console.log(inputRef.current?.files);
 
+    let newErrors: string[] = [];
+
     /* Обнуление ощибок при попытке вновь загрузить файл */
-    uploadedFileValidationErrors.length && setUploadedFileValidationErrors([]);
+    if (uploadedFileValidationErrors.length) {
+      setUploadedFileValidationErrors([]);
+      newErrors = [];
+    }
 
     const selectedFile = e.target.files?.length ? e.target.files[0] : null;
 
     const fileValidator = new FileValidator();
     if (!fileValidator.isCorrectType(selectedFile?.type)) {
+      newErrors = ['Загруженный файл не является файлом Excel'];
       setUploadedFileValidationErrors(['Загруженный файл не является файлом Excel']);
       return;
     } else {
@@ -44,7 +51,24 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         const workBook = XLSX.read(data, {
           type: 'binary',
         });
-        console.log(workBook);
+
+        /* ---------------- Валидация загруженного файла ------------------ */
+        const missingSheets = fileValidator.missingSheets(workBook.SheetNames, ['Данные', 'Отступления']);
+        if (missingSheets.length) {
+          newErrors.push('В загруженном файле отсутствуют следуюшие листы: ' + missingSheets.join(', '));
+          setUploadedFileValidationErrors(newErrors);
+          return;
+        }
+
+        /* Если файл не прошел валидацию останавливаем обработку загруженного файла */
+        if (newErrors.length) {
+          return;
+        }
+        /* ---------------- / Валидация загруженного файла ------------------ */
+        const otst = workBook.Sheets['Отступления'];
+        // console.log(otst);
+        xlsxDataToObj(otst);
+
         //     const workSheetOtstDataObj = workBook.Sheets['Отступления'];
         //     const workSheetOtstDataJson = XLSX.utils.sheet_to_json(workSheetOtstDataObj);
         //     const workSheetOcKmDataObj = workBook.Sheets['Оценка КМ'];
@@ -55,9 +79,10 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         //     };
         //     dispatch(setWorkBookDataThunkCreator(workBookData));
         //   };
-        //   reader.onerror = function (event) {
-        //     workBookData = null;
-        //     console.error('Файл не может быть прочитан. Код ошибки: ' + event.target.error.code);
+        reader.onerror = function (event) {
+          // workBookData = null;
+          // console.error('Файл не может быть прочитан. Код ошибки: ' + event.target.error.code);
+        };
       };
     }
 
