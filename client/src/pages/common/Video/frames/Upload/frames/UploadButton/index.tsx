@@ -61,11 +61,21 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         }
 
         const emptyCellsInColumn = fileValidator.emptyCellsInColumn(workBook.Sheets['Отступления'], 'A');
-
-        /* Если файл не прошел валидацию останавливаем обработку загруженного файла */
-        if (newErrors.length) {
+        if (emptyCellsInColumn.length) {
+          newErrors.push(
+            "В загруженном файле, в листе 'Отступления', не заполнены ячейки: " + emptyCellsInColumn.join(', ')
+          );
+          setUploadedFileValidationErrors(newErrors);
           return;
         }
+
+        const validatedSheetData = fileValidator.sheetData(workBook.Sheets['Данные']);
+        if (validatedSheetData.length) {
+          newErrors = newErrors.concat(validatedSheetData);
+          setUploadedFileValidationErrors(newErrors);
+          return;
+        }
+
         /* ---------------- / Валидация загруженного файла ------------------ */
 
         //     const workSheetOtstDataObj = workBook.Sheets['Отступления'];
