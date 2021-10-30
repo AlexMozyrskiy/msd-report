@@ -8,9 +8,14 @@ import infoPicture from 'src/library/images/common/info.png';
 
 import st from './index.module.scss';
 
-const UploadInfo: FC = () => {
+interface IUploadInfo {
+  uploadedFileValidationErrors: string[];
+}
+
+const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
   /* Верменная переменная, пока не написали стейт для загруженных данных с валидацией */
   const isDataUploaded = false;
+  console.log(uploadedFileValidationErrors);
 
   return (
     <article className={st.uploadInfo}>
@@ -58,6 +63,8 @@ const UploadInfo: FC = () => {
         <div className={st.wrapper__uploadMessage}>
           {isDataUploaded ? (
             <SuccessMessage text='Данные загружены' />
+          ) : uploadedFileValidationErrors.length /* Если есть ошибки валидации файла */ ? (
+            <ErrorMessage text='Файл который Вы загрузили не прошел валидацию, чтобы посмотреть ошибки возникшие при загрузке файла кликните сюда' />
           ) : (
             <ErrorMessage text="Данные не загружены, чтобы загрузить данные нажмите кнопку 'Загрузить файл-шаблон'" />
           )}

@@ -181,5 +181,10 @@ export const retreatVideoCodes: IDistanceAndRegion[] = [
     retreatForReportTamlesTitle: 'металлическая пластина между головкой рельса и стыковой накладкой',
     retreatFullTitle: 'Металлическая пластина между головкой рельса и стыковой накладкой',
   },
-  { retreatCode: 40, retreatForReportTamlesTitle: 'прочие', retreatFullTitle: 'Прочие' },
+  {
+    retreatCode: 40,
+    retreatForReportTamlesTitle: 'нетиповые и посторонние предметы в стыке',
+    retreatFullTitle: 'Нетиповые и посторонние предметы в стыке',
+  },
+  { retreatCode: 41, retreatForReportTamlesTitle: 'прочие', retreatFullTitle: 'Прочие' },
 ];

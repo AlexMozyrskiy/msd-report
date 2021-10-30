@@ -12,7 +12,7 @@ import st from './index.module.scss';
 const AdminCoins: FC = () => {
   const [login, setLogin] = useState<string>('');
   const [count, setCount] = useState<number>(0);
-  // const dispath = useDispatch();
+  // const dispatch = useDispatch();
 
   const { addCoins, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } = useHttp();
 

@@ -21,10 +21,10 @@ const DropDown: FC<DropDownProps> = ({ setIsDropDownActive }) => {
 
   const { logout, isFetching } = useHttp();
 
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const onLogoutHandler = () => {
-    dispath(logoutUserThunk(logout));
+    dispatch(logoutUserThunk(logout));
   };
 
   return (

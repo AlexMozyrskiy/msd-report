@@ -20,7 +20,7 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const { login: loginService, isFetching, error, setError, clearError } = useHttp();
 
@@ -37,7 +37,7 @@ const LoginForm: FC<LoginModalProps> = ({ setActiveModalName }) => {
     } else if (isCookieAccepted === 'false' || isCookieAccepted === null) {
       setError('К сожалению без согласия на использование этим сайтом Cookie авторизация невозможна');
     } else {
-      dispath(loginUserThunk(loginService, login, password));
+      dispatch(loginUserThunk(loginService, login, password));
     }
   }
 

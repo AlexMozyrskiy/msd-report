@@ -18,7 +18,7 @@ interface ForgotPasswordFormProps {
 
 const ForgotPasswordForm: FC<ForgotPasswordFormProps> = ({ moveToLoginForm }) => {
   const [email, setEmail] = useState<string>('');
-  // const dispath = useDispatch();
+  // const dispatch = useDispatch();
 
   const { sendForgotPasswordLink, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } =
     useHttp();

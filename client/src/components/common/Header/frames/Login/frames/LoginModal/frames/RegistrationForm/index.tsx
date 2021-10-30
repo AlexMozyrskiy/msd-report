@@ -21,7 +21,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm, closeMod
   // const [login, setLogin] = useState<string>('');
   // const [email, setEmail] = useState<string>('');
   // const [password, setPassword] = useState<string>('');
-  // // const dispath = useDispatch();
+  // // const dispatch = useDispatch();
 
   const { /* isFetching, error, setError, */ clearError } = useHttp();
 
@@ -37,7 +37,7 @@ const RegistrationForm: FC<RegistrationFormProps> = ({ moveToLoginForm, closeMod
   //   } else if (validate.isEmpty(password)) {
   //     setError("Поле 'Пароль' обязательлно для заполнения");
   //   } else {
-  //     // dispath(loginUserThunk(loginService, login, password));
+  //     // dispatch(loginUserThunk(loginService, login, password));
   //   }
   // };
 

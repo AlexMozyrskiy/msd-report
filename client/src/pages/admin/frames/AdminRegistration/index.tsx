@@ -13,7 +13,7 @@ const AdminRegistration: FC = () => {
   const [login, setLogin] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [affiliation, setAffiliation] = useState<string>('');
-  // const dispath = useDispatch();
+  // const dispatdh = useDispatch();
 
   const { registration, isFetching, error, success, setSuccess, setError, clearError, clearSuccess } = useHttp();
 
