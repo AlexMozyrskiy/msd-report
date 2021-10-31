@@ -258,29 +258,42 @@ class FileValidator {
     return returnedArr;
   }
 
+  sheetRetreatHeader(retreatSheet: any) {
+    let returnedArr: string[] = [];
+
+    if (retreatSheet.A1.v !== 'Номер по порядку') returnedArr.push('A1');
+    if (retreatSheet.B1.v !== 'Код направления') returnedArr.push('B1');
+    if (retreatSheet.C1.v !== 'Перегон / Станция') returnedArr.push('C1');
+    if (retreatSheet.D1.v !== 'ПЧ') returnedArr.push('D1');
+    if (retreatSheet.E1.v !== 'Путь') returnedArr.push('E1');
+    if (retreatSheet.F1.v !== 'КМ') returnedArr.push('F1');
+    if (retreatSheet.G1.v !== 'ПК') returnedArr.push('G1');
+    if (retreatSheet.H1.v !== 'М') returnedArr.push('H1');
+    if (retreatSheet.I1.v !== 'Нить') returnedArr.push('I1');
+    if (retreatSheet.J1.v !== 'Замечание') returnedArr.push('J1');
+    if (retreatSheet.K1.v !== 'Величина') returnedArr.push('K1');
+    if (retreatSheet.L1.v !== 'Накладка в стыке') returnedArr.push('L1');
+    if (retreatSheet.M1.v !== 'Огр. скорости') returnedArr.push('M1');
+    if (retreatSheet.N1.v !== 'Уст. Скорость') returnedArr.push('N1');
+    if (retreatSheet.O1.v !== 'КОД Отступления (смотри в листе “Коды отступлений”)') returnedArr.push('O1');
+    if (retreatSheet.P1.v !== 'Рег') returnedArr.push('P1');
+    if (retreatSheet.Q1.v !== 'Класс пути') returnedArr.push('Q1');
+    if (retreatSheet.R1.v !== 'Радиус кривой') returnedArr.push('R1');
+    if (retreatSheet.S1.v !== 'Подрельсовое основание дерево/бетон') returnedArr.push('S1');
+    if (retreatSheet.T1.v !== 'Тип пути (зв./ бп)') returnedArr.push('T1');
+
+    return returnedArr;
+  }
+
   sheetDataHeader(dataSheet: any) {
     let returnedArr: string[] = [];
 
-    if (dataSheet.A1.v !== 'Номер по порядку') returnedArr.push('A1');
-    if (dataSheet.B1.v !== 'Код направления') returnedArr.push('B1');
-    if (dataSheet.C1.v !== 'Перегон / Станция') returnedArr.push('C1');
-    if (dataSheet.D1.v !== 'ПЧ') returnedArr.push('D1');
-    if (dataSheet.E1.v !== 'Путь') returnedArr.push('E1');
-    if (dataSheet.F1.v !== 'КМ') returnedArr.push('F1');
-    if (dataSheet.G1.v !== 'ПК') returnedArr.push('G1');
-    if (dataSheet.H1.v !== 'М') returnedArr.push('H1');
-    if (dataSheet.I1.v !== 'Нить') returnedArr.push('I1');
-    if (dataSheet.J1.v !== 'Замечание') returnedArr.push('J1');
-    if (dataSheet.K1.v !== 'Величина') returnedArr.push('K1');
-    if (dataSheet.L1.v !== 'Накладка в стыке') returnedArr.push('L1');
-    if (dataSheet.M1.v !== 'Огр. скорости') returnedArr.push('M1');
-    if (dataSheet.N1.v !== 'Уст. Скорость') returnedArr.push('N1');
-    if (dataSheet.O1.v !== 'КОД Отступления (смотри в листе “Коды отступлений”)') returnedArr.push('O1');
-    if (dataSheet.P1.v !== 'Рег') returnedArr.push('P1');
-    if (dataSheet.Q1.v !== 'Класс пути') returnedArr.push('Q1');
-    if (dataSheet.R1.v !== 'Радиус кривой') returnedArr.push('R1');
-    if (dataSheet.S1.v !== 'Подрельсовое основание дерево/бетон') returnedArr.push('S1');
-    if (dataSheet.T1.v !== 'Тип пути (зв./ бп)') returnedArr.push('T1');
+    if (dataSheet.A1.v !== 'Дата проезда') returnedArr.push('A1');
+    if (dataSheet.B1.v !== 'Дата расшифровки') returnedArr.push('B1');
+    if (dataSheet.C1.v !== 'Участок проверки') returnedArr.push('C1');
+    if (dataSheet.D1.v !== 'КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)')
+      returnedArr.push('D1');
+    if (dataSheet.E1.v !== 'Проверено км') returnedArr.push('E1');
 
     return returnedArr;
   }
@@ -293,10 +306,19 @@ class FileValidator {
       newErrors.push('В загруженном файле отсутствуют следуюшие листы: ' + missingSheets.join(', '));
     }
 
-    const sheetDataHeader = this.sheetDataHeader(retreatSheet);
-    if (sheetDataHeader.length) {
+    const sheetRetreatHeader = this.sheetRetreatHeader(retreatSheet);
+    if (sheetRetreatHeader.length) {
       newErrors.push(
         "В загруженном файле, в листе 'Отступления', Заголовки столбцов не соответствуют шаблонным. Не соответствующие заголовки: " +
+          sheetRetreatHeader.join(', ') +
+          '. Скачайте файл-шаблон заного, это сэкономит Вам время.'
+      );
+    }
+
+    const sheetDataHeader = this.sheetDataHeader(dataSheet);
+    if (sheetDataHeader.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Данные', Заголовки столбцов не соответствуют шаблонным. Не соответствующие заголовки: " +
           sheetDataHeader.join(', ') +
           '. Скачайте файл-шаблон заного, это сэкономит Вам время.'
       );
