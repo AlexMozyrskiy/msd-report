@@ -1,9 +1,11 @@
 import { FC, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import SVG from 'react-inlinesvg';
+import { useDispatch } from 'react-redux';
 import XLSX from 'xlsx';
 
 import FileValidator from '../../../../helpers/uploadFileValidation';
 import { sheetDataToObj, sheetRetreatsToObj } from '../../../../helpers/xlsxDataToObj';
+import { setRetreats as setRetreatsAC, setData as setDataAC } from 'src/state/redux/features/video/actionCreators';
 
 // import { xlsxDataToObj } from '../../../../helpers/xlsxDataToObj';
 
@@ -17,6 +19,7 @@ interface IUploadButton {
 }
 
 const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUploadedFileValidationErrors }) => {
+  const dispatch = useDispatch();
   // ------------------------------------ Declare функцию вызывающуюся при загрузке файла ------------------------------------------------
   const onBookSelect = (e: ChangeEvent<HTMLInputElement>) => {
     let validationErrors: string[] = [];
@@ -32,7 +35,7 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
     const fileValidator = new FileValidator();
     if (!fileValidator.isCorrectFileType(selectedFile?.type)) {
       validationErrors = ['Загруженный файл не является файлом Excel'];
-      setUploadedFileValidationErrors(['Загруженный файл не является файлом Excel']);
+      setUploadedFileValidationErrors(validationErrors);
       return;
     }
 
@@ -60,11 +63,13 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         }
         /* ---------------- / Валидация загруженного файла ------------------ */
 
-        const workSheetOtst = XLSX.utils.sheet_to_json(workBook.Sheets['Отступления']);
-        const workSheetOtstToState = sheetRetreatsToObj(workSheetOtst);
+        const workSheetRetreats = XLSX.utils.sheet_to_json(workBook.Sheets['Отступления']);
+        const workSheetRetreatsToState = sheetRetreatsToObj(workSheetRetreats);
         const workSheetData = XLSX.utils.sheet_to_json(workBook.Sheets['Данные']);
         const workSheetDataToState = sheetDataToObj(workSheetData);
-        console.log(workSheetOtstToState, workSheetDataToState);
+        dispatch(setRetreatsAC(workSheetRetreatsToState));
+        dispatch(setDataAC(workSheetDataToState));
+        console.log(workSheetRetreats, workSheetDataToState);
         //     const workSheetOcKmDataObj = workBook.Sheets['Оценка КМ'];
         //     const workSheetOcKmDataJson = XLSX.utils.sheet_to_json(workSheetOcKmDataObj);
         //     workBookData = {

@@ -1,36 +1,7 @@
-/* Потом этот интерфейс перенесум в редючер и будем его сюда импортировать */
-export interface ISheetOtst {
-  id: number;
-  directionCode: number;
-  stationOrLine: string;
-  distanceNumber: number;
-  trackNumber: string | number;
-  kilometer: number;
-  picket: number;
-  meter: number;
-  thread: string;
-  retreatSize: number;
-  pad: string;
-  limitSpeed: string | null;
-  setSpeed: string;
-  retreatCode: number;
-  regionNumber: number;
-  trackClass: number;
-  curveRadius: string | number;
-  subrailBase: string;
-  trackType: string;
-}
+import { IRetreat, IData } from 'src/state/redux/features/video/actionCreators';
 
-export interface ISheetData {
-  checkDate: string;
-  decryptionDate: string;
-  inspectionArea: string;
-  diagnosticToolCode: number;
-  checedKm: string;
-}
-
-export const sheetRetreatsToObj = (xlsxData: any): ISheetOtst[] => {
-  let returnedArr: ISheetOtst[] = [];
+export const sheetRetreatsToObj = (xlsxData: any): IRetreat[] => {
+  let returnedArr: IRetreat[] = [];
 
   returnedArr = xlsxData.map((item: any) => {
     /* Спарсим номер дистанции */
@@ -77,19 +48,15 @@ export const sheetRetreatsToObj = (xlsxData: any): ISheetOtst[] => {
   return returnedArr;
 };
 
-export const sheetDataToObj = (xlsxData: any): ISheetData[] => {
-  let returnedArr: ISheetData[] = [];
+export const sheetDataToObj = (xlsxData: any): IData => {
+  const data = xlsxData[0];
+  let returnedObj = {
+    checkDate: data['Дата проезда'],
+    decryptionDate: data['Дата расшифровки'],
+    inspectionArea: data['Участок проверки'],
+    diagnosticToolCode: data['КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)'],
+    checedKm: data['Проверено км'],
+  };
 
-  returnedArr = xlsxData.map((item: any) => {
-    return {
-      checkDate: item['Дата проезда'],
-      decryptionDate: item['Дата расшифровки'],
-      inspectionArea: item['Участок проверки'],
-      diagnosticToolCode:
-        item['КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)'],
-      checedKm: item['Проверено км'],
-    };
-  });
-
-  return returnedArr;
+  return returnedObj;
 };
