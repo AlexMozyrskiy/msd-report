@@ -196,9 +196,6 @@ class FileValidator {
     const lastFilledRowNumber = lastFilledRowNumberFunction(parsedObject, columnLetter);
 
     for (let num = 2; num <= lastFilledRowNumber; num++) {
-      // const splitedCellValue: Array<any> = parsedObject[`${columnLetter}${num}`].v.split('/');
-      // console.log(splitedCellValue);
-
       if (
         parsedObject[`${columnLetter}${num}`]?.t !== 's' ||
         (!parsedObject[`${columnLetter}${num}`]?.v.includes('/') &&

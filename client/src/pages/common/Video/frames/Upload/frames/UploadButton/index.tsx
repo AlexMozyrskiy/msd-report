@@ -36,6 +36,7 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
     if (!fileValidator.isCorrectFileType(selectedFile?.type)) {
       validationErrors = ['Загруженный файл не является файлом Excel'];
       setUploadedFileValidationErrors(validationErrors);
+      (document.getElementById('input') as HTMLInputElement).value = '';
       return;
     }
 
@@ -57,7 +58,6 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         );
 
         if (validationErrors.length) {
-          console.log(validationErrors);
           setUploadedFileValidationErrors(validationErrors);
           return;
         }
@@ -69,18 +69,9 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         const workSheetDataToState = sheetDataToObj(workSheetData);
         dispatch(setRetreatsAC(workSheetRetreatsToState));
         dispatch(setDataAC(workSheetDataToState));
-        console.log(workSheetRetreats, workSheetDataToState);
-        //     const workSheetOcKmDataObj = workBook.Sheets['Оценка КМ'];
-        //     const workSheetOcKmDataJson = XLSX.utils.sheet_to_json(workSheetOcKmDataObj);
-        //     workBookData = {
-        //       otstSheetData: workSheetOtstDataJson,
-        //       ocKmSheetData: workSheetOcKmDataJson,
-        //     };
-        //     dispatch(setWorkBookDataThunkCreator(workBookData));
-        //   };
+
         reader.onerror = function (event) {
-          // workBookData = null;
-          // console.error('Файл не может быть прочитан. Код ошибки: ' + event.target.error.code);
+          console.error('Файл не может быть прочитан. Код ошибки: ' + event?.target?.error?.code);
         };
       };
     }
