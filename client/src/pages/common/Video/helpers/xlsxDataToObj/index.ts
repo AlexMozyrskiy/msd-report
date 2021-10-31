@@ -1,5 +1,4 @@
-import { countOfFilledRows, lastFilledRowNumber } from 'src/library/helpers/xlsx';
-
+/* Потом этот интерфейс перенесум в редючер и будем его сюда импортировать */
 export interface ISheetOtst {
   id: number;
   directionCode: number;
