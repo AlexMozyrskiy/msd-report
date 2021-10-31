@@ -3,6 +3,8 @@ import SVG from 'react-inlinesvg';
 import XLSX from 'xlsx';
 
 import FileValidator from '../../../../helpers/uploadFileValidation';
+import { xlsxDataToObj } from '../../../../helpers/xlsxDataToObj';
+
 // import { xlsxDataToObj } from '../../../../helpers/xlsxDataToObj';
 
 import uploadIcon from 'src/library/icons/common/upload.svg';
@@ -59,7 +61,8 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         /* ---------------- / Валидация загруженного файла ------------------ */
 
         const workSheetOtst = XLSX.utils.sheet_to_json(workBook.Sheets['Отступления']);
-        console.log(workSheetOtst);
+        const workSheetOtstToState = xlsxDataToObj(workSheetOtst);
+        console.log(workSheetOtstToState);
         //     const workSheetOcKmDataObj = workBook.Sheets['Оценка КМ'];
         //     const workSheetOcKmDataJson = XLSX.utils.sheet_to_json(workSheetOcKmDataObj);
         //     workBookData = {
