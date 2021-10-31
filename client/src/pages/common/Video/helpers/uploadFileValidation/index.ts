@@ -12,7 +12,7 @@ class FileValidator {
     }
   }
 
-  missingSheets(validateSheets: string[], neededSheets: string[]): string[] | [] {
+  missingSheets(validateSheets: string[], neededSheets: string[]): string[] {
     let missingSheets: string[] = [];
 
     neededSheets.forEach((item) => {
@@ -29,9 +29,9 @@ class FileValidator {
    *
    * @param {Object} parsedObject - объект парс excel файла с помощью библиотеки XLSX
    * @param {String} columnLetter - литер колонки например "A"
-   * @returns {string[] | []}
+   * @returns {string[]}
    */
-  emptyCellsInColumn(parsedObject: any, columnLetter: string): string[] | [] {
+  emptyCellsInColumn(parsedObject: any, columnLetter: string): string[] {
     let emptyCellsInColumn: string[] = [];
     const countOfFilledRows = countOfFilledRowsFunction(parsedObject, columnLetter);
     const lastFilledRowNumber = lastFilledRowNumberFunction(parsedObject, columnLetter);
@@ -52,7 +52,7 @@ class FileValidator {
    *
    * @param {Object} parsedObject - объект парс excel файла с помощью библиотеки XLSX
    * @param {String} columnLetter - литер колонки например "A"
-   * @returns {string[] | []}
+   * @returns {string[]}
    */
   emptyCellsInColumnLoopCountColumnA(parsedObject: any, columnLetter: string): string[] {
     let emptyCellsInColumnLoopCountColumnA: string[] = [];
@@ -124,7 +124,7 @@ class FileValidator {
     const lastFilledRowNumber = lastFilledRowNumberFunction(parsedObject, columnLetter);
 
     for (let num = 2; num <= lastFilledRowNumber; num++) {
-      if (typeof parsedObject[`${columnLetter}${num}`].v !== type) {
+      if (typeof parsedObject[`${columnLetter}${num}`]?.v !== type) {
         returnedArr.push(`${columnLetter}${num}`);
       }
     }
@@ -200,9 +200,9 @@ class FileValidator {
       // console.log(splitedCellValue);
 
       if (
-        parsedObject[`${columnLetter}${num}`].t !== 's' ||
-        (!parsedObject[`${columnLetter}${num}`].v.includes('/') &&
-          parsedObject[`${columnLetter}${num}`].v !== 'установленная')
+        parsedObject[`${columnLetter}${num}`]?.t !== 's' ||
+        (!parsedObject[`${columnLetter}${num}`]?.v.includes('/') &&
+          parsedObject[`${columnLetter}${num}`]?.v !== 'установленная')
       ) {
         returnedArr.push(`${columnLetter}${num}`);
       }
@@ -256,6 +256,147 @@ class FileValidator {
     returnedArr = [...returnedArr, ...emptyCells];
 
     return returnedArr;
+  }
+
+  sheetDataHeader(dataSheet: any) {
+    let returnedArr: string[] = [];
+
+    if (dataSheet.A1.v !== 'Номер по порядку') returnedArr.push('A1');
+    if (dataSheet.B1.v !== 'Код направления') returnedArr.push('B1');
+    if (dataSheet.C1.v !== 'Перегон / Станция') returnedArr.push('C1');
+    if (dataSheet.D1.v !== 'ПЧ') returnedArr.push('D1');
+    if (dataSheet.E1.v !== 'Путь') returnedArr.push('E1');
+    if (dataSheet.F1.v !== 'КМ') returnedArr.push('F1');
+    if (dataSheet.G1.v !== 'ПК') returnedArr.push('G1');
+    if (dataSheet.H1.v !== 'М') returnedArr.push('H1');
+    if (dataSheet.I1.v !== 'Нить') returnedArr.push('I1');
+    if (dataSheet.J1.v !== 'Замечание') returnedArr.push('J1');
+    if (dataSheet.K1.v !== 'Величина') returnedArr.push('K1');
+    if (dataSheet.L1.v !== 'Накладка в стыке') returnedArr.push('L1');
+    if (dataSheet.M1.v !== 'Огр. скорости') returnedArr.push('M1');
+    if (dataSheet.N1.v !== 'Уст. Скорость') returnedArr.push('N1');
+    if (dataSheet.O1.v !== 'КОД Отступления (смотри в листе “Коды отступлений”)') returnedArr.push('O1');
+    if (dataSheet.P1.v !== 'Рег') returnedArr.push('P1');
+    if (dataSheet.Q1.v !== 'Класс пути') returnedArr.push('Q1');
+    if (dataSheet.R1.v !== 'Радиус кривой') returnedArr.push('R1');
+    if (dataSheet.S1.v !== 'Подрельсовое основание дерево/бетон') returnedArr.push('S1');
+    if (dataSheet.T1.v !== 'Тип пути (зв./ бп)') returnedArr.push('T1');
+
+    return returnedArr;
+  }
+
+  sheetsValidate(retreatSheet: any, dataSheet: any, SheetNames: any): string[] {
+    let newErrors: string[] = [];
+    /* ---------------- Валидация загруженного файла ------------------ */
+    const missingSheets = this.missingSheets(SheetNames, ['Данные', 'Отступления']);
+    if (missingSheets.length) {
+      newErrors.push('В загруженном файле отсутствуют следуюшие листы: ' + missingSheets.join(', '));
+    }
+
+    const sheetDataHeader = this.sheetDataHeader(retreatSheet);
+    if (sheetDataHeader.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', Заголовки столбцов не соответствуют шаблонным. Не соответствующие заголовки: " +
+          sheetDataHeader.join(', ') +
+          '. Скачайте файл-шаблон заного, это сэкономит Вам время.'
+      );
+    }
+
+    const emptyCellsInColumn = this.sheetRetreatsCellsEmptyValues(retreatSheet);
+    if (emptyCellsInColumn.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонках 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'M', 'N', 'O' должны быть заполнены. Не заполненные ячейки: " +
+          emptyCellsInColumn.join(', ')
+      );
+    }
+
+    const validatedSheetData = this.sheetData(dataSheet);
+    if (validatedSheetData.length) {
+      newErrors = newErrors.concat(validatedSheetData);
+    }
+
+    let wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'A');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'A' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'B');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'B' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'E');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'E' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'F');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'F' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'G');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'G' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'H');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'H' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'O');
+    if (wrongTypeCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', все значения в колонке 'O' должны быть числами. Ячейки с не числовыми значениями: " +
+          wrongTypeCells.join(', ')
+      );
+    }
+
+    let wrongValueCells = this.allCellsInColumnMustHaveValue(['левая', 'правая', 'обе'], retreatSheet, 'I');
+    if (wrongValueCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', значение в колонке 'I' может быть только одним из: 'левая', 'правая', 'обе'. Ячейки с не подходящими значениями: " +
+          wrongValueCells.join(', ')
+      );
+    }
+
+    let wrongSpeedValueCells = this.speed(retreatSheet, 'M');
+    if (wrongSpeedValueCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', значения в колонке 'M' должны быть например: '100/80'. Ячейки с не подходящими значениями: " +
+          wrongSpeedValueCells.join(', ')
+      );
+    }
+
+    wrongSpeedValueCells = this.speed(retreatSheet, 'N');
+    if (wrongSpeedValueCells.length) {
+      newErrors.push(
+        "В загруженном файле, в листе 'Отступления', значения в колонке 'N' должны быть например: '100/80'. Ячейки с не подходящими значениями: " +
+          wrongSpeedValueCells.join(', ')
+      );
+    }
+
+    return newErrors;
+    /* ---------------- / Валидация загруженного файла ------------------ */
   }
 }
 
