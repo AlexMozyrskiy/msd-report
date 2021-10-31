@@ -21,7 +21,15 @@ export interface ISheetOtst {
   trackType: string;
 }
 
-export const xlsxDataToObj = (xlsxData: any): ISheetOtst[] => {
+export interface ISheetData {
+  checkDate: string;
+  decryptionDate: string;
+  inspectionArea: string;
+  diagnosticToolCode: number;
+  checedKm: string;
+}
+
+export const sheetRetreatsToObj = (xlsxData: any): ISheetOtst[] => {
   let returnedArr: ISheetOtst[] = [];
 
   returnedArr = xlsxData.map((item: any) => {
@@ -63,6 +71,23 @@ export const xlsxDataToObj = (xlsxData: any): ISheetOtst[] => {
       curveRadius: item['Радиус кривой'],
       subrailBase: item['Подрельсовое основание дерево/бетон'],
       trackType: item['Тип пути (зв./ бп)'],
+    };
+  });
+
+  return returnedArr;
+};
+
+export const sheetDataToObj = (xlsxData: any): ISheetData[] => {
+  let returnedArr: ISheetData[] = [];
+
+  returnedArr = xlsxData.map((item: any) => {
+    return {
+      checkDate: item['Дата проезда'],
+      decryptionDate: item['Дата расшифровки'],
+      inspectionArea: item['Участок проверки'],
+      diagnosticToolCode:
+        item['КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)'],
+      checedKm: item['Проверено км'],
     };
   });
 
