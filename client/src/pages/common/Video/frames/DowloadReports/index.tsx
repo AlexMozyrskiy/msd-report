@@ -43,7 +43,7 @@ const DownloadReports: FC = () => {
 
           <div className={st.reports__item}>
             <figure>
-              <img src={telegramPicture} alt='info' />
+              <img src={telegramPicture} alt='telegram' />
             </figure>
           </div>
         </div>
