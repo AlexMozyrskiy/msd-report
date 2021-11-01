@@ -19,14 +19,24 @@ import st from './index.module.scss';
 interface IUploadButton {}
 
 const UploadButton: FC<IUploadButton> = () => {
-  const fileValidationError = useSelector(getFileValidationErrorSelector);
+  const fileValidationErrors = useSelector(getFileValidationErrorSelector);
   const dispatch = useDispatch();
   // ------------------------------------ Declare функцию вызывающуюся при загрузке файла ------------------------------------------------
   const onBookSelect = (e: ChangeEvent<HTMLInputElement>) => {
     let validationErrors: string[] = [];
 
     /* Обнуление ощибок при попытке вновь загрузить файл */
-    if (fileValidationError.length) {
+    if (fileValidationErrors.length) {
+      dispatch(setRetreatsAC([]));
+      dispatch(
+        setDataAC({
+          checkDate: null,
+          decryptionDate: null,
+          inspectionArea: null,
+          diagnosticToolCode: null,
+          checedKm: null,
+        })
+      );
       dispatch(setFileValidationErrorsAC([]));
       validationErrors = [];
     }

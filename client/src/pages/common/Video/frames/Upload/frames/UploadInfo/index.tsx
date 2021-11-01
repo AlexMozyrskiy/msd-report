@@ -21,7 +21,7 @@ interface IUploadInfo {}
 const UploadInfo: FC<IUploadInfo> = () => {
   const retreats = useSelector(getRetreatsSelector);
   const data = useSelector(getDataSelector);
-  const fileValidationError = useSelector(getFileValidationErrorSelector);
+  const fileValidationErrors = useSelector(getFileValidationErrorSelector);
 
   /* Зазоры */
   const gaps = useMemo(
@@ -94,9 +94,9 @@ const UploadInfo: FC<IUploadInfo> = () => {
         </div>
 
         <div className={st.wrapper__uploadMessage}>
-          {retreats.length ? (
-            <SuccessMessage text='Данные загружены. Чтобы скачать отчеты перейдите во вкладку "Скчать отчеты"' />
-          ) : fileValidationError.length /* Если есть ошибки валидации файла */ ? (
+          {!!retreats.length ? (
+            <SuccessMessage text='Данные загружены. Чтобы скачать отчеты перейдите во вкладку "Скачать отчеты"' />
+          ) : !!fileValidationErrors.length /* Если есть ошибки валидации файла */ ? (
             <ErrorMessage text='Файл который Вы загрузили не прошел валидацию. Чтобы посмотреть ошибки возникшие при загрузке файла перейдите во вкладку "Скачать отчеты"' />
           ) : (
             <ErrorMessage text='Данные не загружены, чтобы загрузить данные нажмите кнопку "Загрузить файл-шаблон"' />
