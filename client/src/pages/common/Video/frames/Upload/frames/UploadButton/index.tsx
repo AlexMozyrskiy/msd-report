@@ -1,32 +1,33 @@
-import { FC, Dispatch, SetStateAction, ChangeEvent } from 'react';
+import { FC, ChangeEvent } from 'react';
 import SVG from 'react-inlinesvg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import XLSX from 'xlsx';
 
 import FileValidator from '../../../../helpers/uploadFileValidation';
 import { sheetDataToObj, sheetRetreatsToObj } from '../../../../helpers/xlsxDataToObj';
-import { setRetreats as setRetreatsAC, setData as setDataAC } from 'src/state/redux/features/video/actionCreators';
-
-// import { xlsxDataToObj } from '../../../../helpers/xlsxDataToObj';
+import {
+  setRetreats as setRetreatsAC,
+  setData as setDataAC,
+  setFileValidationErrors as setFileValidationErrorsAC,
+} from 'src/state/redux/features/video/actionCreators';
+import { getFileValidationError as getFileValidationErrorSelector } from 'src/state/redux/features/video/selectors';
 
 import uploadIcon from 'src/library/icons/common/upload.svg';
 
 import st from './index.module.scss';
 
-interface IUploadButton {
-  uploadedFileValidationErrors: string[];
-  setUploadedFileValidationErrors: Dispatch<SetStateAction<string[]>>;
-}
+interface IUploadButton {}
 
-const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUploadedFileValidationErrors }) => {
+const UploadButton: FC<IUploadButton> = () => {
+  const fileValidationError = useSelector(getFileValidationErrorSelector);
   const dispatch = useDispatch();
   // ------------------------------------ Declare функцию вызывающуюся при загрузке файла ------------------------------------------------
   const onBookSelect = (e: ChangeEvent<HTMLInputElement>) => {
     let validationErrors: string[] = [];
 
     /* Обнуление ощибок при попытке вновь загрузить файл */
-    if (uploadedFileValidationErrors.length) {
-      setUploadedFileValidationErrors([]);
+    if (fileValidationError.length) {
+      dispatch(setFileValidationErrorsAC([]));
       validationErrors = [];
     }
 
@@ -35,7 +36,7 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
     const fileValidator = new FileValidator();
     if (!fileValidator.isCorrectFileType(selectedFile?.type)) {
       validationErrors = ['Загруженный файл не является файлом Excel'];
-      setUploadedFileValidationErrors(validationErrors);
+      dispatch(setFileValidationErrorsAC(['Загруженный файл не является файлом Excel']));
       (document.getElementById('input') as HTMLInputElement).value = '';
       return;
     }
@@ -58,7 +59,7 @@ const UploadButton: FC<IUploadButton> = ({ uploadedFileValidationErrors, setUplo
         );
 
         if (validationErrors.length) {
-          setUploadedFileValidationErrors(validationErrors);
+          dispatch(setFileValidationErrorsAC(validationErrors));
           return;
         }
         /* ---------------- / Валидация загруженного файла ------------------ */

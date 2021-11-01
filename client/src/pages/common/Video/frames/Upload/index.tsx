@@ -7,19 +7,14 @@ import UploadInfo from './frames/UploadInfo';
 import st from './index.module.scss';
 
 const Upload: FC = () => {
-  const [uploadedFileValidationErrors, setUploadedFileValidationErrors] = useState<string[]>([]);
-
   return (
     <section className={st.uploadTag}>
       <div className={st.uploadTag__button}>
-        <UploadButton
-          uploadedFileValidationErrors={uploadedFileValidationErrors}
-          setUploadedFileValidationErrors={setUploadedFileValidationErrors}
-        />
+        <UploadButton />
       </div>
 
       <div className={st.uploadTag__info}>
-        <UploadInfo uploadedFileValidationErrors={uploadedFileValidationErrors} />
+        <UploadInfo />
       </div>
 
       <div className={st.uploadTag__help}>

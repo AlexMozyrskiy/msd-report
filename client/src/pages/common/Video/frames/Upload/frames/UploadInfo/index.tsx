@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import {
   getRetreats as getRetreatsSelector,
   getData as getDataSelector,
+  getFileValidationError as getFileValidationErrorSelector,
 } from 'src/state/redux/features/video/selectors';
 
 import InfoItem from './frames/InfoItem';
@@ -13,17 +14,14 @@ import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import infoPicture from 'src/library/images/common/info.png';
 
-import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
-
 import st from './index.module.scss';
 
-interface IUploadInfo {
-  uploadedFileValidationErrors: string[];
-}
+interface IUploadInfo {}
 
-const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
+const UploadInfo: FC<IUploadInfo> = () => {
   const retreats = useSelector(getRetreatsSelector);
   const data = useSelector(getDataSelector);
+  const fileValidationError = useSelector(getFileValidationErrorSelector);
 
   /* Зазоры */
   const gaps = useMemo(
@@ -98,8 +96,8 @@ const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
         <div className={st.wrapper__uploadMessage}>
           {retreats.length ? (
             <SuccessMessage text='Данные загружены. Чтобы скачать отчеты перейдите во вкладку "Скчать отчеты"' />
-          ) : uploadedFileValidationErrors.length /* Если есть ошибки валидации файла */ ? (
-            <ErrorMessage text='Файл который Вы загрузили не прошел валидацию. Чтобы посмотреть ошибки возникшие при загрузке файла перейдите во вкладку "Скчать отчеты"' />
+          ) : fileValidationError.length /* Если есть ошибки валидации файла */ ? (
+            <ErrorMessage text='Файл который Вы загрузили не прошел валидацию. Чтобы посмотреть ошибки возникшие при загрузке файла перейдите во вкладку "Скачать отчеты"' />
           ) : (
             <ErrorMessage text='Данные не загружены, чтобы загрузить данные нажмите кнопку "Загрузить файл-шаблон"' />
           )}

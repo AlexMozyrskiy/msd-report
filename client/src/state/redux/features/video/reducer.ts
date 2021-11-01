@@ -1,18 +1,28 @@
-import { SET_RETREATS as SET_RETREATS_TYPE, SET_DATA as SET_SET_DATA_TYPE } from './actionTypes';
+import {
+  SET_RETREATS as SET_RETREATS_TYPE,
+  SET_DATA as SET_SET_DATA_TYPE,
+  SET_FILE_VALIDATION_ERRORS as SET_FILE_VALIDATION_ERRORS_TYPE,
+} from './actionTypes';
 
-import { TSetRetreats as TSetRetreatsType, TSetData as TSetDataType } from './actionTypes';
+import {
+  TSetRetreats as TSetRetreatsType,
+  TSetData as TSetDataType,
+  TSetFileValidationErrors as TSetFileValidationErrorsType,
+} from './actionTypes';
 
-import { IRetreat, IData } from './actionCreators';
+import { IRetreat, IData, TFileValidationError } from './actionCreators';
 
 interface IInitialState {
   retreats: IRetreat[];
   data: IData;
+  fileValidationErrors: TFileValidationError[];
 }
 
 interface IAction {
-  type: TSetRetreatsType | TSetDataType;
+  type: TSetRetreatsType | TSetDataType | TSetFileValidationErrorsType;
   retreats: IRetreat[];
   data: IData;
+  fileValidationErrors: TFileValidationError[];
 }
 
 const initialState: IInitialState = {
@@ -24,6 +34,7 @@ const initialState: IInitialState = {
     diagnosticToolCode: null,
     checedKm: null,
   },
+  fileValidationErrors: [],
 };
 
 const userReducers = (state = initialState, action: IAction): IInitialState => {
@@ -45,6 +56,14 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
       const superState = {
         ...state,
         data: { ...action.data },
+      };
+      return superState;
+    }
+
+    case SET_FILE_VALIDATION_ERRORS_TYPE: {
+      const superState = {
+        ...state,
+        fileValidationErrors: [...action.fileValidationErrors],
       };
       return superState;
     }
