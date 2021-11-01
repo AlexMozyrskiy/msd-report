@@ -42,10 +42,10 @@
       line-height: 17px;
       letter-spacing: -0.24px;
       color: #c0beff;
-      transition: 0.5s;
+      transition: 0.2s;
+      padding: 0 10px;
 
       &_active {
-        min-width: 110%;
         height: 110%;
         color: #fff;
       }
