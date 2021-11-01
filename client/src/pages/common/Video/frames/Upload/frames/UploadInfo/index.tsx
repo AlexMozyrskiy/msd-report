@@ -1,5 +1,12 @@
 import { FC, useMemo } from 'react';
 
+import { useSelector } from 'react-redux';
+
+import {
+  getRetreats as getRetreatsSelector,
+  getData as getDataSelector,
+} from 'src/state/redux/features/video/selectors';
+
 import InfoItem from './frames/InfoItem';
 import SuccessMessage from 'src/library/components/SuccessMessage';
 import ErrorMessage from 'src/library/components/ErrorMessage';
@@ -11,12 +18,13 @@ import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
 import st from './index.module.scss';
 
 interface IUploadInfo {
-  retreats: IRetreat[];
-  data: IData;
   uploadedFileValidationErrors: string[];
 }
 
-const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors, retreats, data }) => {
+const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
+  const retreats = useSelector(getRetreatsSelector);
+  const data = useSelector(getDataSelector);
+
   /* Зазоры */
   const gaps = useMemo(
     () =>
