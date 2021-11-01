@@ -26,20 +26,18 @@ const UploadButton: FC<IUploadButton> = () => {
     let validationErrors: string[] = [];
 
     /* Обнуление ощибок при попытке вновь загрузить файл */
-    if (fileValidationErrors.length) {
-      dispatch(setRetreatsAC([]));
-      dispatch(
-        setDataAC({
-          checkDate: null,
-          decryptionDate: null,
-          inspectionArea: null,
-          diagnosticToolCode: null,
-          checedKm: null,
-        })
-      );
-      dispatch(setFileValidationErrorsAC([]));
-      validationErrors = [];
-    }
+    dispatch(setRetreatsAC([]));
+    dispatch(
+      setDataAC({
+        checkDate: null,
+        decryptionDate: null,
+        inspectionArea: null,
+        diagnosticToolCode: null,
+        checedKm: null,
+      })
+    );
+    dispatch(setFileValidationErrorsAC([]));
+    validationErrors = [];
 
     const selectedFile = e.target.files?.length ? e.target.files[0] : null;
 
