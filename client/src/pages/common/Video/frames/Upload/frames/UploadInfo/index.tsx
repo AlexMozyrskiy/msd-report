@@ -1,11 +1,4 @@
 import { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
-import cn from 'classnames';
-
-import {
-  getRetreats as getRetreatsSelector,
-  getData as getDataSelector,
-} from 'src/state/redux/features/video/selectors';
 
 import InfoItem from './frames/InfoItem';
 import SuccessMessage from 'src/library/components/SuccessMessage';
@@ -13,16 +6,17 @@ import ErrorMessage from 'src/library/components/ErrorMessage';
 
 import infoPicture from 'src/library/images/common/info.png';
 
+import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
+
 import st from './index.module.scss';
 
 interface IUploadInfo {
+  retreats: IRetreat[];
+  data: IData;
   uploadedFileValidationErrors: string[];
 }
 
-const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
-  const retreats = useSelector(getRetreatsSelector);
-  const data = useSelector(getDataSelector);
-
+const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors, retreats, data }) => {
   /* Зазоры */
   const gaps = useMemo(
     () =>
@@ -95,11 +89,11 @@ const UploadInfo: FC<IUploadInfo> = ({ uploadedFileValidationErrors }) => {
 
         <div className={st.wrapper__uploadMessage}>
           {retreats.length ? (
-            <SuccessMessage text='Данные загружены. Нажав на эту секцию Вы сможете скачать отчеты' />
+            <SuccessMessage text='Данные загружены. Чтобы скачать отчеты перейдите во вкладку "Скчать отчеты"' />
           ) : uploadedFileValidationErrors.length /* Если есть ошибки валидации файла */ ? (
-            <ErrorMessage text='Файл который Вы загрузили не прошел валидацию, чтобы посмотреть ошибки возникшие при загрузке файла кликните сюда' />
+            <ErrorMessage text='Файл который Вы загрузили не прошел валидацию. Чтобы посмотреть ошибки возникшие при загрузке файла перейдите во вкладку "Скчать отчеты"' />
           ) : (
-            <ErrorMessage text="Данные не загружены, чтобы загрузить данные нажмите кнопку 'Загрузить файл-шаблон'" />
+            <ErrorMessage text='Данные не загружены, чтобы загрузить данные нажмите кнопку "Загрузить файл-шаблон"' />
           )}
         </div>
       </div>

@@ -1,0 +1,21 @@
+.uploadTag {
+  display: grid;
+  grid-template-areas:
+    'info info'
+    'upload help';
+  grid-template-rows: 305px 305px;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+
+  &__button {
+    grid-area: upload;
+  }
+
+  &__info {
+    grid-area: info;
+  }
+
+  &__help {
+    grid-area: help;
+  }
+}

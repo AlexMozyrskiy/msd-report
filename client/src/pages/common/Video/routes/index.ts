@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import VideoHome from '../frames/VideoHome';
 import Upload from '../frames/Upload';
+import DownloadReports from '../frames/DowloadReports';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -44,14 +45,14 @@ export const tagsRoutes: IRoute[] = [
   },
   {
     path: '/video/downloadreports',
-    component: Upload,
+    component: DownloadReports,
     exact: true,
     linkText: 'Скачать отчеты',
     availableRole: 'guest',
   },
   {
     path: '/video/downloadreports',
-    component: Upload,
+    component: DownloadReports,
     exact: true,
     linkText: 'Скачать отчеты',
     availableRole: 'user',
