@@ -34,6 +34,7 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
         retreats: action.retreats.map((retreat) => {
           return {
             ...retreat,
+            limitSpeed: retreat.limitSpeed === 'установленная' ? null : retreat.limitSpeed,
           };
         }),
       };
