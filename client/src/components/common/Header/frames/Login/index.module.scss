@@ -1,25 +1,6 @@
-@import 'src/library/styles/variables/colors.scss';
-
 .login {
   &__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100px;
     height: 32px;
-    background: $brandColor;
-    border-radius: 35px;
-    border: none;
-    color: #c0beff;
-    cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    transition: 0.5s;
-
-    &:hover {
-      color: #fff;
-    }
   }
 }

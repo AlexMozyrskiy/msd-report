@@ -10,7 +10,9 @@ const Login: FC = () => {
 
   return (
     <div className={st.login}>
-      <Button text='Логин' onCkickHandler={() => setIsLoginModalActive(true)} />
+      <div className={st.login__button}>
+        <Button text='Логин' onCkickHandler={() => setIsLoginModalActive(true)} />
+      </div>
 
       {isLoginModalActive && <LoginModal setIsLoginModalActive={setIsLoginModalActive} />}
     </div>

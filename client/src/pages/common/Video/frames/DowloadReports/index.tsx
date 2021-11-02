@@ -45,7 +45,21 @@ const DownloadReports: FC = () => {
             <figure>
               <img src={telegramPicture} alt='telegram' />
             </figure>
+
+            <div className={st.reports__item__title}>
+              <div>
+                <Button text='Сформаировать' onCkickHandler={() => console.log('asd')} />
+              </div>
+              <h4>Основная телеграмма</h4>
+            </div>
+
+            <div className={st.reports__item__info}>
+              <span>3</span>
+              <h4>Стоимость расчета</h4>
+            </div>
           </div>
+
+          <span className={st.reports__line} />
         </div>
       </article>
     );
