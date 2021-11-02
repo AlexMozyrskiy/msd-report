@@ -33,7 +33,8 @@ export interface IData {
   decryptionDate: string | null;
   inspectionArea: string | null;
   diagnosticToolCode: number | null;
-  checedKm: string | null;
+  checedMainTracksKm: string | null;
+  checedSideTracksKm: string | null;
 }
 
 export type TFileValidationError = string;

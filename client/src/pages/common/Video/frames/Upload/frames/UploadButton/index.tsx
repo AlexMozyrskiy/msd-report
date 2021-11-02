@@ -33,7 +33,8 @@ const UploadButton: FC<IUploadButton> = () => {
         decryptionDate: null,
         inspectionArea: null,
         diagnosticToolCode: null,
-        checedKm: null,
+        checedMainTracksKm: null,
+        checedSideTracksKm: null,
       })
     );
     dispatch(setFileValidationErrorsAC([]));
