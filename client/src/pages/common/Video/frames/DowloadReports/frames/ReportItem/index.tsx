@@ -22,12 +22,12 @@ const ReportItem: FC<IReportItem> = ({ picture, title, price, onClickHandler }) 
         <div>
           <Button text='Сформаировать' onCkickHandler={onClickHandler} />
         </div>
-        <h4>Основная телеграмма</h4>
+        <h4>{title}</h4>
       </div>
 
       <div className={st.reports__item__info}>
         <span>{price}</span>
-        <h4>{title}</h4>
+        <h4>Стоимость расчета</h4>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const DownloadReports: FC = () => {
           <h2>Доступные отчеты</h2>
 
           <ReportItem
-            title='Стоимость расчета'
+            title='Основная телеграмма'
             price={3}
             picture={telegramPicture}
             onClickHandler={() => console.log('asd')}
