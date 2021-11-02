@@ -8,7 +8,7 @@ import {
 } from 'src/state/redux/features/video/selectors';
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
-import Button from 'src/library/components/Button';
+import ReportItem from './frames/ReportItem';
 
 import telegramPicture from 'src/library/images/common/telegram.png';
 
@@ -41,23 +41,12 @@ const DownloadReports: FC = () => {
         <div className={st.wrapper}>
           <h2>Доступные отчеты</h2>
 
-          <div className={st.reports__item}>
-            <figure>
-              <img src={telegramPicture} alt='telegram' />
-            </figure>
-
-            <div className={st.reports__item__title}>
-              <div>
-                <Button text='Сформаировать' onCkickHandler={() => console.log('asd')} />
-              </div>
-              <h4>Основная телеграмма</h4>
-            </div>
-
-            <div className={st.reports__item__info}>
-              <span>3</span>
-              <h4>Стоимость расчета</h4>
-            </div>
-          </div>
+          <ReportItem
+            title='Стоимость расчета'
+            price={3}
+            picture={telegramPicture}
+            onClickHandler={() => console.log('asd')}
+          />
 
           <span className={st.reports__line} />
         </div>
