@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ import {
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
 import ReportItem from './frames/ReportItem';
+import WarningPriceModal from './frames/WarningPriceModal';
 
 import telegramPicture from 'src/library/images/common/telegram.png';
 
@@ -17,6 +18,18 @@ import st from './index.module.scss';
 const DownloadReports: FC = () => {
   const retreats = useSelector(getRetreatsSelector);
   const fileValidationErrors = useSelector(getFileValidationErrorSelector);
+
+  const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
+
+  const onCalculateButtonClickHandler = () => {
+    setIsWarningPriceModalOpen(true);
+  };
+
+  const onAcceptButtonClickHandler = () => {
+    /*  Формирование отчета */
+    /* Запрос на сервер минс 3 коина */
+    setIsWarningPriceModalOpen(false);
+  };
 
   if (!retreats.length && !fileValidationErrors.length) {
     return <ErrorMessage text='Данные не загружены, чтобы загрузить данные нажмите кнопку "Загрузить файл-шаблон"' />;
@@ -45,11 +58,18 @@ const DownloadReports: FC = () => {
             title='Основная телеграмма'
             price={3}
             picture={telegramPicture}
-            onClickHandler={() => console.log('asd')}
+            onClickHandler={onCalculateButtonClickHandler}
           />
 
           <span className={st.reports__line} />
         </div>
+
+        {isWarningPriceModalOpen && (
+          <WarningPriceModal
+            close={() => setIsWarningPriceModalOpen(false)}
+            onAcceptButtonClickHandler={onAcceptButtonClickHandler}
+          />
+        )}
       </article>
     );
   }
