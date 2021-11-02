@@ -55,6 +55,7 @@ export const sheetDataToObj = (xlsxData: any): IData => {
     decryptionDate: data['Дата расшифровки'],
     inspectionArea: data['Участок проверки'],
     diagnosticToolCode: data['КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)'],
+    diagnosticToolNumber: data['Номер диагностического средства'],
     checedMainTracksKm: data['Проверено главных путей, км'],
     checedSideTracksKm: data['Проверено станционных путей, км'],
   };

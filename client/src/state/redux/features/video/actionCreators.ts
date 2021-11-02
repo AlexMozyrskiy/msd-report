@@ -33,6 +33,7 @@ export interface IData {
   decryptionDate: string | null;
   inspectionArea: string | null;
   diagnosticToolCode: number | null;
+  diagnosticToolNumber: string | null;
   checedMainTracksKm: string | null;
   checedSideTracksKm: string | null;
 }

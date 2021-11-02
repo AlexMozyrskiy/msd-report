@@ -290,8 +290,9 @@ class FileValidator {
     if (dataSheet.C1.v !== 'Участок проверки') returnedArr.push('C1');
     if (dataSheet.D1.v !== 'КОД диагностического средства (справку смотри во вкладке КОДЫ диагностических средств)')
       returnedArr.push('D1');
-    if (dataSheet.E1.v !== 'Проверено главных путей, км') returnedArr.push('E1');
-    if (dataSheet.F1.v !== 'Проверено станционных путей, км') returnedArr.push('F1');
+    if (dataSheet.E1.v !== 'Номер диагностического средства') returnedArr.push('E1');
+    if (dataSheet.F1.v !== 'Проверено главных путей, км') returnedArr.push('F1');
+    if (dataSheet.G1.v !== 'Проверено станционных путей, км') returnedArr.push('G1');
 
     return returnedArr;
   }

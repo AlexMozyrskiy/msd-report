@@ -33,6 +33,7 @@ const UploadButton: FC<IUploadButton> = () => {
         decryptionDate: null,
         inspectionArea: null,
         diagnosticToolCode: null,
+        diagnosticToolNumber: null,
         checedMainTracksKm: null,
         checedSideTracksKm: null,
       })

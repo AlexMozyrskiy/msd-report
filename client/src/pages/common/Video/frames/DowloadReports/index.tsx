@@ -15,6 +15,7 @@ import WarningPriceModal from './frames/WarningPriceModal';
 import telegramPicture from 'src/library/images/common/telegram.png';
 
 import st from './index.module.scss';
+import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
 
 const DownloadReports: FC = () => {
   const retreats = useSelector(getRetreatsSelector);
@@ -28,6 +29,7 @@ const DownloadReports: FC = () => {
   };
 
   const onAcceptButtonClickHandler = () => {
+    mainTelegram(data, retreats);
     /*  Формирование отчета */
     /* Запрос на сервер минс 3 коина */
     setIsWarningPriceModalOpen(false);

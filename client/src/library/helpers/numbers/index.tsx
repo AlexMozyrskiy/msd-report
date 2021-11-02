@@ -37,3 +37,24 @@ export function definePicketByMeter(meter: number) {
 
   return pk;
 }
+
+/**
+ * Возвращает массив уникальных чисел из принятого массива
+ *
+ * @param {number[]} arr - массив чисел
+ * @returns {number[]}
+ */
+export function getUniqueNumbersFromArr(arr: number[]) {
+  // принимает массив, возвращает массив уникальных значений
+  let result: number[] = [];
+
+  arr.forEach((element) => {
+    // для каждого элемента массива
+    if (!result.includes(element)) {
+      // и в массиве уникальных значений еще нет такого значения
+      result.push(element); // запушим его туда
+    }
+  });
+
+  return result;
+}
