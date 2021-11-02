@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import {
   getRetreats as getRetreatsSelector,
+  getData as getDataSelector,
   getFileValidationError as getFileValidationErrorSelector,
 } from 'src/state/redux/features/video/selectors';
 
@@ -17,6 +18,7 @@ import st from './index.module.scss';
 
 const DownloadReports: FC = () => {
   const retreats = useSelector(getRetreatsSelector);
+  const data = useSelector(getDataSelector);
   const fileValidationErrors = useSelector(getFileValidationErrorSelector);
 
   const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
