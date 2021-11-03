@@ -16,7 +16,7 @@ export interface IRetreat {
   picket: number;
   meter: number;
   thread: string;
-  retreatSize: number;
+  retreatSize: string;
   pad: string;
   limitSpeed: string | null;
   setSpeed: string;

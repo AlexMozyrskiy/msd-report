@@ -1,11 +1,11 @@
 // Название, номера дистанций, названия номера регионов по каждому ПЧ
-interface IDistanceAndRegion {
+export interface IRetreatVideoCodes {
   retreatCode: number;
   retreatForReportTamlesTitle: string;
   retreatFullTitle: string;
 }
 
-export const retreatVideoCodes: IDistanceAndRegion[] = [
+export const retreatVideoCodes: IRetreatVideoCodes[] = [
   {
     retreatCode: 1,
     retreatForReportTamlesTitle: 'зазор правый',
