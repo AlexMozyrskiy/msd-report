@@ -10,12 +10,13 @@ import {
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
 import ReportItem from './frames/ReportItem';
-import WarningPriceModal from './frames/WarningPriceModal';
 
 import telegramPicture from 'src/library/images/common/telegram.png';
 
 import st from './index.module.scss';
 import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
+
+export type TReportNames = 'mainTelegram';
 
 const DownloadReports: FC = () => {
   const retreats = useSelector(getRetreatsSelector);
@@ -24,14 +25,15 @@ const DownloadReports: FC = () => {
 
   const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
 
-  const onCalculateButtonClickHandler = () => {
-    setIsWarningPriceModalOpen(true);
-  };
+  const onAcceptButtonClickHandler = (reportName: TReportNames) => {
+    if (reportName === 'mainTelegram') {
+      /*  Формирование данных для основной телеграммы */
+      const reportData = mainTelegram(data, retreats);
+      console.log(reportData);
+    }
 
-  const onAcceptButtonClickHandler = () => {
-    mainTelegram(data, retreats);
-    /*  Формирование отчета */
     /* Запрос на сервер минс 3 коина */
+
     setIsWarningPriceModalOpen(false);
   };
 
@@ -62,18 +64,14 @@ const DownloadReports: FC = () => {
             title='Основная телеграмма'
             price={3}
             picture={telegramPicture}
-            onClickHandler={onCalculateButtonClickHandler}
+            isWarningPriceModalOpen={isWarningPriceModalOpen}
+            openWarningPriceModal={() => setIsWarningPriceModalOpen(true)}
+            closeWarningPriceModal={() => setIsWarningPriceModalOpen(false)}
+            onAcceptButtonClickHandler={() => onAcceptButtonClickHandler('mainTelegram')}
           />
 
           <span className={st.reports__line} />
         </div>
-
-        {isWarningPriceModalOpen && (
-          <WarningPriceModal
-            close={() => setIsWarningPriceModalOpen(false)}
-            onAcceptButtonClickHandler={onAcceptButtonClickHandler}
-          />
-        )}
       </article>
     );
   }
