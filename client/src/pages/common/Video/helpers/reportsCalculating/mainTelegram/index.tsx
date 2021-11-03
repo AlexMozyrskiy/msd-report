@@ -101,5 +101,17 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   forBrowserPageRenderObj.body.push(thirdRow);
   /* ---------- / Третья строчка телеграммы --------------- */
 
+  /* ---------- Четвертая строчка телеграммы ----------------- */
+  let fourthRow: string;
+
+  /* ---------- / Четвертая строчка телеграммы --------------- */
+
   console.log(forXLSXAoA);
+
+  returnedObj = {
+    forXLSXAoA,
+    forBrowserPageRenderObj,
+  };
+
+  return returnedObj;
 };

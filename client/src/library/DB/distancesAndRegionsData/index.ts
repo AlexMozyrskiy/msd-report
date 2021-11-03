@@ -1,5 +1,5 @@
 // Название, номера дистанций, названия номера регионов по каждому ПЧ
-interface IDistanceAndRegion {
+export interface IDistanceAndRegion {
   distanceNumber: number;
   distanceName: string;
   distancePartAndNumber: string;
