@@ -2,7 +2,7 @@ import { distancesAndRegions as distancesAndRegionsDB } from 'src/library/DB/dis
 import { msdCodes } from 'src/library/DB/msdCodes';
 import { directions as directionsDB } from 'src/library/DB/directions';
 
-import { getDirectionNameByCode, getFullDistanceNameByCode } from 'src/library/helpers/numbers';
+import { getDirectionNameByCode, getFullDistanceNameByCode } from 'src/library/helpers/DB';
 import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
@@ -123,16 +123,16 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
           ) {
             if (isNewDistanceDirectionTrack) {
               forXLSXAoA.push(['']);
-            }
-
-            if (isNewDistanceDirectionTrack) {
               fourthRow = `${distanceName}, направление: ${directionName}, ${trackNumber} путь:`;
               forXLSXAoA.push([fourthRow]);
               forBrowserPageRenderObj.body.push(fourthRow);
               isNewDistanceDirectionTrack = false;
             }
 
-            fifthRow = `${retreat.kilometer}`;
+            const thread: string = retreat.thread === 'обе' ? retreat.thread + ' нити' : retreat.thread + ' нить';
+            // const retreatName: string =
+
+            fifthRow = `${retreat.kilometer} км ${retreat.meter} м, ${thread}, `;
             forXLSXAoA.push([fifthRow]);
             forBrowserPageRenderObj.body.push(fifthRow);
           }
