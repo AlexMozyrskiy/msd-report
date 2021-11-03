@@ -1,6 +1,9 @@
 import { distancesAndRegions } from 'src/library/DB/distancesAndRegionsData';
 import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 import { msdCodes } from 'src/library/DB/msdCodes';
+import { directions as directionsDB } from 'src/library/DB/directions';
+
+import { getDirectionNameByCode } from 'src/library/helpers/numbers/index';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
 
@@ -24,6 +27,12 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   const distancesList = retreats.map((item) => item.distanceNumber);
   const uniqueDistanceNumbersArr = getUniqueValuesFromArr(distancesList);
 
+  const directionsList = retreats.map((item) => item.directionCode);
+  const uniqueDirectionNumbersArr = getUniqueValuesFromArr(directionsList);
+  const uniqueDirectionStringsArr = uniqueDirectionNumbersArr.map((directionNumber) =>
+    getDirectionNameByCode(directionsDB, directionNumber)
+  );
+
   const tracksList = retreats.map((retreat) => retreat.trackNumber);
   const uniqueTrackNumbersArr = getUniqueValuesFromArr(tracksList);
 
@@ -39,9 +48,10 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   const uniqueRegionsNumbersStr = uniqueRegionsNumbersArr.join(',');
 
   // Шапка таблицы
-  forXLSXAoA.push([
-    `ДИ, НЗ-РБ, ДИЗ-РБ, ДИЗтер-ДИтер-${uniqueRegionsNumbersStr}, П, РЦДМ, ДИЦУСИ, ПЧ-${uniqueDistanceNumbersStr}.`,
-  ]);
+  forXLSXAoA.push(
+    [`ДИ, НЗ-РБ, ДИЗ-РБ, ДИЗтер-ДИтер-${uniqueRegionsNumbersStr}, П, РЦДМ, ДИЦУСИ, ПЧ-${uniqueDistanceNumbersStr}.`],
+    ['']
+  );
   forBrowserPageRenderObj.header.push(
     `ДИ, НЗ-РБ, ДИЗ-РБ, ДИЗтер-ДИтер-${uniqueRegionsNumbersStr}, П,РЦДМ, ДИЦУСИ, ПЧ-${uniqueDistanceNumbersStr}.`
   );
@@ -78,7 +88,7 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
     secondRow = secondRow + `${data.checedSideTracksKm} км станционных путей. `;
   }
 
-  forXLSXAoA.push([secondRow]);
+  forXLSXAoA.push([secondRow], ['']);
   forBrowserPageRenderObj.body.push(secondRow);
   /* ---------- / Вторая строчка телеграммы --------------- */
 
@@ -87,7 +97,7 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   thirdRow = thirdRow + retreats.length;
   thirdRow = thirdRow + ' шт.:';
 
-  forXLSXAoA.push([thirdRow]);
+  forXLSXAoA.push([thirdRow], ['']);
   forBrowserPageRenderObj.body.push(thirdRow);
   /* ---------- / Третья строчка телеграммы --------------- */
 
