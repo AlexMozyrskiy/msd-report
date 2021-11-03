@@ -8,8 +8,10 @@ import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
 
+export type TForXLSXAoA = string[][];
+
 export interface IReturnedObj {
-  forXLSXAoA: string[][];
+  forXLSXAoA: TForXLSXAoA;
   forBrowserPageRenderObj: {
     header: string[];
     body: string[];
@@ -146,7 +148,7 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]): IReturnedObj =>
 
             const thread: string = retreat.thread === 'обе' ? retreat.thread + ' нити' : retreat.thread + ' нить';
             const retreatName: string = getRetreatNameByCode(retreatVideoCodesDB, retreat.retreatCode);
-            const retreatSize: string = retreat.retreatSize ? `, ${retreat.retreatSize}` : ',';
+            const retreatSize: string = retreat.retreatSize ? `, ${retreat.retreatSize},` : ',';
 
             fifthRow = `${retreat.kilometer} км ${retreat.meter} м, ${thread}, ${retreatName}${retreatSize}`;
             forXLSXAoA.push([fifthRow]);

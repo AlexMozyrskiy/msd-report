@@ -10,6 +10,7 @@ import {
 } from 'src/state/redux/features/video/selectors';
 import { setMainTelegramData } from 'src/state/redux/features/video/actionCreators';
 import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
+import { createAndUploadWorkBook } from 'src/library/helpers/xlsx';
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
 import ReportItem from './frames/ReportItem';
@@ -48,7 +49,7 @@ const DownloadReports: FC = () => {
 
   const onDownloadButtonClickHandler = (reportName: TReportNames) => {
     if (reportName === 'mainTelegram') {
-      console.log('mainTelegram download');
+      createAndUploadWorkBook(mainTelegramData.forXLSXAoA, 'Видео Основаня телеграмма.xlsx', 'Спасибо');
     }
   };
 
