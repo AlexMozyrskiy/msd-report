@@ -46,6 +46,12 @@ const DownloadReports: FC = () => {
     setIsWarningPriceModalOpen(false);
   };
 
+  const onDownloadButtonClickHandler = (reportName: TReportNames) => {
+    if (reportName === 'mainTelegram') {
+      console.log('mainTelegram download');
+    }
+  };
+
   if (!retreats.length && !fileValidationErrors.length) {
     return <ErrorMessage text='Данные не загружены, чтобы загрузить данные нажмите кнопку "Загрузить файл-шаблон"' />;
   } else if (!!fileValidationErrors.length) {
@@ -77,6 +83,7 @@ const DownloadReports: FC = () => {
             openWarningPriceModal={() => setIsWarningPriceModalOpen(true)}
             closeWarningPriceModal={() => setIsWarningPriceModalOpen(false)}
             onAcceptButtonClickHandler={() => onAcceptButtonClickHandler('mainTelegram')}
+            onDownloadButtonClickHandler={() => onDownloadButtonClickHandler('mainTelegram')}
           />
 
           <span className={st.reports__line} />

@@ -15,6 +15,7 @@ interface IReportItem {
   openWarningPriceModal: () => void;
   closeWarningPriceModal: () => void;
   onAcceptButtonClickHandler: () => void;
+  onDownloadButtonClickHandler: () => void;
 }
 
 const ReportItem: FC<IReportItem> = ({
@@ -25,6 +26,7 @@ const ReportItem: FC<IReportItem> = ({
   openWarningPriceModal,
   closeWarningPriceModal,
   onAcceptButtonClickHandler,
+  onDownloadButtonClickHandler,
 }) => {
   const { isCalculated } = useSelector(getMainTelegramDataSelector);
 
@@ -37,7 +39,7 @@ const ReportItem: FC<IReportItem> = ({
       <div className={st.reports__item__title}>
         <div>
           {isCalculated ? (
-            <Button text='Скачать' onCkickHandler={() => console.log('click')} backgroundColor='#328E39' />
+            <Button text='Скачать' onCkickHandler={onDownloadButtonClickHandler} backgroundColor='#328E39' />
           ) : (
             <Button text='Сформировать' onCkickHandler={openWarningPriceModal} />
           )}
