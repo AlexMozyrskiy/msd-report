@@ -8,13 +8,27 @@ import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
 
-export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
+export interface IReturnedObj {
+  forXLSXAoA: string[][];
+  forBrowserPageRenderObj: {
+    header: string[];
+    body: string[];
+  };
+}
+
+export const mainTelegram = (data: IData, retreats: IRetreat[]): IReturnedObj => {
   // возвращаемый объект, тут будет 1 массив и 1 объект:
   // 1 массив - массив массивов для формирования книги excel с помощью библиотеки XLSX;
   // 2 объект - объект для отрисовки таблицы на странице в браузере, состоит из 2 свойств:
   // 1 свойство - массив из элемнтов для создания header`а таблицы,
   // 2 свойство массив массивов с данными для создания тела таблицы.
-  let returnedObj = {};
+  let returnedObj = {
+    forXLSXAoA: [['']],
+    forBrowserPageRenderObj: {
+      header: [''],
+      body: [''],
+    },
+  };
 
   // массив массивов для формирования книги excel с помощью библиотеки XLSX;
   let forXLSXAoA: string[][] = [];

@@ -1,27 +1,31 @@
 import {
   SET_RETREATS as SET_RETREATS_TYPE,
-  SET_DATA as SET_SET_DATA_TYPE,
+  SET_DATA as SET_DATA_TYPE,
   SET_FILE_VALIDATION_ERRORS as SET_FILE_VALIDATION_ERRORS_TYPE,
+  SET_MAIN_TELEGRAM_DATA as SET_MAIN_TELEGRAM_DATA_TYPE,
 } from './actionTypes';
 
 import {
   TSetRetreats as TSetRetreatsType,
   TSetData as TSetDataType,
   TSetFileValidationErrors as TSetFileValidationErrorsType,
+  TSetMainTelegramData as TSetMainTelegramDataType,
 } from './actionTypes';
 
-import { IRetreat, IData, TFileValidationError } from './actionCreators';
+import { IRetreat, IData, IMainTelegramData, TFileValidationError } from './actionCreators';
 
 interface IInitialState {
   retreats: IRetreat[];
   data: IData;
+  mainTelegramData: IMainTelegramData;
   fileValidationErrors: TFileValidationError[];
 }
 
 interface IAction {
-  type: TSetRetreatsType | TSetDataType | TSetFileValidationErrorsType;
+  type: TSetRetreatsType | TSetDataType | TSetFileValidationErrorsType | TSetMainTelegramDataType;
   retreats: IRetreat[];
   data: IData;
+  mainTelegramData: IMainTelegramData;
   fileValidationErrors: TFileValidationError[];
 }
 
@@ -35,6 +39,14 @@ const initialState: IInitialState = {
     diagnosticToolNumber: null,
     checedMainTracksKm: null,
     checedSideTracksKm: null,
+  },
+  mainTelegramData: {
+    isCalculated: false,
+    forXLSXAoA: [['']],
+    forBrowserPageRenderObj: {
+      header: [''],
+      body: [''],
+    },
   },
   fileValidationErrors: [],
 };
@@ -54,10 +66,18 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
       return superState;
     }
 
-    case SET_SET_DATA_TYPE: {
+    case SET_DATA_TYPE: {
       const superState = {
         ...state,
         data: { ...action.data },
+      };
+      return superState;
+    }
+
+    case SET_MAIN_TELEGRAM_DATA_TYPE: {
+      const superState = {
+        ...state,
+        mainTelegramData: { ...action.mainTelegramData, isCalculated: true },
       };
       return superState;
     }

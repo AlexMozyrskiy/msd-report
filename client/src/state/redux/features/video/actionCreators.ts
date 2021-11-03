@@ -1,10 +1,13 @@
 import {
   SET_RETREATS as SET_RETREATS_TYPE,
-  SET_DATA as SET_SET_DATA_TYPE,
+  SET_DATA as SET_DATA_TYPE,
   SET_FILE_VALIDATION_ERRORS as SET_FILE_VALIDATION_ERRORS_TYPE,
+  SET_MAIN_TELEGRAM_DATA as SET_MAIN_TELEGRAM_DATA_TYPE,
 } from './actionTypes';
 
-import { TSetRetreats, TSetData, TSetFileValidationErrors } from './actionTypes';
+import { TSetRetreats, TSetData, TSetMainTelegramData, TSetFileValidationErrors } from './actionTypes';
+
+import { IReturnedObj as IReturnedObjMainTelegram } from 'src/pages/common/Video/helpers/reportsCalculating/mainTelegram';
 
 export interface IRetreat {
   id: number;
@@ -38,6 +41,10 @@ export interface IData {
   checedSideTracksKm: string | null;
 }
 
+export interface IMainTelegramData extends IReturnedObjMainTelegram {
+  isCalculated: boolean;
+}
+
 export type TFileValidationError = string;
 
 interface ISetRetreatsReturn {
@@ -48,6 +55,11 @@ interface ISetRetreatsReturn {
 interface ISetDataReturn {
   type: TSetData;
   data: IData;
+}
+
+interface ISetMainTelegramDataReturn {
+  type: TSetMainTelegramData;
+  mainTelegramData: IMainTelegramData;
 }
 
 interface ISetFileValidationErrorsReturn {
@@ -64,8 +76,15 @@ export const setRetreats = (retreats: IRetreat[]): ISetRetreatsReturn => {
 
 export const setData = (data: IData): ISetDataReturn => {
   return {
-    type: SET_SET_DATA_TYPE,
+    type: SET_DATA_TYPE,
     data,
+  };
+};
+
+export const setMainTelegramData = (mainTelegramData: IMainTelegramData): ISetMainTelegramDataReturn => {
+  return {
+    type: SET_MAIN_TELEGRAM_DATA_TYPE,
+    mainTelegramData,
   };
 };
 

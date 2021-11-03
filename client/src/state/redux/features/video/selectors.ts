@@ -1,6 +1,6 @@
 import { TRootReducerState } from '../../rootReducer';
 
-import { IRetreat, IData, TFileValidationError } from './actionCreators';
+import { IRetreat, IData, IMainTelegramData, TFileValidationError } from './actionCreators';
 
 export const getRetreats = (state: TRootReducerState): IRetreat[] => {
   return state.video.retreats;
@@ -8,6 +8,10 @@ export const getRetreats = (state: TRootReducerState): IRetreat[] => {
 
 export const getData = (state: TRootReducerState): IData => {
   return state.video.data;
+};
+
+export const getMainTelegramData = (state: TRootReducerState): IMainTelegramData => {
+  return state.video.mainTelegramData;
 };
 
 export const getFileValidationError = (state: TRootReducerState): TFileValidationError[] => {

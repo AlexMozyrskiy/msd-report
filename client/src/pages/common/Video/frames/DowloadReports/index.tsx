@@ -1,35 +1,46 @@
 import { FC, useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   getRetreats as getRetreatsSelector,
   getData as getDataSelector,
   getFileValidationError as getFileValidationErrorSelector,
+  getMainTelegramData as getMainTelegramDataSelector,
 } from 'src/state/redux/features/video/selectors';
+import { setMainTelegramData } from 'src/state/redux/features/video/actionCreators';
+import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
 import ReportItem from './frames/ReportItem';
 
 import telegramPicture from 'src/library/images/common/telegram.png';
 
+import { IReturnedObj as IReturnedObjMainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
+
 import st from './index.module.scss';
-import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
 
 export type TReportNames = 'mainTelegram';
 
 const DownloadReports: FC = () => {
   const retreats = useSelector(getRetreatsSelector);
   const data = useSelector(getDataSelector);
+  const mainTelegramData = useSelector(getMainTelegramDataSelector);
   const fileValidationErrors = useSelector(getFileValidationErrorSelector);
 
   const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
   const onAcceptButtonClickHandler = (reportName: TReportNames) => {
     if (reportName === 'mainTelegram') {
       /*  Формирование данных для основной телеграммы */
-      const reportData = mainTelegram(data, retreats);
-      console.log(reportData);
+      let reportData: IReturnedObjMainTelegram;
+
+      reportData = mainTelegram(data, retreats);
+
+      /* Тут потом будет санка: запрос на сервер за -3 коин, сет в стейт вычисленных данных, а пока просто засетаем в стейт вычисленные данные */
+      dispatch(setMainTelegramData({ ...reportData, isCalculated: true }));
     }
 
     /* Запрос на сервер минс 3 коина */
