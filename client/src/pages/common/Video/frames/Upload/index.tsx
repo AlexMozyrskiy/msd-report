@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import UploadButton from './frames/UploadButton';
 import UploadHelp from './frames/UploadHelp';

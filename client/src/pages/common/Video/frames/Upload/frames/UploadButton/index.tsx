@@ -1,6 +1,6 @@
 import { FC, ChangeEvent } from 'react';
 import SVG from 'react-inlinesvg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import XLSX from 'xlsx';
 
 import FileValidator from '../../../../helpers/uploadFileValidation';
@@ -10,7 +10,6 @@ import {
   setData as setDataAC,
   setFileValidationErrors as setFileValidationErrorsAC,
 } from 'src/state/redux/features/video/actionCreators';
-import { getFileValidationError as getFileValidationErrorSelector } from 'src/state/redux/features/video/selectors';
 
 import uploadIcon from 'src/library/icons/common/upload.svg';
 
@@ -19,7 +18,6 @@ import st from './index.module.scss';
 interface IUploadButton {}
 
 const UploadButton: FC<IUploadButton> = () => {
-  const fileValidationErrors = useSelector(getFileValidationErrorSelector);
   const dispatch = useDispatch();
   // ------------------------------------ Declare функцию вызывающуюся при загрузке файла ------------------------------------------------
   const onBookSelect = (e: ChangeEvent<HTMLInputElement>) => {
