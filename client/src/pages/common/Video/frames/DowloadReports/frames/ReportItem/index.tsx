@@ -12,6 +12,7 @@ interface IReportItem {
   price: number;
   isWarningPriceModalOpen: boolean;
   isCalculated: boolean;
+  isFetching: boolean;
   openWarningPriceModal: () => void;
   closeWarningPriceModal: () => void;
   onAcceptButtonClickHandler: () => void;
@@ -24,6 +25,7 @@ const ReportItem: FC<IReportItem> = ({
   price,
   isWarningPriceModalOpen,
   isCalculated,
+  isFetching,
   openWarningPriceModal,
   closeWarningPriceModal,
   onAcceptButtonClickHandler,
@@ -40,7 +42,7 @@ const ReportItem: FC<IReportItem> = ({
           {isCalculated ? (
             <Button text='Скачать' onCkickHandler={onDownloadButtonClickHandler} backgroundColor='#328E39' />
           ) : (
-            <Button text='Сформировать' onCkickHandler={openWarningPriceModal} />
+            <Button text='Сформировать' onCkickHandler={openWarningPriceModal} isFetching={isFetching} />
           )}
         </div>
         <h4>{title}</h4>

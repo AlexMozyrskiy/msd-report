@@ -49,7 +49,7 @@ interface IAddCoinsResponse {
   newCoinsCount: number;
 }
 
-interface IRemoveCoinsResponse {
+export interface IRemoveCoinsResponse {
   newCoinsCount: number;
 }
 
@@ -441,6 +441,7 @@ export const useHttp = () => {
     isActivationLinkExist,
     activate,
     addCoins,
+    removeCoins,
     error,
     setError,
     success,

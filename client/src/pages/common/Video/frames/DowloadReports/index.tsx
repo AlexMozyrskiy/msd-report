@@ -8,9 +8,11 @@ import {
   getFileValidationError as getFileValidationErrorSelector,
   getMainTelegramData as getMainTelegramDataSelector,
 } from 'src/state/redux/features/video/selectors';
-import { setMainTelegramData } from 'src/state/redux/features/video/actionCreators';
+import { setMainTelegramData as setMainTelegramDataAC } from 'src/state/redux/features/video/actionCreators';
+import { setCoins as setCoinsAC } from 'src/state/redux/features/user/actionCreators';
 import { mainTelegram } from '../../helpers/reportsCalculating/mainTelegram';
 import { createAndUploadWorkBook } from 'src/library/helpers/xlsx';
+import { useHttp } from 'src/library/hooks/useHttp';
 
 import ErrorMessage from 'src/library/components/ErrorMessage';
 import ReportItem from './frames/ReportItem';
@@ -31,20 +33,25 @@ const DownloadReports: FC = () => {
 
   const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
 
+  const { removeCoins, isFetching /* error */ } = useHttp();
+
   const dispatch = useDispatch();
 
-  const onAcceptButtonClickHandler = (reportName: TReportNames) => {
-    if (reportName === 'mainTelegram') {
-      /*  Формирование данных для основной телеграммы */
-      const reportData: IReturnedObjMainTelegram = mainTelegram(data, retreats);
-
-      /* Тут потом будет санка: запрос на сервер за -3 коин, сет в стейт вычисленных данных, а пока просто засетаем в стейт вычисленные данные */
-      dispatch(setMainTelegramData({ ...reportData, isCalculated: true }));
-    }
-
-    /* Запрос на сервер минс 3 коина */
-
+  const onAcceptButtonClickHandler = async (reportName: TReportNames) => {
     setIsWarningPriceModalOpen(false);
+
+    /* спишем с пользователя коины */
+    const respone = await removeCoins(3);
+
+    if (reportName === 'mainTelegram') {
+      if (respone.status === 200) {
+        /*  Формирование данных для основной телеграммы */
+        const reportData: IReturnedObjMainTelegram = mainTelegram(data, retreats);
+
+        dispatch(setMainTelegramDataAC({ ...reportData, isCalculated: true }));
+        dispatch(setCoinsAC(respone.data.newCoinsCount));
+      }
+    }
   };
 
   const onDownloadButtonClickHandler = (reportName: TReportNames) => {
@@ -82,6 +89,7 @@ const DownloadReports: FC = () => {
             picture={telegramPicture}
             isWarningPriceModalOpen={isWarningPriceModalOpen}
             isCalculated={mainTelegramData.isCalculated}
+            isFetching={isFetching}
             openWarningPriceModal={() => setIsWarningPriceModalOpen(true)}
             closeWarningPriceModal={() => setIsWarningPriceModalOpen(false)}
             onAcceptButtonClickHandler={() => onAcceptButtonClickHandler('mainTelegram')}

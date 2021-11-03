@@ -1,15 +1,15 @@
 import {
   SET_RETREATS as SET_RETREATS_TYPE,
   SET_DATA as SET_DATA_TYPE,
-  SET_FILE_VALIDATION_ERRORS as SET_FILE_VALIDATION_ERRORS_TYPE,
   SET_MAIN_TELEGRAM_DATA as SET_MAIN_TELEGRAM_DATA_TYPE,
+  SET_FILE_VALIDATION_ERRORS as SET_FILE_VALIDATION_ERRORS_TYPE,
 } from './actionTypes';
 
 import {
   TSetRetreats as TSetRetreatsType,
   TSetData as TSetDataType,
-  TSetFileValidationErrors as TSetFileValidationErrorsType,
   TSetMainTelegramData as TSetMainTelegramDataType,
+  TSetFileValidationErrors as TSetFileValidationErrorsType,
 } from './actionTypes';
 
 import { IRetreat, IData, IMainTelegramData, TFileValidationError } from './actionCreators';

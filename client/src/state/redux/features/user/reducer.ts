@@ -1,6 +1,14 @@
-import { SET_USER as SET_USER_TYPE, SET_IS_COOKIE_ACCEPTED as SET_IS_COOKIE_ACCEPTED_TYPE } from './actionTypes';
+import {
+  SET_USER as SET_USER_TYPE,
+  SET_IS_COOKIE_ACCEPTED as SET_IS_COOKIE_ACCEPTED_TYPE,
+  SET_COINS as SET_COINS_TYPE,
+} from './actionTypes';
 
-import { TSetUser as TSetUserType, TSetIsCookieAccepted as TSetIsCookieAcceptedType } from './actionTypes';
+import {
+  TSetUser as TSetUserType,
+  TSetIsCookieAccepted as TSetIsCookieAcceptedType,
+  TSetCoins as TSetCoinsType,
+} from './actionTypes';
 import { IUser, TRole } from './actionCreators';
 
 interface IInitialState {
@@ -15,9 +23,10 @@ interface IInitialState {
 }
 
 interface IAction {
-  type: TSetUserType | TSetIsCookieAcceptedType;
+  type: TSetUserType | TSetIsCookieAcceptedType | TSetCoinsType;
   user: IUser;
   isCookieAccepted: boolean;
+  coins: number;
 }
 
 const initialState: IInitialState = {
@@ -51,6 +60,14 @@ const userReducers = (state = initialState, action: IAction): IInitialState => {
       const superState = {
         ...state,
         isCookieAccepted: action.isCookieAccepted,
+      };
+      return superState;
+    }
+
+    case SET_COINS_TYPE: {
+      const superState = {
+        ...state,
+        coins: action.coins,
       };
       return superState;
     }
