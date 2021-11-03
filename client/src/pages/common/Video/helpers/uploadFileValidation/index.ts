@@ -303,6 +303,7 @@ class FileValidator {
     const missingSheets = this.missingSheets(SheetNames, ['Данные', 'Отступления']);
     if (missingSheets.length) {
       newErrors.push('В загруженном файле отсутствуют следуюшие листы: ' + missingSheets.join(', '));
+      return newErrors;
     }
 
     const sheetRetreatHeader = this.sheetRetreatHeader(retreatSheet);
