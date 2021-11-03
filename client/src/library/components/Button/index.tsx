@@ -10,9 +10,11 @@ interface ButtonProps {
   onCkickHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isFetching?: boolean;
   width?: 'long';
+  backgroundColor?: string;
+  color?: string;
 }
 
-const Button: FC<ButtonProps> = ({ text, onCkickHandler, isFetching = false, width }) => {
+const Button: FC<ButtonProps> = ({ text, onCkickHandler, isFetching = false, width, backgroundColor, color }) => {
   return (
     <div className={st.wrapper}>
       {isFetching && (
@@ -25,6 +27,7 @@ const Button: FC<ButtonProps> = ({ text, onCkickHandler, isFetching = false, wid
         className={cn(st.button, { [st.button_long]: width === 'long' }, { [st.button_disabled]: isFetching })}
         onClick={onCkickHandler}
         disabled={isFetching}
+        style={{ backgroundColor: backgroundColor, color: color }}
       >
         {text}
       </button>

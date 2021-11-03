@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 import Button from 'src/library/components/Button';
+import { getMainTelegramData as getMainTelegramDataSelector } from 'src/state/redux/features/video/selectors';
 import WarningPriceModal from './frames/WarningPriceModal';
-
-import { TReportNames } from '../../';
 
 import st from './index.module.scss';
 
@@ -26,6 +26,8 @@ const ReportItem: FC<IReportItem> = ({
   closeWarningPriceModal,
   onAcceptButtonClickHandler,
 }) => {
+  const { isCalculated } = useSelector(getMainTelegramDataSelector);
+
   return (
     <div className={st.reports__item}>
       <figure>
@@ -34,7 +36,11 @@ const ReportItem: FC<IReportItem> = ({
 
       <div className={st.reports__item__title}>
         <div>
-          <Button text='Сформировать' onCkickHandler={openWarningPriceModal} />
+          {isCalculated ? (
+            <Button text='Скачать' onCkickHandler={() => console.log('click')} backgroundColor='#328E39' />
+          ) : (
+            <Button text='Сформировать' onCkickHandler={openWarningPriceModal} />
+          )}
         </div>
         <h4>{title}</h4>
       </div>

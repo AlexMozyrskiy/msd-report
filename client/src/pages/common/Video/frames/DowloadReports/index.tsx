@@ -35,9 +35,7 @@ const DownloadReports: FC = () => {
   const onAcceptButtonClickHandler = (reportName: TReportNames) => {
     if (reportName === 'mainTelegram') {
       /*  Формирование данных для основной телеграммы */
-      let reportData: IReturnedObjMainTelegram;
-
-      reportData = mainTelegram(data, retreats);
+      const reportData: IReturnedObjMainTelegram = mainTelegram(data, retreats);
 
       /* Тут потом будет санка: запрос на сервер за -3 коин, сет в стейт вычисленных данных, а пока просто засетаем в стейт вычисленные данные */
       dispatch(setMainTelegramData({ ...reportData, isCalculated: true }));
