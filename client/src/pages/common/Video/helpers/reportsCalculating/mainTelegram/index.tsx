@@ -79,7 +79,17 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   }
 
   forXLSXAoA.push([secondRow]);
-  forBrowserPageRenderObj.header.push(secondRow);
-
+  forBrowserPageRenderObj.body.push(secondRow);
   /* ---------- / Вторая строчка телеграммы --------------- */
+
+  /* ---------- Третья строчка телеграммы ----------------- */
+  let thirdRow: string = 'Выявлены замечания по результатам расшифровки линейного видеонаблюдения - ';
+  thirdRow = thirdRow + retreats.length;
+  thirdRow = thirdRow + ' шт.:';
+
+  forXLSXAoA.push([thirdRow]);
+  forBrowserPageRenderObj.body.push(thirdRow);
+  /* ---------- / Третья строчка телеграммы --------------- */
+
+  console.log(forXLSXAoA);
 };
