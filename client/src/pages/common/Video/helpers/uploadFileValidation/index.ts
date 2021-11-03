@@ -352,14 +352,6 @@ class FileValidator {
       );
     }
 
-    wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'E');
-    if (wrongTypeCells.length) {
-      newErrors.push(
-        "В загруженном файле, в листе 'Отступления', все значения в колонке 'E' должны быть числами. Ячейки с не числовыми значениями: " +
-          wrongTypeCells.join(', ')
-      );
-    }
-
     wrongTypeCells = this.allCellsInColumnMustBeTypeOf('number', retreatSheet, 'F');
     if (wrongTypeCells.length) {
       newErrors.push(

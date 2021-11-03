@@ -1,9 +1,9 @@
-import { distancesAndRegions } from 'src/library/DB/distancesAndRegionsData';
-import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
+import { distancesAndRegions as distancesAndRegionsDB } from 'src/library/DB/distancesAndRegionsData';
 import { msdCodes } from 'src/library/DB/msdCodes';
 import { directions as directionsDB } from 'src/library/DB/directions';
 
-import { getDirectionNameByCode } from 'src/library/helpers/numbers/index';
+import { getDirectionNameByCode, getFullDistanceNameByCode } from 'src/library/helpers/numbers';
+import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
 
@@ -26,6 +26,9 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
 
   const distancesList = retreats.map((item) => item.distanceNumber);
   const uniqueDistanceNumbersArr = getUniqueValuesFromArr(distancesList);
+  const uniqueDistanceFullNamessArr = uniqueDistanceNumbersArr.map((distanceNumber) => {
+    return getFullDistanceNameByCode(distancesAndRegionsDB, distanceNumber);
+  });
 
   const directionsList = retreats.map((item) => item.directionCode);
   const uniqueDirectionNumbersArr = getUniqueValuesFromArr(directionsList);
@@ -40,7 +43,9 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   const uniqueDistanceNumbersStr = uniqueDistanceNumbersArr.join(',');
 
   const regionsNumbersArr = uniqueDistanceNumbersArr.map((item) => {
-    const distanceInfoObj = distancesAndRegions.find((distanceAndRegion) => distanceAndRegion.distanceNumber === item);
+    const distanceInfoObj = distancesAndRegionsDB.find(
+      (distanceAndRegion) => distanceAndRegion.distanceNumber === item
+    );
     /* если не нашли ПЧ в базе вернем 0 */
     return typeof distanceInfoObj === 'undefined' ? 0 : distanceInfoObj.regionNumber;
   });
@@ -97,16 +102,46 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   thirdRow = thirdRow + retreats.length;
   thirdRow = thirdRow + ' шт.:';
 
-  forXLSXAoA.push([thirdRow], ['']);
+  forXLSXAoA.push([thirdRow]);
   forBrowserPageRenderObj.body.push(thirdRow);
   /* ---------- / Третья строчка телеграммы --------------- */
 
-  /* ---------- Четвертая строчка телеграммы ----------------- */
+  /* ---------- Четвертая и пятая строчки телеграммы ----------------- */
   let fourthRow: string;
+  let fifthRow: string;
 
-  /* ---------- / Четвертая строчка телеграммы --------------- */
+  let isNewDistanceDirectionTrack: boolean = true;
 
-  console.log(forXLSXAoA);
+  uniqueDistanceFullNamessArr.forEach((distanceName, distanceIndex) => {
+    uniqueDirectionStringsArr.forEach((directionName, directionIndex) => {
+      uniqueTrackNumbersArr.forEach((trackNumber) => {
+        retreats.forEach((retreat) => {
+          if (
+            retreat.distanceNumber === uniqueDistanceNumbersArr[distanceIndex] &&
+            retreat.directionCode === uniqueDirectionNumbersArr[directionIndex] &&
+            retreat.trackNumber === trackNumber
+          ) {
+            if (isNewDistanceDirectionTrack) {
+              forXLSXAoA.push(['']);
+            }
+
+            if (isNewDistanceDirectionTrack) {
+              fourthRow = `${distanceName}, направление: ${directionName}, ${trackNumber} путь:`;
+              forXLSXAoA.push([fourthRow]);
+              forBrowserPageRenderObj.body.push(fourthRow);
+              isNewDistanceDirectionTrack = false;
+            }
+
+            fifthRow = `${retreat.kilometer}`;
+            forXLSXAoA.push([fifthRow]);
+            forBrowserPageRenderObj.body.push(fifthRow);
+          }
+        });
+        isNewDistanceDirectionTrack = true;
+      });
+    });
+  });
+  /* ---------- / Четвертая и пятая строчки телеграммы --------------- */
 
   returnedObj = {
     forXLSXAoA,

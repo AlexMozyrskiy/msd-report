@@ -11,7 +11,7 @@ export interface IRetreat {
   directionCode: number;
   stationOrLine: string;
   distanceNumber: number;
-  trackNumber: string | number;
+  trackNumber: string;
   kilometer: number;
   picket: number;
   meter: number;
