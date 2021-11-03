@@ -49,6 +49,10 @@ interface IAddCoinsResponse {
   newCoinsCount: number;
 }
 
+interface IRemoveCoinsResponse {
+  newCoinsCount: number;
+}
+
 export const useHttp = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -360,6 +364,49 @@ export const useHttp = () => {
               login,
               addCoins: addCoinsCount,
             });
+            return response;
+          } catch (error: any) {
+            setIsRefreshTokenRequestMade(true);
+            setError(error.response?.data?.message);
+            console.log(error.response?.data?.message);
+            return error.response;
+          }
+        }
+
+        return error.response;
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    [isRefreshTokenRequestMade]
+  );
+
+  const removeCoins = useCallback(
+    async (count: number): Promise<AxiosResponse<IRemoveCoinsResponse>> => {
+      setIsFetching(true);
+      setIsRefreshTokenRequestMade(false);
+
+      try {
+        const response = await apiWithToken.post<IRemoveCoinsResponse>('/user/coins', { count });
+        console.log(response);
+
+        /* закомментировали, так как регистрация пока что закрытая и нам не надо возвращать на фронт информацию о юзере */
+        // setAccessToken(response.data.accessToken);
+
+        return response;
+      } catch (error: any) {
+        /* Если эта ошибка вызвана интерцептором axios обнаружившим отсутствие согласия на Cookie */
+        if (typeof error.message === 'string') {
+          setError(error.message);
+        } else {
+          setError(error.response?.data?.message);
+        }
+
+        if (error.response?.status === 401 && !isRefreshTokenRequestMade) {
+          try {
+            const refreshResponse = await apiWithoutToken.get<IAuthResponse>('/user/refresh'); // рефрешаем
+            setAccessToken(refreshResponse.data.accessToken); // сетаем токен в локал стораг
+            const response = await apiWithToken.post<IRemoveCoinsResponse>('/user/coins', { count });
             return response;
           } catch (error: any) {
             setIsRefreshTokenRequestMade(true);
