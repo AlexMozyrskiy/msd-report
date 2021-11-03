@@ -1,6 +1,6 @@
 // Название, номера дистанций, названия номера регионов по каждому ПЧ
 interface ImsdCodes {
-  msdCode: number;
+  msdCode: number | null;
   msdNameNominative: string;
   msdNameGenitive: string;
 }

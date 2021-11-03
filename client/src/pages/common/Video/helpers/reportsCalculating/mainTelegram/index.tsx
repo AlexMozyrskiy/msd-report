@@ -1,5 +1,5 @@
 import { distancesAndRegions } from 'src/library/DB/distancesAndRegionsData';
-import { getUniqueNumbersFromArr } from 'src/library/helpers/numbers';
+import { getUniqueValuesFromArr } from 'src/library/helpers/numbers';
 import { msdCodes } from 'src/library/DB/msdCodes';
 
 import { IData, IRetreat } from 'src/state/redux/features/video/actionCreators';
@@ -21,12 +21,13 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
     body: [], // 2 свойство массив массивов с данными для создания тела таблицы.
   };
 
-  const distancesList = retreats.map((item) => {
-    return item.distanceNumber;
-  });
+  const distancesList = retreats.map((item) => item.distanceNumber);
+  const uniqueDistanceNumbersArr = getUniqueValuesFromArr(distancesList);
+
+  const tracksList = retreats.map((retreat) => retreat.trackNumber);
+  const uniqueTrackNumbersArr = getUniqueValuesFromArr(tracksList);
 
   /* ---------- Первая строчка телеграммы ----------------- */
-  const uniqueDistanceNumbersArr = getUniqueNumbersFromArr(distancesList);
   const uniqueDistanceNumbersStr = uniqueDistanceNumbersArr.join(',');
 
   const regionsNumbersArr = uniqueDistanceNumbersArr.map((item) => {
@@ -34,7 +35,7 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
     /* если не нашли ПЧ в базе вернем 0 */
     return typeof distanceInfoObj === 'undefined' ? 0 : distanceInfoObj.regionNumber;
   });
-  const uniqueRegionsNumbersArr = getUniqueNumbersFromArr(regionsNumbersArr);
+  const uniqueRegionsNumbersArr = getUniqueValuesFromArr(regionsNumbersArr);
   const uniqueRegionsNumbersStr = uniqueRegionsNumbersArr.join(',');
 
   // Шапка таблицы
@@ -47,7 +48,38 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]) => {
   /* ---------- / Первая строчка телеграммы --------------- */
 
   /* ---------- Вторая строчка телеграммы ----------------- */
-  //   const msdName = msdCodes.find(msdCode => msdCode.msdCode === data);
+  const msdInfo = msdCodes.find((item) => item.msdCode === data.diagnosticToolCode);
+
+  let secondRow: string = `${data.checkDate}г. `;
+  secondRow = secondRow + msdInfo?.msdNameGenitive + ' № ' + data.diagnosticToolNumber + ' ';
+  secondRow = secondRow + 'проверен участок: ';
+  secondRow = secondRow + data.inspectionArea + ' ';
+
+  const uniqueTrackNumbersStr =
+    uniqueTrackNumbersArr.length > 1
+      ? `${uniqueTrackNumbersArr.join(', ')} пути. `
+      : `${uniqueTrackNumbersArr[0]} путь. `;
+
+  secondRow = secondRow + uniqueTrackNumbersStr;
+
+  secondRow = secondRow + 'Проверено ';
+
+  if (data.checedMainTracksKm) {
+    secondRow = secondRow + `${data.checedMainTracksKm} км главных путей`;
+
+    if (data.checedSideTracksKm) {
+      secondRow = secondRow + ' и ';
+    } else {
+      secondRow = secondRow + '. ';
+    }
+  }
+
+  if (data.checedSideTracksKm) {
+    secondRow = secondRow + `${data.checedSideTracksKm} км станционных путей. `;
+  }
+
+  forXLSXAoA.push([secondRow]);
+  forBrowserPageRenderObj.header.push(secondRow);
 
   /* ---------- / Вторая строчка телеграммы --------------- */
 };

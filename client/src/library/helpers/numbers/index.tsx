@@ -39,14 +39,14 @@ export function definePicketByMeter(meter: number) {
 }
 
 /**
- * Возвращает массив уникальных чисел из принятого массива
+ * Возвращает массив уникальных значений из принятого массива
  *
- * @param {number[]} arr - массив чисел
- * @returns {number[]}
+ * @param {any[]} arr - массив
+ * @returns {any[]}
  */
-export function getUniqueNumbersFromArr(arr: number[]) {
+export function getUniqueValuesFromArr(arr: any[]) {
   // принимает массив, возвращает массив уникальных значений
-  let result: number[] = [];
+  let result: any[] = [];
 
   arr.forEach((element) => {
     // для каждого элемента массива
