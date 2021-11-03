@@ -81,6 +81,7 @@ const DownloadReports: FC = () => {
             price={3}
             picture={telegramPicture}
             isWarningPriceModalOpen={isWarningPriceModalOpen}
+            isCalculated={mainTelegramData.isCalculated}
             openWarningPriceModal={() => setIsWarningPriceModalOpen(true)}
             closeWarningPriceModal={() => setIsWarningPriceModalOpen(false)}
             onAcceptButtonClickHandler={() => onAcceptButtonClickHandler('mainTelegram')}

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 import Button from 'src/library/components/Button';
-import { getMainTelegramData as getMainTelegramDataSelector } from 'src/state/redux/features/video/selectors';
 import WarningPriceModal from './frames/WarningPriceModal';
 
 import st from './index.module.scss';
@@ -12,6 +11,7 @@ interface IReportItem {
   title: string;
   price: number;
   isWarningPriceModalOpen: boolean;
+  isCalculated: boolean;
   openWarningPriceModal: () => void;
   closeWarningPriceModal: () => void;
   onAcceptButtonClickHandler: () => void;
@@ -23,13 +23,12 @@ const ReportItem: FC<IReportItem> = ({
   title,
   price,
   isWarningPriceModalOpen,
+  isCalculated,
   openWarningPriceModal,
   closeWarningPriceModal,
   onAcceptButtonClickHandler,
   onDownloadButtonClickHandler,
 }) => {
-  const { isCalculated } = useSelector(getMainTelegramDataSelector);
-
   return (
     <div className={st.reports__item}>
       <figure>
