@@ -180,6 +180,25 @@ class UserService {
     }
   }
 
+  async coins(refreshToken, count) {
+    const userData = TokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = await TokenService.findRefreshToken(refreshToken);
+
+    if (!userData || !tokenFromDb) {
+      throw ApiError.unauthorizedError();
+    }
+
+    const user = await UserModel.findById(userData.id);
+
+    user.coins -= count;
+
+    await user.save();
+
+    return {
+      newCoinsCount: user.coins,
+    };
+  }
+
   async getAllUsers() {
     const users = await UserModel.find();
     return users;

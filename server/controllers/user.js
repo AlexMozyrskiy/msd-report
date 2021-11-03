@@ -129,6 +129,18 @@ class UserController {
     }
   }
 
+  async coins(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const { count } = req.body;
+      const response = await userService.coins(refreshToken, count);
+
+      return res.json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();

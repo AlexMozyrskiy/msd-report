@@ -35,8 +35,7 @@ router.post(
   UserController.restorePassword
 );
 router.post('/isrestorepasswordlinkexist', UserController.isRestorePasswordLinkExist);
+router.post('/coins', authMiddleware, UserController.coins);
 router.get('/users', authMiddleware, adminMiddleware, UserController.getUsers);
-
-// router.get('/auth');
 
 module.exports = router;
