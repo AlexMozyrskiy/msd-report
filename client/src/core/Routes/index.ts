@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import Home from 'src/pages/common/Home';
 import Video from 'src/pages/common/Video';
-import SideBarSettings from 'src/pages/user/SideBarSettings';
-import AccountSettings from 'src/pages/user/AccountSettings';
+// import SideBarSettings from 'src/pages/user/SideBarSettings';
+// import AccountSettings from 'src/pages/user/AccountSettings';
 import RestorePassword from 'src/pages/user/RestorePassword';
 import Forbidden from 'src/pages/common/Forbidden';
 import Test from 'src/components/Test';
@@ -17,7 +17,7 @@ import { TRole } from 'src/state/redux/features/user/actionCreators';
 
 import homeIcon from 'src/library/icons/sideBar/home.svg';
 import videoIcon from 'src/library/icons/sideBar/video.svg';
-import settingsIcon from 'src/library/icons/sideBar/settings.svg';
+// import settingsIcon from 'src/library/icons/sideBar/settings.svg';
 import devIcon from 'src/library/icons/sideBar/dev.svg';
 import agreementIcon from 'src/library/icons/sideBar/agreement.svg';
 import cookieIcon from 'src/library/icons/sideBar/cookie.svg';

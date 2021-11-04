@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import SVG from 'react-inlinesvg';
-import { Link } from 'react-router-dom';
 
 import downloadIcon from 'src/library/icons/common/download.svg';
 
