@@ -416,6 +416,10 @@ export const useHttp = () => {
           }
         }
 
+        if (error.response?.status === 422) {
+          setError('На Вашем внутрисервисном счете недостаточно коинов, формирование отчетов невозможно');
+        }
+
         return error.response;
       } finally {
         setIsFetching(false);

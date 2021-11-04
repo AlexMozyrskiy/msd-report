@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,9 +33,14 @@ const DownloadReports: FC = () => {
 
   const [isWarningPriceModalOpen, setIsWarningPriceModalOpen] = useState<boolean>(false);
 
-  const { removeCoins, isFetching /* error */ } = useHttp();
+  const { removeCoins, isFetching, error, clearError } = useHttp();
+  console.log(error);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    clearError();
+  }, []);
 
   const onAcceptButtonClickHandler = async (reportName: TReportNames) => {
     setIsWarningPriceModalOpen(false);
@@ -90,6 +95,7 @@ const DownloadReports: FC = () => {
             isWarningPriceModalOpen={isWarningPriceModalOpen}
             isCalculated={mainTelegramData.isCalculated}
             isFetching={isFetching}
+            error={error}
             openWarningPriceModal={() => setIsWarningPriceModalOpen(true)}
             closeWarningPriceModal={() => setIsWarningPriceModalOpen(false)}
             onAcceptButtonClickHandler={() => onAcceptButtonClickHandler('mainTelegram')}

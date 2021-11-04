@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import Button from 'src/library/components/Button';
+import ErrorMessage from 'src/library/components/ErrorMessage';
 import WarningPriceModal from './frames/WarningPriceModal';
 
 import st from './index.module.scss';
@@ -12,6 +13,7 @@ interface IReportItem {
   isWarningPriceModalOpen: boolean;
   isCalculated: boolean;
   isFetching: boolean;
+  error: string | null;
   openWarningPriceModal: () => void;
   closeWarningPriceModal: () => void;
   onAcceptButtonClickHandler: () => void;
@@ -25,6 +27,7 @@ const ReportItem: FC<IReportItem> = ({
   isWarningPriceModalOpen,
   isCalculated,
   isFetching,
+  error,
   openWarningPriceModal,
   closeWarningPriceModal,
   onAcceptButtonClickHandler,
@@ -51,6 +54,8 @@ const ReportItem: FC<IReportItem> = ({
         <span>{price}</span>
         <h4>Стоимость расчета</h4>
       </div>
+
+      {error !== null && <ErrorMessage text={error} />}
 
       {isWarningPriceModalOpen && (
         <WarningPriceModal close={closeWarningPriceModal} onAcceptButtonClickHandler={onAcceptButtonClickHandler} />
