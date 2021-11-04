@@ -150,7 +150,9 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]): IReturnedObj =>
             const retreatName: string = getRetreatNameByCode(retreatVideoCodesDB, retreat.retreatCode);
             const retreatSize: string = retreat.retreatSize ? `, ${retreat.retreatSize},` : ',';
 
-            fifthRow = `${retreat.kilometer} км ${retreat.meter} м, ${thread}, ${retreatName}${retreatSize}`;
+            const limitSpeed: string = getLimitSpeed(retreat.limitSpeed);
+
+            fifthRow = `${retreat.kilometer} км ${retreat.meter} м, ${thread}, ${retreatName}${retreatSize}${limitSpeed}`;
             forXLSXAoA.push([fifthRow]);
             forBrowserPageRenderObj.body.push(fifthRow);
           }
@@ -168,3 +170,34 @@ export const mainTelegram = (data: IData, retreats: IRetreat[]): IReturnedObj =>
 
   return returnedObj;
 };
+
+/**
+ * Исходя из переданных параметров возвращает строку вида ' ограничение скорости всем поездам ' + limitPassengerSpeed + ' км/ч,';
+ *
+ * @param {string} speed - строка формата '25/25'
+ * @returns
+ */
+function getLimitSpeed(speed: string | null): string {
+  let limitSpeed: string = '';
+
+  if (!speed) {
+    return limitSpeed;
+  }
+
+  const splitedSpeed = speed.split('/');
+
+  const limitPassengerSpeed: number = +splitedSpeed[0];
+  const limitFreightSpeed: number = +splitedSpeed[1];
+
+  if (limitPassengerSpeed === 0 && limitFreightSpeed === 0) {
+    limitSpeed = ' движение для всех поездов закрывается,';
+  } else if (!isNaN(limitPassengerSpeed) && !isNaN(limitFreightSpeed)) {
+    limitSpeed = ' ограничение скорости всем поездам ' + limitPassengerSpeed + ' км/ч,';
+  } else if (!isNaN(limitPassengerSpeed) && isNaN(limitFreightSpeed)) {
+    limitSpeed = ' ограничение скорости пассажирским поездам ' + limitPassengerSpeed + ' км/ч,';
+  } else if (isNaN(limitPassengerSpeed) && !isNaN(limitFreightSpeed)) {
+    limitSpeed = ' ограничение скорости грузовым поездам ' + limitFreightSpeed + ' км/ч,';
+  }
+
+  return limitSpeed;
+}
