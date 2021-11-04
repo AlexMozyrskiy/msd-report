@@ -191,6 +191,9 @@ class UserService {
     const user = await UserModel.findById(userData.id);
 
     user.coins -= count;
+    if (user.coins < 0) {
+      throw ApiError.insufficientFunds();
+    }
 
     await user.save();
 
