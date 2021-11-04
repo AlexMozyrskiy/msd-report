@@ -1,6 +1,3 @@
-import { IDirection } from 'src/library/DB/directions';
-import { IDistanceAndRegion } from 'src/library/DB/distancesAndRegionsData';
-
 /* Функция принимает метр и определяет на каком он пикете */
 
 /**

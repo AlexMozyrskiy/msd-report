@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 
 import Button from 'src/library/components/Button';
 import WarningPriceModal from './frames/WarningPriceModal';
