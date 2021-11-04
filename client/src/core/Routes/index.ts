@@ -104,14 +104,14 @@ export const sideBarRoutes: IRoute[] = [
     linkIcon: cookieIcon,
     availableRole: 'guest',
   },
-  {
-    path: '/sidebarsettings',
-    component: SideBarSettings,
-    exact: true,
-    linkText: 'Настройки',
-    linkIcon: settingsIcon,
-    availableRole: 'user',
-  },
+  // {
+  //   path: '/sidebarsettings',
+  //   component: SideBarSettings,
+  //   exact: true,
+  //   linkText: 'Настройки',
+  //   linkIcon: settingsIcon,
+  //   availableRole: 'user',
+  // },
   {
     path: '/admin',
     component: Admin,
@@ -132,14 +132,14 @@ export const sideBarRoutes: IRoute[] = [
 
 /* роуты для дропдауна в хедере при нажатии на три точки */
 export const headerDropDownRoutes: IRoute[] = [
-  {
-    path: '/accountsettings',
-    component: AccountSettings,
-    exact: true,
-    linkText: 'Настройки аккаунта',
-    linkIcon: settingsIcon,
-    availableRole: 'user',
-  },
+  // {
+  //   path: '/accountsettings',
+  //   component: AccountSettings,
+  //   exact: true,
+  //   linkText: 'Настройки аккаунта',
+  //   linkIcon: settingsIcon,
+  //   availableRole: 'user',
+  // },
 ];
 
 /* роуты скрытые, без кликабельной ссылки */
