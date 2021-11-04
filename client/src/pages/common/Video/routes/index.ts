@@ -3,6 +3,7 @@ import { FC } from 'react';
 import VideoHome from '../frames/VideoHome';
 import Upload from '../frames/Upload';
 import DownloadReports from '../frames/DowloadReports';
+import DownloadFileTemplate from '../frames/DowloadFileTemplate';
 
 import { TRole } from 'src/state/redux/features/user/actionCreators';
 
@@ -55,6 +56,13 @@ export const tagsRoutes: IRoute[] = [
     component: DownloadReports,
     exact: true,
     linkText: 'Скачать отчеты',
+    availableRole: 'user',
+  },
+  {
+    path: '/video/downloadfiletempate',
+    component: DownloadFileTemplate,
+    exact: true,
+    linkText: 'Скачать файл-шаблон',
     availableRole: 'user',
   },
 ];
