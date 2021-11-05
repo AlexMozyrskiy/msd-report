@@ -1,5 +1,7 @@
 const nodeMailer = require('nodemailer');
 
+const CLIENT_URL = process.env.PRODUCTION === 'true' ? process.env.PRODUCTION_CLIENT_URL : process.env.DEV_CLIENT_URL;
+
 class MailService {
   constructor() {
     this.transporter = nodeMailer.createTransport({

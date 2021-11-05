@@ -6,6 +6,8 @@ const TokenService = require('./token');
 const UserDto = require('../dtos/user');
 const ApiError = require('../exceptions/api-error');
 
+const CLIENT_URL = process.env.PRODUCTION === 'true' ? process.env.PRODUCTION_CLIENT_URL : process.env.DEV_CLIENT_URL;
+
 class AdminService {
   async registration(login, email, affiliation, password) {
     let candidate = await UserModel.findOne({ email });
