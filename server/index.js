@@ -21,10 +21,10 @@ app.use('/api', router);
 
 /* Если продакшен будем отдавать сбилженый реакт */
 if (process.env.PRODUCTION === 'true') {
-  app.use('/', express.static(path.join(__dirname, 'build')));
+  app.use('/', express.static(path.join(__dirname, '..', 'client')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'index.html'));
   });
 }
 
