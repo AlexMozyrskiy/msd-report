@@ -28,7 +28,7 @@ class UserService {
       password: hashPassword,
       activationLink,
     });
-    await MailService.sendActivationMail(email, `${process.env.CLIENT_URL}/#/activate/${activationLink}`);
+    await MailService.sendActivationMail(email, `${CLIENT_URL}/#/activate/${activationLink}`);
 
     /* так как нельзя отправлять можель, получим объект через ДТО с теми же свойствами что и модель */
     const userDto = new UserDto(user);
@@ -138,7 +138,7 @@ class UserService {
       await MailService.sendForgotPasswordMail(
         email,
         user.login,
-        `${process.env.CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
+        `${CLIENT_URL}/#/restorepassword/${restorePasswordLink}`
       );
 
       user.restorePasswordLink = restorePasswordLink;

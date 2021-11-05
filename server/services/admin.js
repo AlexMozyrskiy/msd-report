@@ -28,7 +28,7 @@ class AdminService {
       password: hashPassword,
       activationLink,
     });
-    await MailService.sendActivationMail(email, `${process.env.CLIENT_URL}/#/activate/${activationLink}`);
+    await MailService.sendActivationMail(email, `${CLIENT_URL}/#/activate/${activationLink}`);
 
     /* так как нельзя отправлять можель, получим объект через ДТО с теми же свойствами что и модель */
     const userDto = new UserDto(user);

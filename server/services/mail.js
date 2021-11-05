@@ -19,7 +19,7 @@ class MailService {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: 'Активация аккаунта на ' + process.env.CLIENT_URL,
+      subject: 'Активация аккаунта на ' + CLIENT_URL,
       text: '',
       html: `
           <div>
@@ -34,7 +34,7 @@ class MailService {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: 'Восстановление пароля на ' + process.env.CLIENT_URL,
+      subject: 'Восстановление пароля на ' + CLIENT_URL,
       text: '',
       html: `
           <div>
@@ -50,7 +50,7 @@ class MailService {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: 'Добавлены монеты на ' + process.env.CLIENT_URL,
+      subject: 'Добавлены монеты на ' + CLIENT_URL,
       text: '',
       html: `
           <div>
