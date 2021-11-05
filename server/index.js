@@ -7,6 +7,8 @@ const router = require('./routers/index');
 const path = require('path');
 const errorMiddleware = require('./middlewares/error');
 
+const DB_URL = process.env.PRODUCTION === 'true' ? process.env.PRODUCTION_DB_URL : process.env.DEV_DB_URL;
+
 const app = express();
 
 app.use(express.json());
@@ -33,7 +35,7 @@ app.use(errorMiddleware);
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.DB_URL, {
+    await mongoose.connect(DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
